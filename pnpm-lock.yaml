@@ -7,6 +7,13 @@ settings:
 importers:
 
   .:
+    dependencies:
+      '@lucide/svelte':
+        specifier: ^0.562.0
+        version: 0.562.0(svelte@5.46.1)
+      pocketbase:
+        specifier: ^0.26.5
+        version: 0.26.5
     devDependencies:
       '@eslint/compat':
         specifier: ^1.4.0
@@ -320,6 +327,11 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.31':
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
+
+  '@lucide/svelte@0.562.0':
+    resolution: {integrity: sha512-wDMULwtTFN2Sc/TFBm6gfuVCNb4Y5P9LDrwxNnUbV52+IEU7NXZmvxwXoz+vrrpad6Xupq+Hw5eUlqIHEGhouw==}
+    peerDependencies:
+      svelte: ^5
 
   '@polka/url@1.0.0-next.29':
     resolution: {integrity: sha512-wwQAWhWSuHaag8c4q/KN/vCoeOJYshAIvMQwD4GpSb3OiZklFfvAgmj0VCBBImRpuF/aFgIRzllXlVX93Jevww==}
@@ -1191,6 +1203,9 @@ packages:
     resolution: {integrity: sha512-5gTmgEY/sqK6gFXLIsQNH19lWb4ebPDLA4SdLP7dsWkIXHWlG66oPuVvXSGFPppYZz8ZDZq0dYYrbHfBCVUb1Q==}
     engines: {node: '>=12'}
 
+  pocketbase@0.26.5:
+    resolution: {integrity: sha512-SXcq+sRvVpNxfLxPB1C+8eRatL7ZY4o3EVl/0OdE3MeR9fhPyZt0nmmxLqYmkLvXCN9qp3lXWV/0EUYb3MmMXQ==}
+
   postcss-load-config@3.1.4:
     resolution: {integrity: sha512-6DiM4E7v4coTE4uzA8U//WhtPwyhiim3eyjEMFCnUpzbrkK9wJHgKDT2mR+HbtSrd/NubVaYTOpSpjUl8NQeRg==}
     engines: {node: '>= 10'}
@@ -1650,6 +1665,10 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
+
+  '@lucide/svelte@0.562.0(svelte@5.46.1)':
+    dependencies:
+      svelte: 5.46.1
 
   '@polka/url@1.0.0-next.29': {}
 
@@ -2625,6 +2644,8 @@ snapshots:
   picocolors@1.1.1: {}
 
   picomatch@4.0.3: {}
+
+  pocketbase@0.26.5: {}
 
   postcss-load-config@3.1.4(postcss@8.5.6):
     dependencies:
