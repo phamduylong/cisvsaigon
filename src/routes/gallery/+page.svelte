@@ -1,86 +1,76 @@
-<script lang="ts">
-	import { Carousel } from '@skeletonlabs/skeleton-svelte';
-	import { ArrowLeft, ArrowRight } from '@lucide/svelte';
-	const slides = [
-		{ image: 'https://picsum.photos/960/1800' }, // portrait
-		{ image: 'https://picsum.photos/1800/960' }, // landscape
-		{ image: 'https://picsum.photos/800/1400' }, // portrait
-		{ image: 'https://picsum.photos/1600/900' }, // landscape
-		{ image: 'https://picsum.photos/1024/768' }, // landscape
-		{ image: 'https://picsum.photos/768/1024' }, // portrait
-		{ image: 'https://picsum.photos/1200/800' }, // landscape
-		{ image: 'https://picsum.photos/900/1600' } // portrait
-	];
+<script>
+	import { onMount } from 'svelte';
+
+	let randNr = Date.now().toString();
+	randNr = randNr[randNr.length - 1];
+
+	/**
+	 * @typedef {{ image: string }} Slide
+	 */
+
+	/** @type {Slide[]} */
+	const slides = $state([]);
+
+	onMount(async () => {
+		const res = await fetch(`https://picsum.photos/v2/list?page=${randNr}`);
+
+		/** @type {{ download_url: string }[]} */
+		const json = await res.json();
+
+		for (let i = 0; i < 30 && i < json.length; i++) {
+			slides.push({ image: json[i].download_url });
+		}
+	});
 </script>
 
-<!-- Mobile carousel -->
-<div class="container mx-auto flex flex-col space-y-10 p-5 lg:hidden">
+<div class="container mx-auto flex flex-col space-y-16 lg:space-y-20 p-10">
 	<h1 class="text-center h1">Gallery</h1>
-	<Carousel slideCount={slides.length} slidesPerPage={1} spacing="16px" loop>
-		<Carousel.Control class="my-5 flex justify-between">
-			<Carousel.PrevTrigger class="btn preset-filled">
-				<span><ArrowLeft size={16} /></span>
-				<span class="hidden md:block">Back</span>
-			</Carousel.PrevTrigger>
-			<Carousel.NextTrigger class="btn preset-filled">
-				<span class="hidden md:block">Next</span>
-				<span><ArrowRight size={16} /></span>
-			</Carousel.NextTrigger>
-		</Carousel.Control>
-		<div class="flex flex-col space-y-5">
-			<Carousel.ItemGroup>
-				{#each slides as slide, i}
-					<Carousel.Item index={i} class="flex items-center justify-center card bg-transparent">
-						<img src={slide.image} class="h-full! w-full! object-cover" alt="Nothing" />
-					</Carousel.Item>
-				{/each}
-			</Carousel.ItemGroup>
+
+	<div class="grid grid-cols-1 md:grid-cols-2 gap-4 lg:grid-cols-4">
+		<!-- Column 1 -->
+		<div class="grid gap-4">
+			<img class="h-auto max-w-full rounded-base" src={slides[0]?.image} alt="" />
+			<img class="h-auto max-w-full rounded-base" src={slides[1]?.image} alt="" />
+			<img class="h-auto max-w-full rounded-base" src={slides[2]?.image} alt="" />
+			<img class="h-auto max-w-full rounded-base" src={slides[3]?.image} alt="" />
+			<img class="h-auto max-w-full rounded-base" src={slides[4]?.image} alt="" />
+			<img class="h-auto max-w-full rounded-base" src={slides[5]?.image} alt="" />
+			<img class="h-auto max-w-full rounded-base" src={slides[6]?.image} alt="" />
+			<img class="h-auto max-w-full rounded-base" src={slides[7]?.image} alt="" />
 		</div>
 
-		<Carousel.IndicatorGroup>
-			<Carousel.Context>
-				{#snippet children(carousel)}
-					{#each carousel().pageSnapPoints as _, index}
-						<Carousel.Indicator {index} />
-					{/each}
-				{/snippet}
-			</Carousel.Context>
-		</Carousel.IndicatorGroup>
-	</Carousel>
-</div>
-
-<!-- Desktop carousel -->
-<div class="container mx-auto hidden flex-col space-y-10 p-5 lg:flex">
-	<h1 class="text-center h1">Gallery</h1>
-	<Carousel slideCount={slides.length} slidesPerPage={3} spacing="16px" loop>
-		<Carousel.Control class="my-5 flex justify-between">
-			<Carousel.PrevTrigger class="btn preset-filled">
-				<span><ArrowLeft size={16} /></span>
-				<span class="hidden md:block">Back</span>
-			</Carousel.PrevTrigger>
-			<Carousel.NextTrigger class="btn preset-filled">
-				<span class="hidden md:block">Next</span>
-				<span><ArrowRight size={16} /></span>
-			</Carousel.NextTrigger>
-		</Carousel.Control>
-		<div class="flex flex-col space-y-5">
-			<Carousel.ItemGroup>
-				{#each slides as slide, i}
-					<Carousel.Item index={i} class="flex items-center justify-center card bg-transparent">
-						<img src={slide.image} class="h-full! w-full! object-cover" alt="Nothing" />
-					</Carousel.Item>
-				{/each}
-			</Carousel.ItemGroup>
+		<!-- Column 2 -->
+		<div class="grid gap-4">
+			<img class="h-auto max-w-full rounded-base" src={slides[8]?.image} alt="" />
+			<img class="h-auto max-w-full rounded-base" src={slides[9]?.image} alt="" />
+			<img class="h-auto max-w-full rounded-base" src={slides[10]?.image} alt="" />
+			<img class="h-auto max-w-full rounded-base" src={slides[11]?.image} alt="" />
+			<img class="h-auto max-w-full rounded-base" src={slides[12]?.image} alt="" />
+			<img class="h-auto max-w-full rounded-base" src={slides[13]?.image} alt="" />
+			<img class="h-auto max-w-full rounded-base" src={slides[14]?.image} alt="" />
+			<img class="h-auto max-w-full rounded-base" src={slides[15]?.image} alt="" />
 		</div>
 
-		<Carousel.IndicatorGroup>
-			<Carousel.Context>
-				{#snippet children(carousel)}
-					{#each carousel().pageSnapPoints as _, index}
-						<Carousel.Indicator {index} />
-					{/each}
-				{/snippet}
-			</Carousel.Context>
-		</Carousel.IndicatorGroup>
-	</Carousel>
+		<!-- Column 3 -->
+		<div class="grid gap-4">
+			<img class="h-auto max-w-full rounded-base" src={slides[16]?.image} alt="" />
+			<img class="h-auto max-w-full rounded-base" src={slides[17]?.image} alt="" />
+			<img class="h-auto max-w-full rounded-base" src={slides[18]?.image} alt="" />
+			<img class="h-auto max-w-full rounded-base" src={slides[19]?.image} alt="" />
+			<img class="h-auto max-w-full rounded-base" src={slides[20]?.image} alt="" />
+			<img class="h-auto max-w-full rounded-base" src={slides[21]?.image} alt="" />
+			<img class="h-auto max-w-full rounded-base" src={slides[22]?.image} alt="" />
+		</div>
+
+		<!-- Column 4 -->
+		<div class="grid gap-4">
+			<img class="h-auto max-w-full rounded-base" src={slides[23]?.image} alt="" />
+			<img class="h-auto max-w-full rounded-base" src={slides[24]?.image} alt="" />
+			<img class="h-auto max-w-full rounded-base" src={slides[25]?.image} alt="" />
+			<img class="h-auto max-w-full rounded-base" src={slides[26]?.image} alt="" />
+			<img class="h-auto max-w-full rounded-base" src={slides[27]?.image} alt="" />
+			<img class="h-auto max-w-full rounded-base" src={slides[28]?.image} alt="" />
+			<img class="h-auto max-w-full rounded-base" src={slides[29]?.image} alt="" />
+		</div>
+	</div>
 </div>
