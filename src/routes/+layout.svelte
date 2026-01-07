@@ -28,10 +28,10 @@
 	<AppBar>
 		<AppBar.Toolbar class="flex justify-between">
 			<AppBar.Lead>
-				<img src={logo} alt="CISV Logo" class="h-12 w-12 bg-transparent md:h-16 md:w-16" />
+				<a href="/"><img src={logo} alt="CISV Logo" class="h-12 w-12 bg-transparent md:h-16 md:w-16" /></a>
 			</AppBar.Lead>
 			<AppBar.Headline>
-				<p class="text-2xl">CISV SAIGON</p>
+				<a href="/" class="text-2xl font-bold">CISV SAIGON</a>
 			</AppBar.Headline>
 			<AppBar.Trail>
 				<Menu
@@ -41,7 +41,7 @@
 						else goto(clickedLink);
 					}}
 				>
-					<Menu.Trigger class="btn preset-filled hover:preset-tonal"
+					<Menu.Trigger class="btn preset-filled bg-primary-700-300 hover:preset-tonal"
 						><p class="hidden md:block">Menu</p>
 						<MenuIcon size={20} /></Menu.Trigger
 					>
@@ -57,7 +57,7 @@
 								<Menu.Item value="/events">
 									<Menu.ItemText>Events</Menu.ItemText>
 								</Menu.Item>
-								<Menu.Item value="/Blog">
+								<Menu.Item value="/blog">
 									<Menu.ItemText>Blog</Menu.ItemText>
 								</Menu.Item>
 							</Menu.Content>
