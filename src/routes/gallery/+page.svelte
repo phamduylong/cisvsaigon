@@ -1,64 +1,85 @@
 <script>
-	import PocketBase from 'pocketbase';
-
-	const pb = new PocketBase('https://longph.pockethost.io/');
 	import { onMount } from 'svelte';
+	/** @type {import('./$types').PageProps} */
+	let { data } = $props();
 
+	let imgLinkPrefix = $state('');
 
+	let nrOfCols = $state(0);
+
+	/** @type Number[][]>*/
+	let indicesByColumn = $state([]);
+	$effect(() => {
+		if (data.images.length) {
+			indicesByColumn = splitIndices(nrOfCols, data.images.length);
+			imgLinkPrefix = `https://longph.pockethost.io/api/files/${data.images[0].collectionId}/`;
+		}
+	});
 
 	/**
-	 * @typedef {{ image: string, alt: string }} Slide
+	 * Get number of images to be displayed each column. For example if we have 10 images and 3 columns, it would be 4 - 3 - 3
+	 * @param cols {Number}
+	 * @param total {Number}
+	 * @returns {Number[][]}
 	 */
+	function splitIndices(cols, total) {
+		if (cols === 0 || total === 0) return [];
 
-	/** @type {Slide[]} */
-	const slides = $state([]);
+		const base = Math.floor(total / cols);
+		let remainder = total % cols;
+		let idx = 0;
 
-	onMount(async () => {
-				/**
-		 * @typedef {{ content: string, caption: string, collectionId: string, id: string }} ImageRecord
-		 */
+		return Array.from({ length: cols }, () => {
+			const size = base + (remainder-- > 0 ? 1 : 0);
+			return Array.from({ length: size }, () => idx++);
+		});
+	}
 
-		/** @type {ImageRecord[]} */
-		const records = await pb.collection('images').getFullList();
-		for(let i = 0; i < records.length; ++i) {
-			slides.push({
-				image: `https://longph.pockethost.io/api/files/${records[i].collectionId}/${records[i].id}/${records[i].content}`,
-				alt: records[i].caption
-			})
+	/**
+	 * Set number of columns based on Tailwind breakpoints
+	 */
+	function setNrOfCols() {
+		if (!window) return;
+		if (window.matchMedia('(min-width: 1024px)').matches) {
+			// lg breakpoint
+			nrOfCols = 3;
+		} else if (window.matchMedia('(min-width: 768px)').matches) {
+			// md breakpoint
+			nrOfCols = 2;
+		} else if (window.matchMedia('(min-width: 640px)').matches) {
+			// sm breakpoint
+			nrOfCols = 1;
 		}
+	}
+
+	onMount(() => {
+		setNrOfCols();
+		window.addEventListener('resize', setNrOfCols);
+		if (data.images.length) {
+			imgLinkPrefix = `https://longph.pockethost.io/api/files/${data.images[0].collectionId}/`;
+		}
+
+		return () => {
+			window.removeEventListener('resize', setNrOfCols);
+		};
 	});
 </script>
 
-<div class="container mx-auto flex flex-col space-y-16 lg:space-y-20 p-10">
+<div class="container mx-auto flex flex-col space-y-16 p-10 lg:space-y-20">
 	<h1 class="text-center h1">Gallery</h1>
 
-	<div class="grid grid-cols-1 md:grid-cols-2 gap-4 lg:grid-cols-4">
-		<!-- Column 1 -->
-		<div class="grid gap-4">
-			<img class="h-auto max-w-full rounded-base" src={slides[0]?.image} alt={slides[0]?.alt} />
-			<img class="h-auto max-w-full rounded-base" src={slides[1]?.image} alt={slides[1]?.alt} />
-			<img class="h-auto max-w-full rounded-base" src={slides[2]?.image} alt={slides[2]?.alt} />
-		</div>
-
-		<!-- Column 2 -->
-		<div class="grid gap-4">
-			<img class="h-auto max-w-full rounded-base" src={slides[3]?.image} alt={slides[3]?.alt} />
-			<img class="h-auto max-w-full rounded-base" src={slides[4]?.image} alt={slides[4]?.alt} />
-			<img class="h-auto max-w-full rounded-base" src={slides[5]?.image} alt={slides[5]?.alt} />
-		</div>
-
-		<!-- Column 3 -->
-		<div class="grid gap-4">
-			<img class="h-auto max-w-full rounded-base" src={slides[6]?.image} alt={slides[6]?.alt} />
-			<img class="h-auto max-w-full rounded-base" src={slides[7]?.image} alt={slides[7]?.alt} />
-			<img class="h-auto max-w-full rounded-base" src={slides[8]?.image} alt={slides[8]?.alt} />
-		</div>
-
-		<!-- Column 4 -->
-		<div class="grid gap-4">
-			<img class="h-auto max-w-full rounded-base" src={slides[9]?.image} alt={slides[9]?.alt} />
-			<img class="h-auto max-w-full rounded-base" src={slides[10]?.image} alt={slides[10]?.alt} />
-			<img class="h-auto max-w-full rounded-base" src={slides[11]?.image} alt={slides[11]?.alt} />
-		</div>
+	<div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+		{#each indicesByColumn as arr (arr)}
+			<div class="grid gap-4">
+				{#each arr as idx (idx)}
+					<img
+						class="h-full border-4 border-primary-950-50"
+						src={`${imgLinkPrefix}/${data.images[idx].id}/${data.images[idx].content}`}
+						alt={data.images[idx].caption}
+						loading="lazy"
+					/>
+				{/each}
+			</div>
+		{/each}
 	</div>
 </div>
