@@ -5,7 +5,7 @@
 
 	let imgLinkPrefix = $state('');
 
-	let nrOfCols = $state(0);
+	let nrOfCols = $state(2);
 
 	/** @type Number[][]>*/
 	let indicesByColumn = $state([]);
