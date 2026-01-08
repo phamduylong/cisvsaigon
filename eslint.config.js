@@ -21,6 +21,10 @@ const gitignorePath = fileURLToPath(new URL('./.gitignore', import.meta.url));
 
 	{
 		files: ['**/*.svelte', '**/*.svelte.js'],
-		languageOptions: { parserOptions: { svelteConfig } }
+		languageOptions: { parserOptions: { svelteConfig } },
+		rules: {
+			// @see https://github.com/sveltejs/eslint-plugin-svelte/issues/1353
+			'svelte/no-navigation-without-resolve': 'off'
+		}
 	}
 ];
