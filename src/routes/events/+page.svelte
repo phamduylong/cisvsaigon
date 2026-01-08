@@ -1,1 +1,5 @@
-<img class="w-screen" src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3aDhudWM1aXplejk5aXRna2dsdDhyenl0eTUxdnhrZnl5NmNkaHNsNyZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/k26doSExziOFQa7aGn/giphy.gif"/>
+<img
+	class="w-screen"
+	src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3aDhudWM1aXplejk5aXRna2dsdDhyenl0eTUxdnhrZnl5NmNkaHNsNyZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/k26doSExziOFQa7aGn/giphy.gif"
+	alt="Building"
+/>
