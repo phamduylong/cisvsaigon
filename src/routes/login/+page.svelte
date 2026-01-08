@@ -9,6 +9,7 @@
 		class="flex w-md flex-col justify-center space-y-10 card border-2 border-secondary-950-50 bg-surface-50-950 p-5 md:w-lg lg:p-10"
 	>
 		<h1 class="mb-10 text-center h1">Login</h1>
+		<span class="flex space-x-2 justify-center items-center"><CircleAlert size={20} /><p class="text-error-950-50 text-md">Intended for Staffies only</p></span>
 		<fieldset class="space-y-4">
 			<!-- Input -->
 			<label class="label">
