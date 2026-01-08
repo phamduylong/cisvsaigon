@@ -3,7 +3,10 @@
 	import favicon from '$lib/assets/favicon.svg';
 	import logo from '$lib/assets/logo.jpg';
 	import { AppBar, Menu, Portal } from '@skeletonlabs/skeleton-svelte';
-	import { MenuIcon, Mail, Instagram, Facebook } from '@lucide/svelte';
+	import MenuIcon from '@lucide/svelte/icons/menu';
+	import Facebook from '@lucide/svelte/icons/facebook';
+	import Instagram from '@lucide/svelte/icons/instagram';
+	import Mail from '@lucide/svelte/icons/mail';
 	import { goto } from '$app/navigation';
 	let { children } = $props();
 

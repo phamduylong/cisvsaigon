@@ -1,5 +1,6 @@
 <script>
-	import { Asterisk } from '@lucide/svelte';
+	import Asterisk from '@lucide/svelte/icons/asterisk';
+	import CircleAlert from '@lucide/svelte/icons/circle-alert';
 </script>
 
 <main
