@@ -7,10 +7,13 @@
 	class="container mx-auto flex h-[80vh] w-screen place-content-center items-center justify-center p-10"
 >
 	<form
-		class="flex w-md flex-col justify-center space-y-10 card border-2 border-secondary-950-50 bg-surface-50-950 p-5 md:w-lg lg:p-10"
+		class="flex w-md flex-col justify-center space-y-5 card border-2 border-secondary-950-50 bg-surface-50-950 p-5 md:w-lg md:space-y-10 lg:p-10"
 	>
-		<h1 class="mb-10 text-center h1">Login</h1>
-		<span class="flex space-x-2 justify-center items-center"><CircleAlert size={20} /><p class="text-error-950-50 text-md">Intended for Staffies only</p></span>
+		<h1 class="mb-5 text-center h1">Login</h1>
+		<span class="flex items-center justify-center space-x-2"
+			><CircleAlert size={20} />
+			<p class="text-md text-error-950-50">Intended for Staffies only</p></span
+		>
 		<fieldset class="space-y-4">
 			<!-- Input -->
 			<label class="label">
