@@ -2,11 +2,26 @@
 // for information about these interfaces
 declare global {
 	namespace App {
-		// interface Error {}
-		// interface Locals {}
-		// interface PageData {}
-		// interface PageState {}
-		// interface Platform {}
+		interface User {
+			collectionId: string;
+			collectionName: string;
+			created: string;
+			email: string;
+			emailVisibility: boolean;
+			id: string;
+			updated: string;
+			username: string;
+			verified: boolean;
+		}
+
+		interface Locals {
+			pocketBase: PocketBase;
+			user: User?;
+		}
+
+		interface Error {
+			message: string;
+		}
 	}
 }
 
