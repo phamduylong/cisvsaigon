@@ -1,5 +1,6 @@
 <script>
 	import { onMount } from 'svelte';
+	import { env } from '$env/dynamic/public';
 	/** @type {import('./$types').PageProps} */
 	let { data } = $props();
 
@@ -12,7 +13,7 @@
 	$effect(() => {
 		if (data.images.length) {
 			indicesByColumn = splitIndices(nrOfCols, data.images.length);
-			imgLinkPrefix = `https://longph.pockethost.io/api/files/${data.images[0].collectionId}/`;
+			imgLinkPrefix = `${env.PUBLIC_POCKETBASE_FILE_URL}/${data.images[0].collectionId}`;
 		}
 	});
 
@@ -56,7 +57,7 @@
 		setNrOfCols();
 		window.addEventListener('resize', setNrOfCols);
 		if (data.images.length) {
-			imgLinkPrefix = `https://longph.pockethost.io/api/files/${data.images[0].collectionId}/`;
+			imgLinkPrefix = `${env.PUBLIC_POCKETBASE_FILE_URL}/${data.images[0].collectionId}`;
 		}
 
 		return () => {
