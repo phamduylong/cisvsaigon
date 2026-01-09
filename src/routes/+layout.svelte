@@ -11,8 +11,9 @@
 	import BookImage from '@lucide/svelte/icons/book-image';
 	import CalendarDays from '@lucide/svelte/icons/calendar-days';
 	import PencilLine from '@lucide/svelte/icons/pencil-line';
+	import LogOut from '@lucide/svelte/icons/log-out';
 	import { goto } from '$app/navigation';
-	let { children } = $props();
+	let { children, data } = $props();
 
 	const links = [
 		{
@@ -47,8 +48,18 @@
 				<Menu
 					onSelect={(details) => {
 						const clickedLink = details.value;
-						if (!clickedLink.startsWith('/')) goto(`/${clickedLink}`);
-						else goto(clickedLink);
+						if (clickedLink.indexOf('logout') > -1) {
+							// special case, we need to make a POST req to logout
+							// submit the form that's wrapping logout
+
+							const form = /**@type {HTMLFormElement}*/ (document.getElementById('logoutForm'));
+							if (form) {
+								form.submit();
+							}
+						} else {
+							if (!clickedLink.startsWith('/')) goto(`/${clickedLink}`);
+							else goto(clickedLink);
+						}
 					}}
 				>
 					<Menu.Trigger class="btn preset-filled bg-primary-700-300 hover:preset-tonal"
@@ -58,12 +69,14 @@
 					<Portal>
 						<Menu.Positioner>
 							<Menu.Content>
-								<Menu.Item value="/login">
-									<Menu.ItemText class="flex items-center space-x-2"
-										><User size={16} />
-										<p>Login</p></Menu.ItemText
-									>
-								</Menu.Item>
+								{#if !data.user}
+									<Menu.Item value="/login">
+										<Menu.ItemText class="flex items-center space-x-2"
+											><User size={16} />
+											<p>Login</p></Menu.ItemText
+										>
+									</Menu.Item>
+								{/if}
 								<Menu.Item value="/gallery">
 									<Menu.ItemText class="flex items-center space-x-2"
 										><BookImage size={16} />
@@ -82,6 +95,14 @@
 										<p>Blog</p></Menu.ItemText
 									>
 								</Menu.Item>
+								{#if data.user}
+									<Menu.Item value="/logout">
+										<Menu.ItemText class="flex items-center space-x-2">
+											<LogOut size={16} />
+											<p>Logout</p></Menu.ItemText
+										>
+									</Menu.Item>
+								{/if}
 							</Menu.Content>
 						</Menu.Positioner>
 					</Portal>
@@ -117,3 +138,6 @@
 		</p>
 	</div>
 </div>
+
+<!-- Hidden form used for logging out -->
+<form action="/logout" method="POST" id="logoutForm" class="hidden"></form>
