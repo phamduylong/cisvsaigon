@@ -17,7 +17,7 @@
 	});
 
 	/**
-	 * Get number of images to be displayed each column. For example if we have 10 images and 3 columns, it would be 4 - 3 - 3
+	 * Get number of images to be displayed each column. For example if we have 10 images and 3 columns, it would be [[0,1,2,3],[4,5,6],[7,8,9]]
 	 * @param cols {Number}
 	 * @param total {Number}
 	 * @returns {Number[][]}
@@ -76,6 +76,7 @@
 						class="h-full border-4 border-primary-950-50"
 						src={`${imgLinkPrefix}/${data.images[idx].id}/${data.images[idx].content}`}
 						alt={data.images[idx].caption}
+						title={data.images[idx].caption}
 						loading="lazy"
 					/>
 				{/each}
