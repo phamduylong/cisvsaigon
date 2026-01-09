@@ -17,13 +17,13 @@
 		<fieldset class="space-y-4">
 			<!-- Input -->
 			<label class="label">
-				<span class="label-text flex">Username <Asterisk size={12} color="red" /></span>
-				<input class="input" type="text" placeholder="Username" name="Username" required />
+				<span class="label-text flex">Email <Asterisk size={12} color="red" /></span>
+				<input class="input" type="email" placeholder="Email" name="email" required />
 			</label>
 			<!-- Input -->
 			<label class="label">
 				<span class="label-text flex">Password <Asterisk size={12} color="red" /></span>
-				<input class="input" type="password" placeholder="Password" name="Password" required />
+				<input class="input" type="password" placeholder="Password" name="password" required />
 			</label>
 		</fieldset>
 		<fieldset class="flex justify-center">
