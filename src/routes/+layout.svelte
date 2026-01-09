@@ -7,6 +7,10 @@
 	import Facebook from '@lucide/svelte/icons/facebook';
 	import Instagram from '@lucide/svelte/icons/instagram';
 	import Mail from '@lucide/svelte/icons/mail';
+	import User from '@lucide/svelte/icons/user';
+	import BookImage from '@lucide/svelte/icons/book-image';
+	import CalendarDays from '@lucide/svelte/icons/calendar-days';
+	import PencilLine from '@lucide/svelte/icons/pencil-line';
 	import { goto } from '$app/navigation';
 	let { children } = $props();
 
@@ -28,10 +32,13 @@
 <svelte:head><link rel="icon" href={favicon} /></svelte:head>
 
 <div class="m-0 flex h-full min-h-screen flex-col">
+	<!-- App bar -->
 	<AppBar>
 		<AppBar.Toolbar class="flex justify-between">
 			<AppBar.Lead>
-				<a href="/"><img src={logo} alt="CISV Logo" class="h-12 w-12 bg-transparent md:h-16 md:w-16" /></a>
+				<a href="/"
+					><img src={logo} alt="CISV Logo" class="h-12 w-12 bg-transparent md:h-16 md:w-16" /></a
+				>
 			</AppBar.Lead>
 			<AppBar.Headline>
 				<a href="/" class="text-2xl font-bold">CISV SAIGON</a>
@@ -52,16 +59,28 @@
 						<Menu.Positioner>
 							<Menu.Content>
 								<Menu.Item value="/login">
-									<Menu.ItemText>Login</Menu.ItemText>
+									<Menu.ItemText class="flex items-center space-x-2"
+										><User size={16} />
+										<p>Login</p></Menu.ItemText
+									>
 								</Menu.Item>
 								<Menu.Item value="/gallery">
-									<Menu.ItemText>Gallery</Menu.ItemText>
+									<Menu.ItemText class="flex items-center space-x-2"
+										><BookImage size={16} />
+										<p>Gallery</p></Menu.ItemText
+									>
 								</Menu.Item>
 								<Menu.Item value="/events">
-									<Menu.ItemText>Events</Menu.ItemText>
+									<Menu.ItemText class="flex items-center space-x-2"
+										><CalendarDays size={16} />
+										<p>Events</p></Menu.ItemText
+									>
 								</Menu.Item>
 								<Menu.Item value="/blog">
-									<Menu.ItemText>Blog</Menu.ItemText>
+									<Menu.ItemText class="flex items-center space-x-2"
+										><PencilLine size={16} />
+										<p>Blog</p></Menu.ItemText
+									>
 								</Menu.Item>
 							</Menu.Content>
 						</Menu.Positioner>
@@ -70,10 +89,14 @@
 			</AppBar.Trail>
 		</AppBar.Toolbar>
 	</AppBar>
+
+	<!-- Main page content -->
 	<main class="flex-1">
 		{@render children()}
 	</main>
-	<div class="my-5 flex flex-wrap justify-center space-y-1 text-center">
+
+	<!-- Footer -->
+	<div class="flex flex-wrap justify-center space-y-1 p-5 text-center">
 		<div class="space-x-1 select-none md:space-x-2" id="contact">
 			{#each links as link (link)}
 				{@const Icon = link.icon}
