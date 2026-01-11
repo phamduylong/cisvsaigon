@@ -23,7 +23,7 @@ export const actions = {
 
 			const err = /** @type {AuthError} */ (e);
 			console.error(err);
-			error(err.code ?? 400, err.message ?? 'Unknown error occurred.');
+			error(err.code ?? 500, err.message ?? 'Unknown error occurred.');
 		}
 
 		if (locals.pocketBase.authStore.isValid) {

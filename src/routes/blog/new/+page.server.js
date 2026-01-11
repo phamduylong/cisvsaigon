@@ -43,7 +43,7 @@ export const actions = {
 			const err = /** @type {AuthError} */ (e);
 			console.error(err);
 			console.error(err.data);
-			error(err.code ?? 400, err.message ?? 'Unknown error occurred.');
+			error(err.code ?? 500, err.message ?? 'Unknown error occurred.');
 		}
 
 		redirect(303, '/blog');
