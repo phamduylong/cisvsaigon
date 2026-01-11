@@ -5,7 +5,7 @@
 	import Trash from '@lucide/svelte/icons/trash';
 	import XIcon from '@lucide/svelte/icons/x';
 	import { Avatar, Dialog, Portal } from '@skeletonlabs/skeleton-svelte';
-	import { processDateString, calculateAverageReadingTime } from '$lib/helper/stringFunctions';
+	import { processDateString, calculateAverageReadingTime, getInitials } from '$lib/helper/stringFunctions';
 	import { PUBLIC_POCKETBASE_FILE_URL } from '$env/static/public';
 	/**
 	 * @typedef {import('$lib/types/types.js').BlogPostRecord} BlogPostRecord
@@ -44,7 +44,7 @@
 						src={`${PUBLIC_POCKETBASE_FILE_URL}/${post?.expand.author.collectionId}/${post?.expand.author.id}/${post?.expand.author.avatar}/`}
 						alt="Author's avatar"
 					/>
-					<Avatar.Fallback>LT</Avatar.Fallback>
+					<Avatar.Fallback>{getInitials(post?.expand.author.displayName || "U S E R")}</Avatar.Fallback>
 				</Avatar>
 				<span>{post?.expand.author.displayName}</span>
 			</div>
