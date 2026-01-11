@@ -10,6 +10,9 @@ export async function load({ locals }) {
 		expand: 'author'
 	});
 
+	// store posts into cache
+	locals.blogPostsCache = posts;
+
 	return {
 		posts
 	};
