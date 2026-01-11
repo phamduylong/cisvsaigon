@@ -12,6 +12,8 @@ declare global {
 			updated: string;
 			username: string;
 			verified: boolean;
+			displayName: string;
+			avatar: string;
 		}
 
 		interface Locals {
