@@ -16,9 +16,21 @@ declare global {
 			avatar: string;
 		}
 
+		interface BlogPost {
+			id: string;
+			collectionId: string;
+			collectionName: string;
+			content: string;
+			title: string;
+			created: string;
+			updated: string;
+			expand: User;
+		}
+
 		interface Locals {
 			pocketBase: PocketBase;
 			user: User?;
+			blogPostsCache: BlogPost[];
 		}
 
 		interface Error {
