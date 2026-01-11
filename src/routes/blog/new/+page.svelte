@@ -1,5 +1,7 @@
 <script>
 	import { PUBLIC_POCKETBASE_FILE_URL } from '$env/static/public';
+	import { getInitials, toDayOfWeek } from '$lib/helper/stringFunctions';
+
 	let content = $state(`<div>Write content inside here</div>`);
 	let title = $state('');
 
@@ -60,28 +62,35 @@
 	{:else}
 		<div class="flex h-full w-full flex-col justify-center space-y-5 p-5">
 			<article
-				class="min-h-fit card border-2 border-secondary-950-50 bg-surface-50-950 p-5 card-hover"
+				class="min-h-fit space-y-4 card border-2 border-secondary-950-50 bg-surface-50-950 p-5 card-hover"
 			>
 				<!-- Author related information -->
-				<div class="mb-5 flex w-full flex-col items-center justify-center space-y-2">
-					<Avatar>
+				<div class="flex flex-col items-center justify-center space-y-2">
+					<Avatar class="inline size-16 rounded-full!">
 						<Avatar.Image
 							src={`${PUBLIC_POCKETBASE_FILE_URL}/${data.user?.collectionId}/${data.user?.id}/${data.user?.avatar}`}
 							alt="Author's avatar"
 						/>
-						<Avatar.Fallback>{data.user?.displayName}</Avatar.Fallback>
+						<Avatar.Fallback>{getInitials(data.user?.displayName || 'U S E R')}</Avatar.Fallback>
 					</Avatar>
-					<span class="text-xl">{data.user?.displayName}</span>
+					<div class="text-xl">{data.user?.displayName}</div>
 				</div>
 
-				<!-- Post title -->
-				{#if title}
-					<h3 class="text-center h3">{title}</h3>
-					<br />
-				{/if}
+				<div class="space-y-2">
+					<div class="text-center">
+						{new Date().toLocaleString('default', { month: 'short' })}
+						{new Date().getDate()}, {new Date().getFullYear().toString().substring(2)} ({toDayOfWeek(
+							new Date().getDay(),
+							true
+						)})
+					</div>
+					<h3 class="text-center h3">
+						{title}
+					</h3>
+				</div>
 
 				<!-- Rendered content-->
-				<div class="text-justify">
+				<div class="space-y-4 text-justify">
 					{@html content}
 				</div>
 			</article>
@@ -115,7 +124,7 @@
 	<div class="flex h-full w-1/2 flex-col justify-center space-y-5 p-5">
 		<h1 class="text-center h1">Preview</h1>
 		<article
-			class="min-h-187 card border-2 border-secondary-950-50 bg-surface-50-950 p-5 card-hover"
+			class="min-h-187 space-y-4 card border-2 border-secondary-950-50 bg-surface-50-950 p-5 card-hover"
 		>
 			<!-- Author related information -->
 			<div class="mb-5 flex w-full flex-col items-center justify-center space-y-2">
@@ -130,13 +139,21 @@
 			</div>
 
 			<!-- Post title -->
-			{#if title}
-				<h3 class="text-center h3">{title}</h3>
-				<br />
-			{/if}
+			<div class="space-y-2">
+				<div class="text-center">
+					{new Date().toLocaleString('default', { month: 'short' })}
+					{new Date().getDate()}, {new Date().getFullYear().toString().substring(2)} ({toDayOfWeek(
+						new Date().getDay(),
+						true
+					)})
+				</div>
+				<h3 class="text-center h3">
+					{title}
+				</h3>
+			</div>
 
 			<!-- Rendered content-->
-			<div class="text-justify">
+			<div class="space-y-4 text-justify">
 				{@html content}
 			</div>
 		</article>
