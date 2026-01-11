@@ -1,12 +1,11 @@
 <script>
-	import { onMount } from 'svelte';
 	import { env } from '$env/dynamic/public';
 	/** @type {import('./$types').PageProps} */
 	let { data } = $props();
 
 	let imgLinkPrefix = $state('');
 
-	let nrOfCols = $state(2);
+	let nrOfCols = $state(1);
 
 	/** @type Number[][]>*/
 	let indicesByColumn = $state([]);
@@ -14,6 +13,10 @@
 		if (data.images.length) {
 			indicesByColumn = splitIndices(nrOfCols, data.images.length);
 			imgLinkPrefix = `${env.PUBLIC_POCKETBASE_FILE_URL}/${data.images[0].collectionId}`;
+		}
+
+		if(window && window.innerWidth && window.innerHeight) {
+			nrOfCols = getNrOfCols();
 		}
 	});
 
@@ -37,33 +40,23 @@
 	}
 
 	/**
-	 * Set number of columns based on Tailwind breakpoints
+	 * Get number of columns based on Tailwind breakpoints
 	 */
-	function setNrOfCols() {
-		if (!window) return;
+	function getNrOfCols() {
+		if (!window) return 1;
 		if (window.matchMedia('(min-width: 1024px)').matches) {
 			// lg breakpoint
-			nrOfCols = 3;
+			return 3;
 		} else if (window.matchMedia('(min-width: 768px)').matches) {
 			// md breakpoint
-			nrOfCols = 2;
+			return 2;
 		} else if (window.matchMedia('(min-width: 640px)').matches) {
 			// sm breakpoint
-			nrOfCols = 1;
+			return 1;
 		}
+
+		return 1;
 	}
-
-	onMount(() => {
-		setNrOfCols();
-		window.addEventListener('resize', setNrOfCols);
-		if (data.images.length) {
-			imgLinkPrefix = `${env.PUBLIC_POCKETBASE_FILE_URL}/${data.images[0].collectionId}`;
-		}
-
-		return () => {
-			window.removeEventListener('resize', setNrOfCols);
-		};
-	});
 </script>
 
 <div class="container mx-auto flex flex-col space-y-16 p-10 lg:space-y-20">
