@@ -1,5 +1,6 @@
 <script>
 	import { env } from '$env/dynamic/public';
+	import { onMount } from 'svelte';
 	/** @type {import('./$types').PageProps} */
 	let { data } = $props();
 
@@ -14,10 +15,6 @@
 			indicesByColumn = splitIndices(nrOfCols, data.images.length);
 			imgLinkPrefix = `${env.PUBLIC_POCKETBASE_FILE_URL}/${data.images[0].collectionId}`;
 		}
-
-		if (window && window.innerWidth && window.innerHeight) {
-			nrOfCols = getNrOfCols();
-		}
 	});
 
 	/**
@@ -27,16 +24,49 @@
 	 * @returns {Number[][]}
 	 */
 	function splitIndices(cols, total) {
-		if (cols === 0 || total === 0) return [];
+		// Guard clause: nothing to split
+		if (cols === 0 || total === 0) {
+			return [];
+		}
 
-		const base = Math.floor(total / cols);
-		let remainder = total % cols;
-		let idx = 0;
+		// This will hold the final result:
+		// an array of arrays of indices
+		const result = [];
 
-		return Array.from({ length: cols }, () => {
-			const size = base + (remainder-- > 0 ? 1 : 0);
-			return Array.from({ length: size }, () => idx++);
-		});
+		// Minimum number of items per column
+		const baseSizePerColumn = Math.floor(total / cols);
+
+		// Extra items that need to be distributed (one per column, from the start)
+		let remainingItems = total % cols;
+
+		// This tracks the current global index
+		let currentIndex = 0;
+
+		// Loop over each column
+		for (let column = 0; column < cols; column++) {
+			// Start with the base size
+			let columnSize = baseSizePerColumn;
+
+			// If we still have extra items, add one to this column
+			if (remainingItems > 0) {
+				columnSize += 1;
+				remainingItems -= 1;
+			}
+
+			// Create the array for this column
+			const columnIndices = [];
+
+			// Fill the column with consecutive indices
+			for (let i = 0; i < columnSize; i++) {
+				columnIndices.push(currentIndex);
+				currentIndex += 1;
+			}
+
+			// Add this column to the result
+			result.push(columnIndices);
+		}
+
+		return result;
 	}
 
 	/**
@@ -57,6 +87,15 @@
 
 		return 1;
 	}
+
+	onMount(() => {
+		nrOfCols = getNrOfCols();
+		window.addEventListener('resize', () => (nrOfCols = getNrOfCols()));
+
+		return () => {
+			window.removeEventListener('resize', () => (nrOfCols = getNrOfCols()));
+		};
+	});
 </script>
 
 <div class="container mx-auto flex flex-col space-y-16 p-10 lg:space-y-20">
