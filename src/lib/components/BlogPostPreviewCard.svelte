@@ -49,6 +49,7 @@
 			<div class="flex items-center justify-center space-x-2">
 				<Avatar class="inline size-8">
 					<Avatar.Image
+						class="size-full object-cover"
 						src={`${PUBLIC_POCKETBASE_FILE_URL}/${post?.expand.author.collectionId}/${post?.expand.author.id}/${post?.expand.author.avatar}/`}
 						alt="Author's avatar"
 					/>

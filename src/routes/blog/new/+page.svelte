@@ -68,6 +68,7 @@
 				<div class="flex flex-col items-center justify-center space-y-2">
 					<Avatar class="inline size-16 rounded-full!">
 						<Avatar.Image
+							class="size-full object-cover"
 							src={`${PUBLIC_POCKETBASE_FILE_URL}/${data.user?.collectionId}/${data.user?.id}/${data.user?.avatar}`}
 							alt="Author's avatar"
 						/>
@@ -130,6 +131,7 @@
 			<div class="mb-5 flex w-full flex-col items-center justify-center space-y-2">
 				<Avatar>
 					<Avatar.Image
+						class="size-full object-cover"
 						src={`${PUBLIC_POCKETBASE_FILE_URL}/${data.user?.collectionId}/${data.user?.id}/${data.user?.avatar}`}
 						alt="Author's avatar"
 					/>
