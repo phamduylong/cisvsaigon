@@ -67,7 +67,7 @@
 			<div class="grid gap-4">
 				{#each arr as idx (idx)}
 					<img
-						class="h-full border-4 border-primary-950-50"
+						class="h-full border-4 border-primary-950-50 object-cover"
 						src={`${imgLinkPrefix}/${data.images[idx].id}/${data.images[idx].content}`}
 						alt={data.images[idx].caption}
 						title={data.images[idx].caption}
