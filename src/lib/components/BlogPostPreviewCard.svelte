@@ -17,9 +17,10 @@
 	 */
 	/** @type {{
 	 *   isPlaceHolder?: boolean,
-	 *   post?: (BlogPostRecord & { expand: { author: UserRecord } }) | null
+	 *   post?: (BlogPostRecord & { expand: { author: UserRecord } }) | null,
+	 *   isLoggedIn?: boolean
 	 * }} */
-	let { isPlaceHolder = false, post = null } = $props();
+	let { isPlaceHolder = false, post = null, isLoggedIn = false } = $props();
 
 	const animation =
 		'transition transition-discrete opacity-0 translate-y-[100px] starting:data-[state=open]:opacity-0 starting:data-[state=open]:translate-y-[100px] data-[state=open]:opacity-100 data-[state=open]:translate-y-0';
@@ -45,7 +46,7 @@
 		</div>
 	{:else}
 		<!-- Picture and name and delete icon -->
-		<div class="flex w-full items-center justify-between">
+		<div class="flex w-full items-start justify-between space-y-2">
 			<div class="flex items-center justify-center space-x-2">
 				<Avatar class="inline size-8">
 					<Avatar.Image
@@ -57,9 +58,23 @@
 						>{getInitials(post?.expand.author.displayName || 'U S E R')}</Avatar.Fallback
 					>
 				</Avatar>
-				<span>{post?.expand.author.displayName}</span>
+				<div>
+					<span class="font-semibold">{post?.expand.author.displayName}</span>
+					<!-- Written and edited info -->
+					<div
+					class="flex items-center space-x-2 self-end text-sm"
+					title="Last edited on {new Date(post?.updated || '').toDateString()} {new Date(
+						post?.updated || ''
+					).toTimeString()}"
+				>
+					<p class="inline cursor-default text-sm"
+						>{processDateString(new Date(post?.updated || ''))}</p
+					>
+				</div>
 			</div>
-			<!-- Confirm delete dialog -->
+			</div>
+			{#if isLoggedIn}
+				<!-- Confirm delete dialog -->
 			<Dialog>
 				<Dialog.Trigger
 					><button
@@ -102,6 +117,7 @@
 					</Dialog.Positioner>
 				</Portal>
 			</Dialog>
+			{/if}
 		</div>
 
 		<a href="/blog/{post?.id}"
@@ -110,28 +126,15 @@
 			</h3></a
 		>
 
-		<div class="flex items-center justify-between">
-			<div
-				class="flex items-center space-x-2 self-end text-sm"
-				title="Last edited on {new Date(post?.updated || '').toDateString()} {new Date(
-					post?.updated || ''
-				).toTimeString()}"
+		<div
+			class="flex items-center space-x-2 self-end text-sm"
+			title="Last edited on {new Date(post?.updated || '').toDateString()} {new Date(
+				post?.updated || ''
+			).toTimeString()}"
+		>
+			<Timer size={16} class="inline" /><i class="inline cursor-default"
+				>{calculateAverageReadingTime(post?.content)}</i
 			>
-				<Timer size={16} class="inline" /><i class="inline cursor-default"
-					>{calculateAverageReadingTime(post?.content)}</i
-				>
-			</div>
-			<!-- Written and edited info -->
-			<div
-				class="flex items-center space-x-2 self-end text-sm"
-				title="Last edited on {new Date(post?.updated || '').toDateString()} {new Date(
-					post?.updated || ''
-				).toTimeString()}"
-			>
-				<Pen size={16} class="inline" /><i class="inline cursor-default"
-					>{processDateString(new Date(post?.updated || ''))}</i
-				>
-			</div>
 		</div>
 	{/if}
 </div>
