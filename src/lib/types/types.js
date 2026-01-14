@@ -40,4 +40,21 @@
  * @property {string} updated
  * @property {UserRecord} expand
  */
+
+/**
+ * Represents a blog post record with metadata.
+ *
+ * @typedef {Object} EventRecord
+ * @property {string} id
+ * @property {string} collectionId
+ * @property {string} collectionName
+ * @property {Number} startAge
+ * @property {Number} endAge
+ * @property {boolean} finished
+ * @property {string} registrationLink
+ * @property {string} shortDescription
+ * @property {string} title
+ * @property {string} created
+ * @property {string} updated
+ */
 export {};

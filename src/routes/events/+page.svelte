@@ -1,5 +1,23 @@
-<img
-	class="w-screen"
-	src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3aDhudWM1aXplejk5aXRna2dsdDhyenl0eTUxdnhrZnl5NmNkaHNsNyZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/k26doSExziOFQa7aGn/giphy.gif"
-	alt="Building"
-/>
+<script>
+	import EventCard from "$lib/components/EventCard.svelte";
+	let { data } = $props();
+</script>
+
+
+<svelte:head>
+	<meta name="description" content="CISV Saigon' events" />
+	<title>CISV Saigon - Events</title>
+</svelte:head>
+
+<div class="container mx-auto flex h-full flex-col items-center justify-center p-4 md:p-10">
+	<div class="container grid h-full grid-cols-1 items-start gap-y-5 md:w-5/6 xl:w-3/5">
+		<h1 class="my-8 text-center h1 font-serif text-5xl">Events</h1>
+		{#each data.events as event (event.id)}
+			<EventCard {event} isPlaceHolder={false} />
+		{/each}
+
+		{#if data.user}
+			<EventCard isPlaceHolder={true} />
+		{/if}
+	</div>
+</div>
