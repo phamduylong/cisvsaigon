@@ -12,11 +12,12 @@
 	import CalendarDays from '@lucide/svelte/icons/calendar-days';
 	import PencilLine from '@lucide/svelte/icons/pencil-line';
 	import LogOut from '@lucide/svelte/icons/log-out';
+	import UserLock from '@lucide/svelte/icons/user-lock';
 	import { goto } from '$app/navigation';
 	import LightSwitch from '$lib/components/LightSwitch.svelte';
 	let { children, data } = $props();
 
-	const links = [
+	const footerLinks = [
 		{
 			href: 'https://www.facebook.com/groups/1761170264115434',
 			icon: Facebook,
@@ -29,6 +30,24 @@
 		},
 		{ href: 'mailto:cisvhcm@gmail.com', icon: Mail, ariaLabel: 'Send us an email' }
 	];
+
+	const staticMenuLinks = [
+		{
+			href: '/gallery',
+			text: "Gallery",
+			icon: BookImage
+		},
+		{
+			href: '/events',
+			text: "Events",
+			icon: CalendarDays
+		},
+		{
+			href: '/blog',
+			text: "Blog",
+			icon: PencilLine
+		}
+	]
 </script>
 
 <svelte:head><link rel="icon" href={favicon} /></svelte:head>
@@ -79,29 +98,26 @@
 								{#if !data.user}
 									<Menu.Item value="/login">
 										<Menu.ItemText class="flex items-center space-x-2"
-											><User size={16} />
+											><UserLock size={16} />
 											<p>Login</p></Menu.ItemText
 										>
 									</Menu.Item>
+								{:else}
+									<Menu.Item value="/profile">
+										<Menu.ItemText class="flex items-center space-x-2">
+											<User size={16} /><p>Profile</p>
+										</Menu.ItemText>
+									</Menu.Item>
 								{/if}
-								<Menu.Item value="/gallery">
-									<Menu.ItemText class="flex items-center space-x-2"
-										><BookImage size={16} />
-										<p>Gallery</p></Menu.ItemText
-									>
-								</Menu.Item>
-								<Menu.Item value="/events">
-									<Menu.ItemText class="flex items-center space-x-2"
-										><CalendarDays size={16} />
-										<p>Events</p></Menu.ItemText
-									>
-								</Menu.Item>
-								<Menu.Item value="/blog">
-									<Menu.ItemText class="flex items-center space-x-2"
-										><PencilLine size={16} />
-										<p>Blog</p></Menu.ItemText
-									>
-								</Menu.Item>
+								{#each staticMenuLinks as sml}
+									{@const Icon = sml.icon}
+									<Menu.Item value={sml.href}>
+										<Menu.ItemText class="flex items-center space-x-2"
+											><Icon size={16} />
+											<p>{sml.text}</p></Menu.ItemText
+										>
+									</Menu.Item>
+								{/each}
 								{#if data.user}
 									<Menu.Item value="/logout">
 										<Menu.ItemText class="flex items-center space-x-2">
@@ -126,7 +142,7 @@
 	<!-- Footer -->
 	<div class="flex flex-wrap justify-center space-y-1 p-5 text-center">
 		<div class="space-x-1 select-none md:space-x-2" id="contact">
-			{#each links as link (link)}
+			{#each footerLinks as link (link)}
 				{@const Icon = link.icon}
 				<a
 					class="anchor"
