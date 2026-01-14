@@ -1,6 +1,7 @@
 <script>
 	import BlogPostPreviewCard from '$lib/components/BlogPostPreviewCard.svelte';
 	const { data } = $props();
+	let isLoggedIn = $derived(data.user !== null && data.user !== undefined)
 </script>
 
 <svelte:head>
@@ -12,7 +13,7 @@
 	<div class="container grid h-full grid-cols-1 items-start gap-y-5 md:w-5/6 xl:w-3/5">
 		<h1 class="my-8 text-center h1 font-serif text-5xl">Blog</h1>
 		{#each data.posts as post (post.id)}
-			<BlogPostPreviewCard {post} isPlaceHolder={false} />
+			<BlogPostPreviewCard {isLoggedIn} {post} isPlaceHolder={false} />
 		{/each}
 
 		{#if data.user}
