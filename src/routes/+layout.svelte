@@ -13,6 +13,7 @@
 	import PencilLine from '@lucide/svelte/icons/pencil-line';
 	import LogOut from '@lucide/svelte/icons/log-out';
 	import { goto } from '$app/navigation';
+	import LightSwitch from '$lib/components/LightSwitch.svelte';
 	let { children, data } = $props();
 
 	const links = [
@@ -35,16 +36,17 @@
 <div class="m-0 flex h-full min-h-screen flex-col">
 	<!-- App bar -->
 	<AppBar>
-		<AppBar.Toolbar class="flex justify-between">
-			<AppBar.Lead>
+		<AppBar.Toolbar class="flex">
+			<AppBar.Lead class="w-1/3 flex justify-start">
 				<a href="/"
 					><img src={logo} alt="CISV Logo" class="h-12 w-12 bg-transparent md:h-16 md:w-16" /></a
 				>
 			</AppBar.Lead>
-			<AppBar.Headline>
-				<a href="/" class="text-2xl font-bold">CISV SAIGON</a>
+			<AppBar.Headline  class="w-1/3 flex justify-center">
+				<a href="/" class="text-md md:text-xl lg:text-2xl font-bold">CISV SAIGON</a>
 			</AppBar.Headline>
-			<AppBar.Trail>
+			<AppBar.Trail class="space-x-2 md:space-x-5 w-1/3 flex justify-end">
+				
 				<Menu
 					onSelect={(details) => {
 						const clickedLink = details.value;
@@ -69,6 +71,8 @@
 					<Portal>
 						<Menu.Positioner>
 							<Menu.Content>
+								<LightSwitch classes="flex justify-between"/>
+								<hr class="hr" />
 								{#if !data.user}
 									<Menu.Item value="/login">
 										<Menu.ItemText class="flex items-center space-x-2"
