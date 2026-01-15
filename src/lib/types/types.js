@@ -48,8 +48,8 @@
  * @property {string} id
  * @property {string} collectionId
  * @property {string} collectionName
- * @property {Number} startAge
- * @property {Number} endAge
+ * @property {Number} minAge
+ * @property {Number} maxAge
  * @property {boolean} finished
  * @property {string} registrationLink
  * @property {string} shortDescription
