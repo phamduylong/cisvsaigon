@@ -34,20 +34,20 @@
 	const staticMenuLinks = [
 		{
 			href: '/gallery',
-			text: "Gallery",
+			text: 'Gallery',
 			icon: BookImage
 		},
 		{
 			href: '/events',
-			text: "Events",
+			text: 'Events',
 			icon: CalendarDays
 		},
 		{
 			href: '/blog',
-			text: "Blog",
+			text: 'Blog',
 			icon: PencilLine
 		}
-	]
+	];
 </script>
 
 <svelte:head><link rel="icon" href={favicon} /></svelte:head>
@@ -105,7 +105,8 @@
 								{:else}
 									<Menu.Item value="/profile">
 										<Menu.ItemText class="flex items-center space-x-2">
-											<User size={16} /><p>Profile</p>
+											<User size={16} />
+											<p>Profile</p>
 										</Menu.ItemText>
 									</Menu.Item>
 								{/if}

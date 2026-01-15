@@ -62,61 +62,61 @@
 					<span class="font-semibold">{post?.expand.author.displayName}</span>
 					<!-- Written and edited info -->
 					<div
-					class="flex items-center space-x-2 self-end text-sm"
-					title="Last edited on {new Date(post?.updated || '').toDateString()} {new Date(
-						post?.updated || ''
-					).toTimeString()}"
-				>
-					<p class="inline cursor-default text-sm"
-						>{processDateString(new Date(post?.updated || ''))}</p
+						class="flex items-center space-x-2 self-end text-sm"
+						title="Last edited on {new Date(post?.updated || '').toDateString()} {new Date(
+							post?.updated || ''
+						).toTimeString()}"
 					>
+						<p class="inline cursor-default text-sm">
+							{processDateString(new Date(post?.updated || ''))}
+						</p>
+					</div>
 				</div>
-			</div>
 			</div>
 			{#if isLoggedIn}
 				<!-- Confirm delete dialog -->
-			<Dialog>
-				<Dialog.Trigger
-					><button
-						><Trash
-							class="btn h-6 w-6 rounded-sm p-1 card-hover hover:preset-tonal"
-							size={16}
-						/></button
-					></Dialog.Trigger
-				>
-				<Portal>
-					<Dialog.Backdrop class="fixed inset-0 z-50 bg-surface-50-950/50" />
-					<Dialog.Positioner class="fixed inset-0 z-50 flex items-center justify-center p-4">
-						<Dialog.Content
-							class="w-full max-w-xl space-y-4 card bg-surface-100-900 p-4 shadow-xl {animation}"
-						>
-							<header class="flex items-center justify-between">
-								<Dialog.Title class="text-lg font-bold">Confirm delete?</Dialog.Title>
-								<Dialog.CloseTrigger class="btn-icon hover:preset-tonal">
-									<XIcon class="size-4" />
-								</Dialog.CloseTrigger>
-							</header>
-							<Dialog.Description>
-								Are you sure you want to delete this blog post? This operation is permanent and
-								cannot be reverted!
-							</Dialog.Description>
-							<footer class="flex justify-end gap-2">
-								<Dialog.CloseTrigger class="btn preset-tonal">Cancel</Dialog.CloseTrigger>
-								<Dialog.CloseTrigger
-									><button
-										type="button"
-										class="btn preset-filled"
-										onclick={async () => {
-											await deletePost();
-											window?.location?.reload();
-										}}>OK</button
-									></Dialog.CloseTrigger
-								>
-							</footer>
-						</Dialog.Content>
-					</Dialog.Positioner>
-				</Portal>
-			</Dialog>
+				<Dialog>
+					<Dialog.Trigger
+						><button
+							><Trash
+								class="btn h-6 w-6 rounded-sm p-1 card-hover hover:preset-tonal"
+								size={16}
+							/></button
+						></Dialog.Trigger
+					>
+					<Portal>
+						<Dialog.Backdrop class="fixed inset-0 z-50 bg-surface-50-950/50" />
+						<Dialog.Positioner class="fixed inset-0 z-50 flex items-center justify-center p-4">
+							<Dialog.Content
+								class="w-full max-w-xl space-y-4 card bg-surface-100-900 p-4 shadow-xl {animation}"
+							>
+								<header class="flex items-center justify-between">
+									<Dialog.Title class="text-lg font-bold">Confirm delete?</Dialog.Title>
+									<Dialog.CloseTrigger class="btn-icon hover:preset-tonal">
+										<XIcon class="size-4" />
+									</Dialog.CloseTrigger>
+								</header>
+								<Dialog.Description>
+									Are you sure you want to delete this blog post? This operation is permanent and
+									cannot be reverted!
+								</Dialog.Description>
+								<footer class="flex justify-end gap-2">
+									<Dialog.CloseTrigger class="btn preset-tonal">Cancel</Dialog.CloseTrigger>
+									<Dialog.CloseTrigger
+										><button
+											type="button"
+											class="btn preset-filled"
+											onclick={async () => {
+												await deletePost();
+												window?.location?.reload();
+											}}>OK</button
+										></Dialog.CloseTrigger
+									>
+								</footer>
+							</Dialog.Content>
+						</Dialog.Positioner>
+					</Portal>
+				</Dialog>
 			{/if}
 		</div>
 

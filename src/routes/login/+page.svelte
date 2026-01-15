@@ -3,7 +3,7 @@
 	import CircleAlert from '@lucide/svelte/icons/circle-alert';
 </script>
 
-<main
+<div
 	class="container mx-auto flex h-[80vh] w-screen place-content-center items-center justify-center p-10"
 >
 	<form
@@ -32,4 +32,4 @@
 			<button type="submit" class="btn preset-filled bg-primary-700-300">Submit</button>
 		</fieldset>
 	</form>
-</main>
+</div>

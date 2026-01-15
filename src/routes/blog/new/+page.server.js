@@ -10,7 +10,7 @@ export async function load({ locals }) {
 }
 
 export const actions = {
-	// Login
+	// Add new blog post
 	default: async ({ locals, request }) => {
 		if (!locals.pocketBase.authStore.isValid) {
 			error(401, 'Only authorized users can add new blog posts');

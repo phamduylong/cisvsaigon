@@ -1,7 +1,7 @@
 <script>
 	import BlogPostPreviewCard from '$lib/components/BlogPostPreviewCard.svelte';
 	const { data } = $props();
-	let isLoggedIn = $derived(data.user !== null && data.user !== undefined)
+	let isLoggedIn = $derived(data.user !== null && data.user !== undefined);
 </script>
 
 <svelte:head>
