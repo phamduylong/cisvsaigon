@@ -5,7 +5,11 @@
 	import Trash from '@lucide/svelte/icons/trash';
 	import XIcon from '@lucide/svelte/icons/x';
 	import { Avatar, Dialog, Portal } from '@skeletonlabs/skeleton-svelte';
-	import { processDateString, calculateAverageReadingTime, getInitials } from '$lib/helper/stringFunctions';
+	import {
+		processDateString,
+		calculateAverageReadingTime,
+		getInitials
+	} from '$lib/helper/stringFunctions';
 	import { PUBLIC_POCKETBASE_FILE_URL } from '$env/static/public';
 	/**
 	 * @typedef {import('$lib/types/types.js').BlogPostRecord} BlogPostRecord
@@ -22,7 +26,7 @@
 
 	async function deletePost() {
 		await fetch(`/blog/${post?.id}`, {
-			method: "DELETE"
+			method: 'DELETE'
 		});
 	}
 </script>
@@ -30,7 +34,11 @@
 <div class="max-h-fit grid-cols-1 space-y-2 card preset-filled-surface-100-900 p-4">
 	{#if isPlaceHolder === true}
 		<div class="flex flex-col items-center justify-center card p-4">
-			<a class="btn flex flex-col preset-filled-surface-200-800 hover:preset-tonal p-4" href="/blog/new/" rel="">
+			<a
+				class="btn flex flex-col preset-filled-surface-200-800 p-4 hover:preset-tonal"
+				href="/blog/new/"
+				rel=""
+			>
 				<SquarePlus />
 				<span>Add new post</span>
 			</a>
@@ -38,44 +46,61 @@
 	{:else}
 		<!-- Picture and name and delete icon -->
 		<div class="flex w-full items-center justify-between">
-			<div class="flex justify-center items-center space-x-2">
+			<div class="flex items-center justify-center space-x-2">
 				<Avatar class="inline size-8">
 					<Avatar.Image
 						src={`${PUBLIC_POCKETBASE_FILE_URL}/${post?.expand.author.collectionId}/${post?.expand.author.id}/${post?.expand.author.avatar}/`}
 						alt="Author's avatar"
 					/>
-					<Avatar.Fallback>{getInitials(post?.expand.author.displayName || "U S E R")}</Avatar.Fallback>
+					<Avatar.Fallback
+						>{getInitials(post?.expand.author.displayName || 'U S E R')}</Avatar.Fallback
+					>
 				</Avatar>
 				<span>{post?.expand.author.displayName}</span>
 			</div>
 			<!-- Confirm delete dialog -->
 			<Dialog>
-				<Dialog.Trigger><button><Trash class="card-hover btn hover:preset-tonal p-1 rounded-sm h-6 w-6" size={16} /></button></Dialog.Trigger>
+				<Dialog.Trigger
+					><button
+						><Trash
+							class="btn h-6 w-6 rounded-sm p-1 card-hover hover:preset-tonal"
+							size={16}
+						/></button
+					></Dialog.Trigger
+				>
 				<Portal>
 					<Dialog.Backdrop class="fixed inset-0 z-50 bg-surface-50-950/50" />
-					<Dialog.Positioner class="fixed inset-0 z-50 flex justify-center items-center p-4">
-						<Dialog.Content class="card bg-surface-100-900 w-full max-w-xl p-4 space-y-4 shadow-xl {animation}">
-							<header class="flex justify-between items-center">
+					<Dialog.Positioner class="fixed inset-0 z-50 flex items-center justify-center p-4">
+						<Dialog.Content
+							class="w-full max-w-xl space-y-4 card bg-surface-100-900 p-4 shadow-xl {animation}"
+						>
+							<header class="flex items-center justify-between">
 								<Dialog.Title class="text-lg font-bold">Confirm delete?</Dialog.Title>
 								<Dialog.CloseTrigger class="btn-icon hover:preset-tonal">
 									<XIcon class="size-4" />
 								</Dialog.CloseTrigger>
 							</header>
 							<Dialog.Description>
-								Are you sure you want to delete this blog post? This operation is permanent and cannot be reverted!
+								Are you sure you want to delete this blog post? This operation is permanent and
+								cannot be reverted!
 							</Dialog.Description>
 							<footer class="flex justify-end gap-2">
 								<Dialog.CloseTrigger class="btn preset-tonal">Cancel</Dialog.CloseTrigger>
-								<Dialog.CloseTrigger><button type="button" class="btn preset-filled" onclick={async () => {
-									await deletePost();
-									window?.location?.reload()
-								}}>OK</button></Dialog.CloseTrigger>
+								<Dialog.CloseTrigger
+									><button
+										type="button"
+										class="btn preset-filled"
+										onclick={async () => {
+											await deletePost();
+											window?.location?.reload();
+										}}>OK</button
+									></Dialog.CloseTrigger
+								>
 							</footer>
 						</Dialog.Content>
 					</Dialog.Positioner>
 				</Portal>
 			</Dialog>
-			
 		</div>
 
 		<a href="/blog/{post?.id}"
