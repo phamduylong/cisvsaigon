@@ -37,16 +37,15 @@
 	<!-- App bar -->
 	<AppBar>
 		<AppBar.Toolbar class="flex">
-			<AppBar.Lead class="w-1/3 flex justify-start">
+			<AppBar.Lead class="flex w-1/3 justify-start">
 				<a href="/"
 					><img src={logo} alt="CISV Logo" class="h-12 w-12 bg-transparent md:h-16 md:w-16" /></a
 				>
 			</AppBar.Lead>
-			<AppBar.Headline  class="w-1/3 flex justify-center">
-				<a href="/" class="text-md md:text-xl lg:text-2xl font-bold">CISV SAIGON</a>
+			<AppBar.Headline class="flex w-1/3 justify-center">
+				<a href="/" class="text-md font-bold md:text-xl lg:text-2xl">CISV SAIGON</a>
 			</AppBar.Headline>
-			<AppBar.Trail class="space-x-2 md:space-x-5 w-1/3 flex justify-end">
-				
+			<AppBar.Trail class="flex w-1/3 justify-end space-x-2 md:space-x-5">
 				<Menu
 					onSelect={(details) => {
 						const clickedLink = details.value;
@@ -71,7 +70,11 @@
 					<Portal>
 						<Menu.Positioner>
 							<Menu.Content>
-								<LightSwitch classes="flex justify-between"/>
+								<span class="flex items-center justify-between"
+									><p class="block text-xs leading-[text-xs] font-medium no-underline">Mode</p>
+									<LightSwitch /></span
+								>
+
 								<hr class="hr" />
 								{#if !data.user}
 									<Menu.Item value="/login">
