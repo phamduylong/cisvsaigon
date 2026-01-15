@@ -15,7 +15,7 @@
 			imgLinkPrefix = `${env.PUBLIC_POCKETBASE_FILE_URL}/${data.images[0].collectionId}`;
 		}
 
-		if(window && window.innerWidth && window.innerHeight) {
+		if (window && window.innerWidth && window.innerHeight) {
 			nrOfCols = getNrOfCols();
 		}
 	});

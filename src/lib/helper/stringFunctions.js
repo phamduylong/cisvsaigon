@@ -6,7 +6,7 @@ export function getInitials(name) {
 	let initials = '';
 	const names = name.split(' ');
 	for (let i = 0; i < names.length; i++) {
-		if(names[i] && names[i].length) {
+		if (names[i] && names[i].length) {
 			// if this part of the name is not empty, let's get the first initial character
 			initials += names[i][0];
 		}
