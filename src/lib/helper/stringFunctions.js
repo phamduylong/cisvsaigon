@@ -70,3 +70,20 @@ export function calculateAverageReadingTime(postContent) {
 		}
 	}
 }
+
+/**
+ * Check if the string is a valid HTTP/HTTPS URL
+ * @param {string} str
+ * @returns
+ */
+export function isValidHttpUrl(str) {
+	let url;
+
+	try {
+		url = new URL(str);
+	} catch (_) {
+		return false;
+	}
+
+	return url.protocol === 'http:' || url.protocol === 'https:';
+}
