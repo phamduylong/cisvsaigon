@@ -1,8 +1,9 @@
 /**
  * Get initials for avatar fallback
- * @param {string} name
+ * @param {string | undefined | null} name
  */
 export function getInitials(name) {
+	if (!name) return '';
 	let initials = '';
 	const names = name.split(' ');
 	for (let i = 0; i < names.length; i++) {
@@ -81,7 +82,8 @@ export function isValidHttpUrl(str) {
 
 	try {
 		url = new URL(str);
-	} catch (_) {
+	} catch (err) {
+		console.error(err);
 		return false;
 	}
 
