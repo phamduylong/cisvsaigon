@@ -1,8 +1,8 @@
 <script>
-	import EventCard from "$lib/components/EventCard.svelte";
+	import EventCard from '$lib/components/EventCard.svelte';
 	let { data } = $props();
+	let isLoggedIn = $derived(data.user !== null && data.user !== undefined);
 </script>
-
 
 <svelte:head>
 	<meta name="description" content="CISV Saigon' events" />
@@ -13,7 +13,7 @@
 	<div class="container grid h-full grid-cols-1 items-start gap-y-5 md:w-5/6 xl:w-3/5">
 		<h1 class="my-8 text-center h1 font-serif text-5xl">Events</h1>
 		{#each data.events as event (event.id)}
-			<EventCard {event} isPlaceHolder={false} />
+			<EventCard {event} isPlaceHolder={false} {isLoggedIn} />
 		{/each}
 
 		{#if data.user}
