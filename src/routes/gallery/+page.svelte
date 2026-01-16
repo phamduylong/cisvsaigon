@@ -105,7 +105,7 @@
 		{#each indicesByColumn as arr (arr)}
 			<div class="grid gap-4">
 				{#each arr as idx (idx)}
-					<img
+					<enhanced:img
 						class="h-full border-4 border-primary-950-50 object-cover"
 						src={`${imgLinkPrefix}/${data.images[idx].id}/${data.images[idx].content}`}
 						alt={data.images[idx].caption}

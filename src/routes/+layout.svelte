@@ -60,7 +60,8 @@
 		<AppBar.Toolbar class="flex">
 			<AppBar.Lead class="flex w-1/3 justify-start">
 				<a href="/"
-					><img src={logo} alt="CISV Logo" class="h-12 w-12 bg-transparent md:h-16 md:w-16" /></a
+				title="CISV Vietnam Logo"
+					><enhanced:img src={logo} alt="CISV Logo" class="h-12 w-12 bg-transparent md:h-16 md:w-16" /></a
 				>
 			</AppBar.Lead>
 			<AppBar.Headline class="flex w-1/3 justify-center">
