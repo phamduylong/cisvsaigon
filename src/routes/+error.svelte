@@ -1,4 +1,5 @@
 <script>
+	import Home from '@lucide/svelte/icons/home';
 	import { page } from '$app/state';
 	const emotes = [
 		'＞﹏＜',
@@ -29,4 +30,5 @@
 		Something went wrong...
 	</h1>
 	<h1 class="my-10 h1">Error: {page.error?.message}</h1>
+	<a href="/" class="btn preset-filled flex items-center w-min">Go back <Home size={16} /></a>
 </div>
