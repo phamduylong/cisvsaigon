@@ -1,5 +1,3 @@
-export const prerender = false;
-
 import { redirect, error } from '@sveltejs/kit';
 export async function load({ locals }) {
 	return {
