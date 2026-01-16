@@ -61,7 +61,7 @@
 			<AppBar.Lead class="flex w-1/3 justify-start">
 				<a href="/"
 				title="CISV Vietnam Logo"
-					><enhanced:img src={logo} alt="CISV Logo" class="h-12 w-12 bg-transparent md:h-16 md:w-16" /></a
+					><enhanced:img src={logo} alt="CISV Logo" class="h-12 bg-transparent md:h-16" /></a
 				>
 			</AppBar.Lead>
 			<AppBar.Headline class="flex w-1/3 justify-center">
@@ -69,6 +69,7 @@
 			</AppBar.Headline>
 			<AppBar.Trail class="flex w-1/3 justify-end space-x-2 md:space-x-5">
 				<Menu
+					aria-label='menu'
 					onSelect={(details) => {
 						const clickedLink = details.value;
 						if (clickedLink.indexOf('logout') > -1) {
