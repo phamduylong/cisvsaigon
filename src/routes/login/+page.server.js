@@ -1,7 +1,20 @@
 import { error, redirect } from '@sveltejs/kit';
+
+export function load({ locals }) {
+	// well, what are you even trying to login for?
+	if(locals.pocketBase.authStore.isValid && locals.user) {
+		redirect(303, '/');
+	}
+}
+
 export const actions = {
 	// Login
 	default: async ({ locals, request }) => {
+		// logged in, why are we even trying?
+		if(locals.pocketBase.authStore.isValid && locals.user) {
+			redirect(303, '/');
+		}
+
 		const body = Object.fromEntries(await request.formData());
 		const email = body['email'];
 		const password = body['password'];
