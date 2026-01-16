@@ -174,6 +174,7 @@
 		<Toast toast={toast}>
 			<Toast.Message>
 			<Toast.Title>{toast.title}</Toast.Title>
+			<hr class="hr my-1 h-0.5 preset-filled-primary-950-50" />
 			<Toast.Description>{toast.description}</Toast.Description>
 			</Toast.Message>
 			<Toast.CloseTrigger />
