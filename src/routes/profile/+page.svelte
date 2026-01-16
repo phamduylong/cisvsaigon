@@ -46,7 +46,7 @@
 		method="POST"
 		class="flex w-md flex-col items-center justify-center space-y-5 card bg-surface-50-950 p-5 md:w-lg md:space-y-10 lg:w-xl lg:p-10"
 	>
-		<Avatar class="inline size-16 rounded-full!">
+		<Avatar class="inline size-32 rounded-full!">
 			<Avatar.Image
 				class="size-full object-cover"
 				src={`${PUBLIC_POCKETBASE_FILE_URL}/${avatarSrc}`}
