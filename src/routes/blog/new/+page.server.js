@@ -1,3 +1,5 @@
+export const prerender = false;
+
 import { redirect, error } from '@sveltejs/kit';
 
 /** @type {import('./$types').PageServerLoad} */

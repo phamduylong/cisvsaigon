@@ -1,3 +1,5 @@
+export const prerender = false;
+
 import { error, redirect } from '@sveltejs/kit';
 export const actions = {
 	// Login
