@@ -1,7 +1,10 @@
 import { redirect, error } from '@sveltejs/kit';
 export async function load({ locals }) {
+	if(!locals.pocketBase.authStore.isValid) {
+		error(401, "Cannot view profile because you are not logged in.")
+	}
 	return {
-		user: locals.user
+		user: locals.user ?? locals.pocketBase.authStore.model
 	};
 }
 
