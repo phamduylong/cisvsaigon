@@ -1,10 +1,10 @@
 <script>
-	import { Avatar, FileUpload, createToaster, Toast } from '@skeletonlabs/skeleton-svelte';
+	import { Avatar, FileUpload } from '@skeletonlabs/skeleton-svelte';
 	import { PUBLIC_POCKETBASE_FILE_URL } from '$env/static/public';
 	import { getInitials } from '$lib/helper/stringFunctions';
+	import { toaster } from '$lib/components/toaster';
 	let { data } = $props();
 	let avatarSrc = $state(`${data.user?.collectionId}/${data.user?.id}/${data.user?.avatar}/`);
-	const toaster = createToaster();
 
     /**
      * 
@@ -104,14 +104,3 @@
 		</label>
 	</form>
 </div>
-<Toast.Group {toaster}>
-    {#snippet children(toast)}
-        <Toast {toast}>
-            <Toast.Message>
-                <Toast.Title>{toast.title}</Toast.Title>
-                <Toast.Description>{toast.description}</Toast.Description>
-            </Toast.Message>
-            <Toast.CloseTrigger />
-        </Toast>
-    {/snippet}
-</Toast.Group>
