@@ -61,13 +61,13 @@
 				toaster.promise(uploadAvatar(details), {
 					loading: {
 						title: 'Loading...',
-						description: 'Please wait while generating your number'
+						description: 'Uploading image...'
 					},
 					success: (newAvatar) => {
 						avatarSrc = newAvatar;
 						return {
 							title: 'Success',
-							description: `Your avatar has been updated.`
+							description: 'Your avatar has been updated.'
 						};
 					},
 					error: (err) => ({
