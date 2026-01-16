@@ -3,6 +3,8 @@
 	import favicon from '$lib/assets/favicon.svg';
 	import logo from '$lib/assets/logo.jpg';
 	import { AppBar, Menu, Portal } from '@skeletonlabs/skeleton-svelte';
+	import { Toast } from '@skeletonlabs/skeleton-svelte';
+	import { toaster } from '$lib/components/toaster';
 	import MenuIcon from '@lucide/svelte/icons/menu';
 	import Facebook from '@lucide/svelte/icons/facebook';
 	import Instagram from '@lucide/svelte/icons/instagram';
@@ -165,3 +167,16 @@
 
 <!-- Hidden form used for logging out -->
 <form action="/logout" method="POST" id="logoutForm" class="hidden"></form>
+
+
+<Toast.Group {toaster}>
+	{#snippet children(toast)}
+		<Toast toast={toast}>
+			<Toast.Message>
+			<Toast.Title>{toast.title}</Toast.Title>
+			<Toast.Description>{toast.description}</Toast.Description>
+			</Toast.Message>
+			<Toast.CloseTrigger />
+		</Toast>
+	{/snippet}
+</Toast.Group>
