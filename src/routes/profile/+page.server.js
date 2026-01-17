@@ -52,11 +52,17 @@ export const actions = {
 		const passwordChange = newPassword && confirmPassword && newPassword === confirmPassword
 
 		if(passwordChange) {
+			const oldPassword = formData['oldPassword'];
+			if(!oldPassword) {
+				error(400, 'Old password is missing');
+			}
+
 			try {
 				await locals.pocketBase.collection('users').update(locals.user?.id, {
 					displayName,
+					oldPassword,
 					password: newPassword,
-					confirmPassword
+					passwordConfirm: confirmPassword
 				});
 			} catch (e) {
 				/** @typedef {{ code: number, message: string, data: Object }} AuthError */
@@ -79,6 +85,7 @@ export const actions = {
 	
 				const err = /** @type {AuthError} */ (e);
 				console.error(err);
+				console.error(err.data);
 				error(err.code ?? 500, err.message ?? 'Unknown error occurred.');
 			}
 			

@@ -6,6 +6,7 @@
 	let { data } = $props();
 	let avatarSrc = $state(`${data.user?.collectionId}/${data.user?.id}/${data.user?.avatar}/`);
 
+	let oldPassword = $state('');
 	let newPassword = $state("");
 	let confirmPassword = $state("");
 	let displayName = $state(data.user?.displayName);
@@ -15,6 +16,14 @@
 	const passwordDoNotMatch = $derived(passwordEntered && newPassword !== confirmPassword);
 
 	const displayNameChanged = $derived(displayName !== data.user?.displayName);
+
+	const passwordTooShort = $derived(passwordEntered && !passwordDoNotMatch && newPassword.length < 8);
+
+	const passwordTooLong = $derived(passwordEntered && !passwordDoNotMatch && newPassword.length > 20);
+
+	const oldPasswordTooLong = $derived(oldPassword && oldPassword.length > 20);
+
+	const oldPasswordTooShort = $derived(oldPassword && oldPassword.length < 8);
 
     /**
      * Returns a promise whether image upload succeeded
@@ -60,6 +69,47 @@
 			toaster.error({
 				title: 'Error',
 				description: 'Password fields do not match.',
+			});
+			return;
+		}
+
+		// Old password missing
+		if(passwordEntered && !passwordDoNotMatch && !oldPassword) {
+			toaster.error({
+				title: 'Error',
+				description: 'Old password is required.',
+			});
+			return;
+		}
+
+		if(passwordTooShort) {
+			toaster.error({
+				title: 'Error',
+				description: 'Password is too short. Please use at least 8 characters.',
+			});
+			return;
+		}
+
+		if(passwordTooLong) {
+			toaster.error({
+				title: 'Error',
+				description: 'Password is too long. Please use at max 20 characters.',
+			});
+			return;
+		}
+
+		if(oldPasswordTooShort) {
+			toaster.error({
+				title: 'Error',
+				description: 'Old password is too short. Please use at least 8 characters.',
+			});
+			return;
+		}
+
+		if(oldPasswordTooLong) {
+			toaster.error({
+				title: 'Error',
+				description: 'Old password is too long. Please use at max 20 characters.',
 			});
 			return;
 		}
@@ -118,6 +168,11 @@
 		<label class="label">
 			<span class="label-text flex">Display name</span>
 			<input class="input" type="text" name="displayName" value={displayName} required />
+		</label>
+
+		<label class="label">
+			<span class="label-text flex">Old password</span>
+			<input class="input" type="password" name="oldPassword" placeholder="Old password" minlength="8" maxlength="20" required bind:value={oldPassword}/>
 		</label>
 
 		<label class="label">
