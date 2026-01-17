@@ -2,7 +2,7 @@ import { error, redirect } from '@sveltejs/kit';
 
 export function load({ locals }) {
 	// well, what are you even trying to login for?
-	if(locals.pocketBase.authStore.isValid && locals.user) {
+	if (locals.pocketBase.authStore.isValid && locals.user) {
 		redirect(303, '/');
 	}
 }
@@ -11,7 +11,7 @@ export const actions = {
 	// Login
 	default: async ({ locals, request }) => {
 		// logged in, why are we even trying?
-		if(locals.pocketBase.authStore.isValid && locals.user) {
+		if (locals.pocketBase.authStore.isValid && locals.user) {
 			redirect(303, '/');
 		}
 
