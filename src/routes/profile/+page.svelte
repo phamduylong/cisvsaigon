@@ -58,7 +58,17 @@
 	}
 
 	function validateAndSubmitForm() {
-		const form = document.getElementById('updateUserForm');
+		const _form = document.getElementById('updateUserForm');
+
+		if (!(_form instanceof HTMLFormElement)) {
+			console.error("form cannot be found");
+			return
+		}
+
+		/** @type {HTMLFormElement} */
+		const form = _form;
+
+		if(!form) return;
 
 		if(!passwordEntered && displayNameChanged) {
 			form.submit();
@@ -121,7 +131,7 @@
 </script>
 
 <div
-	class="container mx-auto flex w-screen place-content-center items-center justify-center p-10 md:mt-10"
+	class="container mx-auto flex h-[80vh] w-screen place-content-center items-center justify-center p-10"
 >
 	<form
 		id="updateUserForm"
