@@ -1,5 +1,4 @@
 import { redirect, error } from '@sveltejs/kit';
-import DOMPurify from 'isomorphic-dompurify';
 /** @type {import('./$types').PageServerLoad} */
 export async function load({ locals }) {
 	if (!locals.pocketBase.authStore.isValid) {
@@ -20,7 +19,7 @@ export const actions = {
 
 		const title = body['title'];
 
-		const content = DOMPurify.sanitize(body['postContent']);
+		const content = body['postContent'];
 
 		const user = locals.user;
 
