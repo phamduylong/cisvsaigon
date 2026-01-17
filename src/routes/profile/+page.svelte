@@ -53,7 +53,6 @@
 		const returnUrl = JSON.parse(body.data)?.[0] ?? null;
 
 		return returnUrl;
-		
 	}
 
 	function validateAndSubmitForm() {
