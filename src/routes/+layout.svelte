@@ -1,7 +1,6 @@
 <script>
 	import './layout.css';
 	import favicon from '$lib/assets/favicon.svg';
-	import logo from '$lib/assets/logo.jpg';
 	import { AppBar, Menu, Portal } from '@skeletonlabs/skeleton-svelte';
 	import { Toast } from '@skeletonlabs/skeleton-svelte';
 	import { toaster } from '$lib/components/toaster';
@@ -61,7 +60,7 @@
 			<AppBar.Lead class="flex w-1/3 justify-start">
 				<a href="/"
 				title="CISV Vietnam Logo"
-					><enhanced:img src={logo} alt="CISV Logo" class="h-12 bg-transparent md:h-16" fetchpriority="high"/></a
+					><enhanced:img src={favicon} alt="CISV Logo" class="h-12 bg-transparent md:h-16" fetchpriority="high"/></a
 				>
 			</AppBar.Lead>
 			<AppBar.Headline class="flex w-1/3 justify-center">
