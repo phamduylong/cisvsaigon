@@ -1,13 +1,15 @@
 <script>
 	import { PUBLIC_POCKETBASE_FILE_URL } from '$env/static/public';
 	import { Avatar } from '@skeletonlabs/skeleton-svelte';
+	import ArrowLeft from '@lucide/svelte/icons/arrow-left';
 	import { getInitials, toDayOfWeek } from '$lib/helper/stringFunctions';
 	/** @type {import('./$types').PageProps} */
 	const { data } = $props();
 </script>
 
-<div class="flex w-full items-center justify-center">
-	<div class="my-10 flex max-w-4/5 flex-col items-center justify-center space-y-10 md:max-w-3/5">
+<a class="mt-3 ml-3 md:mt-5 md:ml-5 btn preset-filled w-min flex items-center mx-2 text-sm justify-between" aria-label="back" href="/blog"><ArrowLeft size={16} /><p>Back</p></a>
+<div class="flex flex-col w-full justify-center items-center">
+	<div class="mt-10 mb-10 flex max-w-4/5 flex-col items-center justify-center space-y-10 md:max-w-3/5">
 		<!-- Author related -->
 		<div class="flex flex-col items-center justify-center space-y-2">
 			<Avatar class="inline size-16 rounded-full!">
