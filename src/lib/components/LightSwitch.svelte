@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
 	import { Switch } from '@skeletonlabs/skeleton-svelte';
 	import Sun from '@lucide/svelte/icons/sun';
 	import Moon from '@lucide/svelte/icons/moon';
@@ -10,7 +10,11 @@
 		checked = mode === 'light';
 	});
 
-	const onCheckedChange = (event: { checked: boolean }) => {
+	/**
+	 *
+	 * @param {{ checked: boolean }} event
+	 */
+	const onCheckedChange = (event) => {
 		const mode = event.checked ? 'light' : 'dark';
 		document.documentElement.setAttribute('data-mode', mode);
 		localStorage.setItem('mode', mode);
