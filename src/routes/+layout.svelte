@@ -1,6 +1,6 @@
 <script>
 	import './layout.css';
-	import favicon from '$lib/assets/favicon.svg';
+	import favicon from '$lib/assets/favicon.ico';
 	import { AppBar, Menu, Portal } from '@skeletonlabs/skeleton-svelte';
 	import { Toast } from '@skeletonlabs/skeleton-svelte';
 	import { toaster } from '$lib/components/toaster';
