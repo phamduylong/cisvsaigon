@@ -1,6 +1,5 @@
 <script>
 	import SquarePlus from '@lucide/svelte/icons/square-plus';
-	import Pen from '@lucide/svelte/icons/pen';
 	import Timer from '@lucide/svelte/icons/timer';
 	import Trash from '@lucide/svelte/icons/trash';
 	import XIcon from '@lucide/svelte/icons/x';
