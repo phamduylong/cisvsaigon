@@ -2,7 +2,7 @@
 	import { PUBLIC_POCKETBASE_FILE_URL } from '$env/static/public';
 	import { getInitials, toDayOfWeek } from '$lib/helper/stringFunctions';
 
-	let content = $state(`<div>Write content inside here</div>`);
+	let content = $state('');
 	let title = $state('');
 
 	let inPreviewMode = $state(false);
