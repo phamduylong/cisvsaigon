@@ -130,6 +130,11 @@
 
 </script>
 
+<svelte:head>
+	<meta name="description" content="CISV Saigon's member profile page" />
+	<title>CISV Saigon - {data.user.displayName}</title>
+</svelte:head>
+
 <div
 	class="container mx-auto flex h-[80vh] w-screen place-content-center items-center justify-center p-10"
 >

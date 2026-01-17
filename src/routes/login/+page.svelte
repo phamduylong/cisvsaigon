@@ -3,6 +3,11 @@
 	import CircleAlert from '@lucide/svelte/icons/circle-alert';
 </script>
 
+<svelte:head>
+	<meta name="description" content="CISV Saigon's login page" />
+	<title>CISV Saigon - Login</title>
+</svelte:head>
+
 <div
 	class="container mx-auto flex h-[80vh] w-screen place-content-center items-center justify-center p-10"
 >

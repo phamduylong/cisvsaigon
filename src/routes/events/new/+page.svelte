@@ -5,6 +5,11 @@
 	let noAgeLimit = $state(false);
 </script>
 
+<svelte:head>
+	<meta name="description" content="CISV Saigon's form to create new events" />
+	<title>CISV Saigon - Events - Create new event</title>
+</svelte:head>
+
 <div
 	class="container mx-auto flex w-screen place-content-center items-center justify-center p-10 md:mt-10"
 >

@@ -98,6 +98,11 @@
 	});
 </script>
 
+<svelte:head>
+	<meta name="description" content="CISV Saigon's Gallery" />
+	<title>CISV Saigon - Gallery</title>
+</svelte:head>
+
 <div class="container mx-auto flex flex-col space-y-16 p-10 lg:space-y-20">
 	<h1 class="text-center h1">Gallery</h1>
 

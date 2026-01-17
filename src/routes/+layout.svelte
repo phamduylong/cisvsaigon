@@ -51,7 +51,11 @@
 	];
 </script>
 
-<svelte:head><link rel="icon" href={favicon} /></svelte:head>
+<svelte:head>
+	<meta name="description" content="CISV Saigon" />
+	<title>CISV Saigon</title>
+	<link rel="icon" href={favicon} />
+</svelte:head>
 
 <div class="m-0 flex h-full min-h-screen flex-col">
 	<!-- App bar -->

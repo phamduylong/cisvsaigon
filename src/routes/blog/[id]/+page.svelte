@@ -7,6 +7,11 @@
 	const { data } = $props();
 </script>
 
+<svelte:head>
+	<meta name="description" content="CISV Saigon's blog post - {data.post.title}" />
+	<title>{data.post.title} - {data.post.expand.author.displayName}</title>
+</svelte:head>
+
 <a class="mt-3 ml-3 md:mt-5 md:ml-5 btn preset-filled w-min flex items-center mx-2 text-sm justify-between" aria-label="back" href="/blog"><ArrowLeft size={16} /><p>Back</p></a>
 <div class="flex flex-col w-full justify-center items-center">
 	<div class="mt-10 mb-10 flex max-w-4/5 flex-col items-center justify-center space-y-10 md:max-w-3/5">

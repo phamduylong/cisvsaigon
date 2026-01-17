@@ -14,6 +14,11 @@
 	const { data } = $props();
 </script>
 
+<svelte:head>
+	<meta name="description" content="CISV Saigon's edit page to create new blog post" />
+	<title>CISV Saigon - Blog - Create new post</title>
+</svelte:head>
+
 <!-- Small/medium view-->
 <div class="flex flex-col lg:hidden">
 	<div class="mt-5 flex w-full flex-col justify-center">
