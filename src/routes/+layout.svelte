@@ -62,9 +62,13 @@
 	<AppBar>
 		<AppBar.Toolbar class="flex">
 			<AppBar.Lead class="flex w-1/3 justify-start">
-				<a href="/"
-				title="CISV Vietnam Logo"
-					><enhanced:img src={favicon} alt="CISV Logo" class="h-12 bg-transparent md:h-16" fetchpriority="high"/></a
+				<a href="/" title="CISV Vietnam Logo"
+					><enhanced:img
+						src={favicon}
+						alt="CISV Logo"
+						class="h-12 bg-transparent md:h-16"
+						fetchpriority="high"
+					/></a
 				>
 			</AppBar.Lead>
 			<AppBar.Headline class="flex w-1/3 justify-center">
@@ -88,7 +92,9 @@
 						}
 					}}
 				>
-					<Menu.Trigger aria-label='menu' class="btn preset-filled bg-primary-700-300 hover:preset-tonal"
+					<Menu.Trigger
+						aria-label="menu"
+						class="btn preset-filled bg-primary-700-300 hover:preset-tonal"
 						><p class="hidden md:block">Menu</p>
 						<MenuIcon size={20} /></Menu.Trigger
 					>
@@ -116,7 +122,7 @@
 										</Menu.ItemText>
 									</Menu.Item>
 								{/if}
-								{#each staticMenuLinks as sml}
+								{#each staticMenuLinks as sml (sml.text)}
 									{@const Icon = sml.icon}
 									<Menu.Item value={sml.href}>
 										<Menu.ItemText class="flex items-center space-x-2"
@@ -172,14 +178,12 @@
 <!-- Hidden form used for logging out -->
 <form action="/logout" method="POST" id="logoutForm" class="hidden"></form>
 
-
 <Toast.Group {toaster}>
 	{#snippet children(toast)}
-		<Toast toast={toast}>
+		<Toast {toast}>
 			<Toast.Message>
-			<Toast.Title>{toast.title}</Toast.Title>
-			<hr class="hr my-1 h-0.5 preset-filled-primary-950-50" />
-			<Toast.Description>{toast.description}</Toast.Description>
+				<Toast.Title>{toast.title}</Toast.Title>
+				<Toast.Description>{toast.description}</Toast.Description>
 			</Toast.Message>
 			<Toast.CloseTrigger />
 		</Toast>

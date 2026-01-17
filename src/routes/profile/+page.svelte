@@ -7,8 +7,8 @@
 	let avatarSrc = $state(`${data.user?.collectionId}/${data.user?.id}/${data.user?.avatar}/`);
 
 	let oldPassword = $state('');
-	let newPassword = $state("");
-	let confirmPassword = $state("");
+	let newPassword = $state('');
+	let confirmPassword = $state('');
 	let displayName = $state(data.user?.displayName);
 
 	const passwordEntered = $derived(newPassword || confirmPassword);
@@ -17,109 +17,108 @@
 
 	const displayNameChanged = $derived(displayName !== data.user?.displayName);
 
-	const passwordTooShort = $derived(passwordEntered && !passwordDoNotMatch && newPassword.length < 8);
+	const passwordTooShort = $derived(
+		passwordEntered && !passwordDoNotMatch && newPassword.length < 8
+	);
 
-	const passwordTooLong = $derived(passwordEntered && !passwordDoNotMatch && newPassword.length > 20);
+	const passwordTooLong = $derived(
+		passwordEntered && !passwordDoNotMatch && newPassword.length > 20
+	);
 
 	const oldPasswordTooLong = $derived(oldPassword && oldPassword.length > 20);
 
 	const oldPasswordTooShort = $derived(oldPassword && oldPassword.length < 8);
 
-    /**
-     * Returns a promise whether image upload succeeded
-     * @param {{ files: File[]}} details
-     */
-	function uploadAvatar(details) {
-		return new Promise(async (resolve, reject) => {
-			try {
-				const file = details?.files?.[0];
-				if (!file) return resolve(null);
+	/**
+	 * Returns a promise whether image upload succeeded
+	 * @param {{ files: File[]}} details
+	 */
+	async function uploadAvatar(details) {
+		const file = details?.files?.[0];
+		if (!file) return null;
 
-				const formData = new FormData();
-				formData.append('avatar', file);
+		const formData = new FormData();
+		formData.append('avatar', file);
 
-				const resp = await fetch(`/profile?/updateImage`, {
-					method: 'POST',
-					body: formData
-				});
-
-				if (!resp.ok) {
-					throw new Error(`Upload failed: ${resp.status}`);
-				}
-
-				const body = await resp.json();
-				const returnUrl = JSON.parse(body.data)?.[0] ?? null;
-
-				resolve(returnUrl);
-			} catch (err) {
-				reject(err);
-			}
+		const resp = await fetch('/profile?/updateImage', {
+			method: 'POST',
+			body: formData
 		});
+
+		if (!resp.ok) {
+			throw new Error(`Upload failed: ${resp.status}`);
+		}
+
+		const body = await resp.json();
+		const returnUrl = JSON.parse(body.data)?.[0] ?? null;
+
+		return returnUrl;
+		
 	}
 
 	function validateAndSubmitForm() {
 		const _form = document.getElementById('updateUserForm');
 
 		if (!(_form instanceof HTMLFormElement)) {
-			console.error("form cannot be found");
-			return
+			console.error('form cannot be found');
+			return;
 		}
 
 		/** @type {HTMLFormElement} */
 		const form = _form;
 
-		if(!form) return;
+		if (!form) return;
 
-		if(!passwordEntered && displayNameChanged) {
+		if (!passwordEntered && displayNameChanged) {
 			form.submit();
 			return;
 		}
 
-		if(passwordEntered && passwordDoNotMatch) {
+		if (passwordEntered && passwordDoNotMatch) {
 			toaster.error({
 				title: 'Error',
-				description: 'Password fields do not match.',
+				description: 'Password fields do not match.'
 			});
 			return;
 		}
 
 		// Old password missing
-		if(passwordEntered && !passwordDoNotMatch && !oldPassword) {
+		if (passwordEntered && !passwordDoNotMatch && !oldPassword) {
 			toaster.error({
 				title: 'Error',
-				description: 'Old password is required.',
+				description: 'Old password is required.'
 			});
 			return;
 		}
 
-		if(passwordTooShort) {
+		if (passwordTooShort) {
 			toaster.error({
 				title: 'Error',
-				description: 'Password is too short. Please use at least 8 characters.',
+				description: 'Password is too short. Please use at least 8 characters.'
 			});
 			return;
 		}
 
-		if(passwordTooLong) {
+		if (passwordTooLong) {
 			toaster.error({
 				title: 'Error',
-				description: 'Password is too long. Please use at max 20 characters.',
+				description: 'Password is too long. Please use at max 20 characters.'
 			});
 			return;
 		}
 
-		if(oldPasswordTooShort) {
+		if (oldPasswordTooShort) {
 			toaster.error({
 				title: 'Error',
-				description: 'Old password is too short. Please use at least 8 characters.',
+				description: 'Old password is too short. Please use at least 8 characters.'
 			});
 			return;
 		}
 
-		if(oldPasswordTooLong) {
+		if (oldPasswordTooLong) {
 			toaster.error({
 				title: 'Error',
-				description: 'Old password is too long. Please use at max 20 characters.',
+				description: 'Old password is too long. Please use at max 20 characters.'
 			});
 			return;
 		}
@@ -127,7 +126,6 @@
 		// form data is good, let's submit.
 		form?.submit();
 	}
-
 </script>
 
 <svelte:head>
@@ -187,12 +185,30 @@
 
 		<label class="label">
 			<span class="label-text flex">Old password</span>
-			<input class="input" type="password" name="oldPassword" placeholder="Old password" minlength="8" maxlength="20" required bind:value={oldPassword}/>
+			<input
+				class="input"
+				type="password"
+				name="oldPassword"
+				placeholder="Old password"
+				minlength="8"
+				maxlength="20"
+				required
+				bind:value={oldPassword}
+			/>
 		</label>
 
 		<label class="label">
 			<span class="label-text flex">New password</span>
-			<input class="input" type="password" name="newPassword" placeholder="New password" minlength="8" maxlength="20" required bind:value={newPassword}/>
+			<input
+				class="input"
+				type="password"
+				name="newPassword"
+				placeholder="New password"
+				minlength="8"
+				maxlength="20"
+				required
+				bind:value={newPassword}
+			/>
 		</label>
 
 		<label class="label">
@@ -209,6 +225,8 @@
 			/>
 		</label>
 
-		<button type="button" class="btn preset-filled" onclick={() => validateAndSubmitForm()}>Save</button>
+		<button type="button" class="btn preset-filled" onclick={() => validateAndSubmitForm()}
+			>Save</button
+		>
 	</form>
 </div>
