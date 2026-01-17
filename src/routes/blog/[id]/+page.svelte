@@ -5,6 +5,7 @@
 	import { getInitials, toDayOfWeek } from '$lib/helper/stringFunctions';
 	/** @type {import('./$types').PageProps} */
 	const { data } = $props();
+	import DOMPurify from 'isomorphic-dompurify';
 </script>
 
 <svelte:head>
@@ -50,7 +51,7 @@
 		</div>
 
 		<article class="w-full space-y-4 text-justify">
-			{@html data.post.content}
+			{@html DOMPurify.sanitize(data.post.content)}
 		</article>
 	</div>
 </div>

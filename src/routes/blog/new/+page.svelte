@@ -12,6 +12,7 @@
 	import Pen from '@lucide/svelte/icons/pen';
 	import { Avatar, Switch } from '@skeletonlabs/skeleton-svelte';
 	const { data } = $props();
+	import DOMPurify from 'isomorphic-dompurify';
 </script>
 
 <svelte:head>
@@ -97,7 +98,7 @@
 
 				<!-- Rendered content-->
 				<div class="space-y-4 text-justify">
-					{@html content}
+					{@html DOMPurify.sanitize(content)}
 				</div>
 			</article>
 		</div>
@@ -161,7 +162,7 @@
 
 			<!-- Rendered content-->
 			<div class="space-y-4 text-justify">
-				{@html content}
+				{@html DOMPurify.sanitize(content)}
 			</div>
 		</article>
 	</div>
