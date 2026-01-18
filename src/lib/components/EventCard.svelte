@@ -39,9 +39,11 @@
 		<span class="flex items-center justify-between"
 			><div class="flex items-center justify-between space-x-2">
 				<h3 class="h3 font-bold">{event?.title}</h3>
-				<button type="button" class="chip hidden preset-filled-primary-500 md:block"
-					>Past event</button
-				>
+				{#if event?.finished}
+					<button type="button" class="chip hidden preset-filled-primary-500 md:block"
+						>Past event</button
+					>
+				{/if}
 			</div>
 			{#if isLoggedIn}
 				<!-- Confirm delete dialog -->
@@ -89,11 +91,15 @@
 				</Dialog>
 			{/if}</span
 		>
-		<button type="button" class="chip preset-filled-primary-500 md:hidden">Past event</button>
+		{#if event?.finished}
+			<button type="button" class="chip preset-filled-primary-500 md:hidden">Past event</button>
+		{/if}
 		<a
 			href={event?.registrationLink}
 			rel="external"
-			class="flex items-center space-x-2 anchor text-lg font-semibold"
+			class="flex items-center space-x-2 anchor text-lg font-semibold {event?.finished
+				? 'hidden'
+				: ''}"
 			><Link size={16} />
 			<p>Registration link</p></a
 		>
