@@ -8,6 +8,7 @@
 	<title>CISV Saigon - Login</title>
 </svelte:head>
 
+<!-- Careful since this 80vh might overflow. Fine for now -->
 <div
 	class="container mx-auto flex h-[80vh] w-screen place-content-center items-center justify-center p-10"
 >
