@@ -132,16 +132,14 @@
 	<title>CISV Saigon - {data.user.displayName}</title>
 </svelte:head>
 
-<div
-	class="container mx-auto flex h-[80vh] w-screen place-content-center items-center justify-center p-10"
->
+<div class="container mx-auto flex w-screen place-content-center items-center justify-center p-10">
 	<form
 		id="updateUserForm"
 		action="?/updateUser"
 		method="POST"
 		class="flex w-md flex-col items-center justify-center space-y-5 card bg-surface-50-950 p-5 md:w-lg md:space-y-10 lg:w-xl lg:p-10"
 	>
-		<Avatar class="inline size-32 rounded-full! border-4 border-surface-950-50">
+		<Avatar class="inline size-32 rounded-full">
 			<Avatar.Image
 				class="size-full object-cover"
 				src={`${PUBLIC_POCKETBASE_FILE_URL}/${avatarSrc}`}
