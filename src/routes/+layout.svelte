@@ -16,7 +16,9 @@
 	import UserLock from '@lucide/svelte/icons/user-lock';
 	import { goto } from '$app/navigation';
 	import LightSwitch from '$lib/components/LightSwitch.svelte';
+	import LanguageSwitch from '$lib/components/LanguageSwitch.svelte'
 	let { children, data } = $props();
+	import { t } from "$lib/stores/i18n";
 
 	const footerLinks = [
 		{
@@ -101,17 +103,24 @@
 					<Portal>
 						<Menu.Positioner>
 							<Menu.Content>
+								<!-- Light/dark mode -->
 								<span class="flex items-center justify-between"
 									><p class="block text-xs leading-[text-xs] font-medium no-underline">Mode</p>
 									<LightSwitch /></span
 								>
-
+								<hr class="hr" />
+								
+								<!-- Language selection -->
+								<span class="flex items-center justify-between"
+									><p class="block text-xs leading-[text-xs] font-medium no-underline">Language</p>
+									<LanguageSwitch /></span
+								>
 								<hr class="hr" />
 								{#if !data.user}
 									<Menu.Item value="/login">
 										<Menu.ItemText class="flex items-center space-x-2"
 											><UserLock size={16} />
-											<p>Login</p></Menu.ItemText
+											<p>{$t("menu.login")}</p></Menu.ItemText
 										>
 									</Menu.Item>
 								{:else}
