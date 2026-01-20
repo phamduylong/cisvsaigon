@@ -3,6 +3,7 @@
 	import { PUBLIC_POCKETBASE_FILE_URL } from '$env/static/public';
 	import { getInitials } from '$lib/helper/stringFunctions';
 	import { toaster } from '$lib/components/toaster';
+	import { t } from '$lib/stores/i18n';
 	let { data } = $props();
 	let avatarSrc = $state(`${data.user?.collectionId}/${data.user?.id}/${data.user?.avatar}/`);
 
@@ -46,7 +47,7 @@
 		});
 
 		if (!resp.ok) {
-			throw new Error(`Upload failed: ${resp.status}`);
+			throw new Error($t('profile_page.upload_image_failed', { error: JSON.stringify(resp.body) }));
 		}
 
 		const body = await resp.json();
@@ -75,8 +76,8 @@
 
 		if (passwordEntered && passwordDoNotMatch) {
 			toaster.error({
-				title: 'Error',
-				description: 'Password fields do not match.'
+				title: $t('profile_page.error_title'),
+				description: $t('profile_page.password_fields_do_not_match')
 			});
 			return;
 		}
@@ -84,40 +85,48 @@
 		// Old password missing
 		if (passwordEntered && !passwordDoNotMatch && !oldPassword) {
 			toaster.error({
-				title: 'Error',
-				description: 'Old password is required.'
+				title: $t('profile_page.error_title'),
+				description: $t('profile_page.old_password_is_required')
 			});
 			return;
 		}
 
 		if (passwordTooShort) {
 			toaster.error({
-				title: 'Error',
-				description: 'Password is too short. Please use at least 8 characters.'
+				title: $t('profile_page.error_title'),
+				description: $t('profile_page.field_is_too_short', {
+					field: $t('profile_page.new_password')
+				})
 			});
 			return;
 		}
 
 		if (passwordTooLong) {
 			toaster.error({
-				title: 'Error',
-				description: 'Password is too long. Please use at max 20 characters.'
+				title: $t('profile_page.error_title'),
+				description: $t('profile_page.field_is_too_long', {
+					field: $t('profile_page.new_password')
+				})
 			});
 			return;
 		}
 
 		if (oldPasswordTooShort) {
 			toaster.error({
-				title: 'Error',
-				description: 'Old password is too short. Please use at least 8 characters.'
+				title: $t('profile_page.error_title'),
+				description: $t('profile_page.field_is_too_short', {
+					field: $t('profile_page.old_password')
+				})
 			});
 			return;
 		}
 
 		if (oldPasswordTooLong) {
 			toaster.error({
-				title: 'Error',
-				description: 'Old password is too long. Please use at max 20 characters.'
+				title: $t('profile_page.error_title'),
+				description: $t('profile_page.field_is_too_long', {
+					field: $t('profile_page.old_password')
+				})
 			});
 			return;
 		}
@@ -148,45 +157,46 @@
 			<Avatar.Fallback>{getInitials(data.user?.displayName)}</Avatar.Fallback>
 		</Avatar>
 		<FileUpload
+			accept="image/*"
 			data-sveltekit-reload
 			class="w-fit"
 			onFileAccept={(details) => {
 				toaster.promise(uploadAvatar(details), {
 					loading: {
-						title: 'Loading...',
-						description: 'Uploading image...'
+						title: $t('profile_page.loading_title'),
+						description: $t('profile_page.uploading_image')
 					},
 					success: (newAvatar) => {
 						avatarSrc = newAvatar;
 						return {
-							title: 'Success',
-							description: 'Your avatar has been updated.'
+							title: $t('profile_page.success_title'),
+							description: $t('profile_page.avatar_updated')
 						};
 					},
 					error: (err) => ({
-						title: 'Error',
-						description: `Failed to update avatar. Error: ${err}`
+						title: $t('profile_page.error_title'),
+						description: $t('profile_page.upload_image_failed', { error: err })
 					})
 				});
 			}}
 		>
 			<FileUpload.Trigger type="button" class="btn preset-filled text-sm"
-				>Change profile picture</FileUpload.Trigger
+				>{$t('profile_page.update_profile_picture')}</FileUpload.Trigger
 			>
 			<FileUpload.HiddenInput />
 		</FileUpload>
 		<label class="label">
-			<span class="label-text flex">Display name</span>
+			<span class="label-text flex">{$t('profile_page.display_name')}</span>
 			<input class="input" type="text" name="displayName" value={displayName} required />
 		</label>
 
 		<label class="label">
-			<span class="label-text flex">Old password</span>
+			<span class="label-text flex">{$t('profile_page.old_password')}</span>
 			<input
 				class="input"
 				type="password"
 				name="oldPassword"
-				placeholder="Old password"
+				placeholder={$t('profile_page.old_password')}
 				minlength="8"
 				maxlength="20"
 				required
@@ -195,12 +205,12 @@
 		</label>
 
 		<label class="label">
-			<span class="label-text flex">New password</span>
+			<span class="label-text flex">{$t('profile_page.new_password')}</span>
 			<input
 				class="input"
 				type="password"
 				name="newPassword"
-				placeholder="New password"
+				placeholder={$t('profile_page.new_password')}
 				minlength="8"
 				maxlength="20"
 				required
@@ -209,12 +219,12 @@
 		</label>
 
 		<label class="label">
-			<span class="label-text flex">Confirm password</span>
+			<span class="label-text flex">{$t('profile_page.confirm_password')}</span>
 			<input
 				class="input"
 				type="password"
 				name="confirmPassword"
-				placeholder="Confirm password"
+				placeholder={$t('profile_page.confirm_password')}
 				minlength="8"
 				maxlength="20"
 				required
@@ -223,7 +233,7 @@
 		</label>
 
 		<button type="button" class="btn preset-filled" onclick={() => validateAndSubmitForm()}
-			>Save</button
+			>{$t('profile_page.save_button')}</button
 		>
 	</form>
 </div>

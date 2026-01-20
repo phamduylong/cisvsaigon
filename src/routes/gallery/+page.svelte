@@ -1,6 +1,7 @@
 <script>
 	import { env } from '$env/dynamic/public';
 	import { innerWidth } from 'svelte/reactivity/window';
+	import { t } from '$lib/stores/i18n';
 	/** @type {import('./$types').PageProps} */
 	let { data } = $props();
 
@@ -63,11 +64,11 @@
 
 <svelte:head>
 	<meta name="description" content="CISV Saigon's Gallery" />
-	<title>CISV Saigon - Gallery</title>
+	<title>CISV Saigon - {$t('gallery_page.title')}</title>
 </svelte:head>
 
 <div class="container mx-auto flex flex-col space-y-16 p-10 lg:space-y-20">
-	<h1 class="text-center h1">Gallery</h1>
+	<h1 class="text-center h1">{$t('gallery_page.title')}</h1>
 
 	<div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
 		{#each indicesByColumn as arr (arr)}

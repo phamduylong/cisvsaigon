@@ -19,7 +19,7 @@ export const locales = Object.keys(typedTranslations);
 /**
  * @param {string} locale
  * @param {string} key
- * @param {Record<string, string | number>} vars
+ * @param {Record<string, unknown>} vars
  * @returns {string}
  */
 function translate(locale, key, vars = {}) {
@@ -41,7 +41,7 @@ function translate(locale, key, vars = {}) {
 }
 
 /**
- * @typedef {(key: string, vars?: Record<string, string | number>) => string} Translator
+ * @typedef {(key: string, vars?: Record<string, unknown>) => string} Translator
  */
 
 /**
