@@ -16,9 +16,9 @@
 	import UserLock from '@lucide/svelte/icons/user-lock';
 	import { goto } from '$app/navigation';
 	import LightSwitch from '$lib/components/LightSwitch.svelte';
-	import LanguageSwitch from '$lib/components/LanguageSwitch.svelte'
+	import LanguageSwitch from '$lib/components/LanguageSwitch.svelte';
 	let { children, data } = $props();
-	import { t } from "$lib/stores/i18n";
+	import { t } from '$lib/stores/i18n';
 
 	const footerLinks = [
 		{
@@ -32,24 +32,6 @@
 			ariaLabel: 'Go to our Instagram page'
 		},
 		{ href: 'mailto:cisvhcm@gmail.com', icon: Mail, ariaLabel: 'Send us an email' }
-	];
-
-	const staticMenuLinks = [
-		{
-			href: '/gallery',
-			text: 'Gallery',
-			icon: BookImage
-		},
-		{
-			href: '/events',
-			text: 'Events',
-			icon: CalendarDays
-		},
-		{
-			href: '/blog',
-			text: 'Blog',
-			icon: PencilLine
-		}
 	];
 </script>
 
@@ -97,7 +79,7 @@
 					<Menu.Trigger
 						aria-label="menu"
 						class="btn preset-filled bg-primary-700-300 hover:preset-tonal"
-						><p class="hidden md:block">Menu</p>
+						><p class="hidden md:block">{$t('menu.menu')}</p>
 						<MenuIcon size={20} /></Menu.Trigger
 					>
 					<Portal>
@@ -105,41 +87,58 @@
 							<Menu.Content>
 								<!-- Light/dark mode -->
 								<span class="flex items-center justify-between"
-									><p class="block text-xs leading-[text-xs] font-medium no-underline">Mode</p>
+									><p class="block text-xs leading-[text-xs] font-medium no-underline">{$t('menu.mode')}</p>
 									<LightSwitch /></span
 								>
 								<hr class="hr" />
-								
+
 								<!-- Language selection -->
 								<span class="flex items-center justify-between"
-									><p class="block text-xs leading-[text-xs] font-medium no-underline">Language</p>
+									><p class="block text-xs leading-[text-xs] font-medium no-underline">{$t('menu.language')}</p>
 									<LanguageSwitch /></span
 								>
 								<hr class="hr" />
+
+								<!-- Login / Profile -->
 								{#if !data.user}
 									<Menu.Item value="/login">
 										<Menu.ItemText class="flex items-center space-x-2"
 											><UserLock size={16} />
-											<p>{$t("menu.login")}</p></Menu.ItemText
+											<p>{$t('menu.login')}</p></Menu.ItemText
 										>
 									</Menu.Item>
 								{:else}
 									<Menu.Item value="/profile">
 										<Menu.ItemText class="flex items-center space-x-2">
 											<User size={16} />
-											<p>Profile</p>
+											<p>{$t('menu.profile')}</p>
 										</Menu.ItemText>
 									</Menu.Item>
 								{/if}
-								{#each staticMenuLinks as sml (sml.text)}
-									{@const Icon = sml.icon}
-									<Menu.Item value={sml.href}>
-										<Menu.ItemText class="flex items-center space-x-2"
-											><Icon size={16} />
-											<p>{sml.text}</p></Menu.ItemText
-										>
-									</Menu.Item>
-								{/each}
+
+								<!-- Static menu items -->
+								<Menu.Item value="/gallery">
+									<Menu.ItemText class="flex items-center space-x-2">
+									  <BookImage size={16} />
+									  <p>{$t('menu.gallery')}</p>
+									</Menu.ItemText>
+								  </Menu.Item>
+								  
+								  <Menu.Item value="/events">
+									<Menu.ItemText class="flex items-center space-x-2">
+									  <CalendarDays size={16} />
+									  <p>{$t('menu.events')}</p>
+									</Menu.ItemText>
+								  </Menu.Item>
+								  
+								  <Menu.Item value="/blog">
+									<Menu.ItemText class="flex items-center space-x-2">
+									  <PencilLine size={16} />
+									  <p>{$t('menu.blog')}</p>
+									</Menu.ItemText>
+								  </Menu.Item>
+								  
+								<!-- Log out -->
 								{#if data.user}
 									<Menu.Item value="/logout">
 										<Menu.ItemText class="flex items-center space-x-2">
