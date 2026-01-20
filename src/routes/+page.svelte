@@ -15,7 +15,9 @@
 		<i class="text-center">We are a group of CISV members based in Saigon, Vietnam.</i>
 
 		<!-- Introduction -->
-		<h3 class="anchor h3 font-bold w-fit" id="what-is-cisv"><a href="#what-is-cisv">What is CISV?</a></h3>
+		<h3 class="w-fit anchor h3 font-bold" id="what-is-cisv">
+			<a href="#what-is-cisv">What is CISV?</a>
+		</h3>
 		<p>
 			CISV (Children’s International Summer Villages) is a global peace-education organization
 			founded internationally in 1950 by
@@ -26,7 +28,9 @@
 		</p>
 
 		<!-- History -->
-		<h3 class="anchor h3 font-bold w-fit" id="our-history"><a href="#our-history">Our history</a></h3>
+		<h3 class="w-fit anchor h3 font-bold" id="our-history">
+			<a href="#our-history">Our history</a>
+		</h3>
 		<p>
 			Started as a small branch of <a class="anchor" href="https://vncisv.wordpress.com/"
 				>CISV Vietnam</a
@@ -44,7 +48,7 @@
 			<figcaption><i>One of our activities in 2025</i></figcaption>
 		</figure>
 
-		<h3 class="anchor h3 font-bold w-fit" id="plans-for-2026">
+		<h3 class="w-fit anchor h3 font-bold" id="plans-for-2026">
 			<a href="#plans-for-2026">Plans for 2026</a>
 		</h3>
 		<p>
