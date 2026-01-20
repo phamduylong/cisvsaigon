@@ -47,10 +47,11 @@ export default {
 		'landingpage.plans_for_2026.suffix':
 			'Exact time and location will be updated later, but expect it to happen during June - July.',
 
-		'auth.staff_only': 'Intended for Staffies only',
-		'auth.email': 'Email',
-		'auth.password': 'Password',
-		'auth.submit': 'Submit',
+		'login_form.title': 'Login',
+		'login_form.staff_only_remark': 'Intended for Staffies only',
+		'login_form.email': 'Email',
+		'login_form.password': 'Password',
+		'login_form.submit': 'Submit',
 
 		'common.show_more': 'Show more',
 		'common.show_less': 'Show less',
@@ -142,10 +143,11 @@ export default {
 		'landingpage.plans_for_2026.suffix':
 			'Thời gian và địa điểm cụ thể sẽ được cập nhật sau, dự kiến sẽ diễn ra vào khoảng tháng 6 - tháng 7.',
 
-		'auth.staff_only': 'Dành riêng cho Staffies',
-		'auth.email': 'Email',
-		'auth.password': 'Mật khẩu',
-		'auth.submit': 'Đăng nhập',
+		'login_form.title': 'Đăng nhập',
+		'login_form.staff_only_remark': 'Dành cho Staffies',
+		'login_form.email': 'Email',
+		'login_form.password': 'Mật khẩu',
+		'login_form.submit': 'Đăng nhập',
 
 		'common.show_more': 'Xem thêm',
 		'common.show_less': 'Thu gọn',
