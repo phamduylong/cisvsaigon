@@ -9,20 +9,43 @@ export default {
 		'menu.events': 'Events',
 		'menu.blog': 'Blog',
 		'menu.logout': 'Logout',
-    'menu.profile': 'Profile',
+		'menu.profile': 'Profile',
 
-		'overview.title': 'Overview',
-		'overview.intro': 'We are a group of CISV members based in Saigon, Vietnam.',
-		'overview.what_is_cisv': 'What is CISV?',
-		'overview.cisv_description':
-			'CISV (Children’s International Summer Villages) is a global peace-education organization founded internationally in 1950 by Dr. Doris Twitchell Allen with the idea that children can become ambassadors for a more peaceful world by learning across cultures. The first CISV Village programme was held in the U.S. in 1951.',
-		'overview.history': 'Our history',
-		'overview.history_description':
-			'Started as a small branch of CISV Vietnam from the mid-to-late 2010s, CISV Saigon has been striving to be a reliable camp organizer, holding camps for participants who previously took part in camps in Hanoi - where the CISV Vietnam chapter is based. We organized our first Mini-Camp in 2024, where we hosted 64 participants and 2 camps for kids of the Village age group. Since then, we have organized another Mini-Camp in the summer of 2025 and a New Year Party event at the beginning of 2026.',
-		'overview.activity_2025': 'One of our activities in 2025',
-		'overview.plans_2026': 'Plans for 2026',
-		'overview.plans_2026_description':
-			'For 2026, we plan to organize another Mini-Camp for kids of age group Village (for 10-11 years olds) and Youth Meeting (for 12-13 years olds). Exact time and location will be updated later, but expect it to happen during June - July.',
+		'landingpage.title': 'Overview',
+		'landingpage.intro': 'We are a group of CISV members based in Saigon, Vietnam.',
+		'landingpage.what_is_cisv': 'What is CISV?',
+		'landingpage.what_is_cisv.prefix':
+			'CISV (Children’s International Summer Villages) is a global peace-education organization founded internationally in 1950 by',
+		'landingpage.what_is_cisv.founder': 'Dr. Doris Twitchell Allen',
+		'landingpage.what_is_cisv.suffix':
+			'with the idea that children can become ambassadors for a more peaceful world by learning across cultures. The first CISV Village programme was held in the U.S. in 1951.',
+		'landingpage.history': 'Our history',
+		'landingpage.history_description.prefix': 'Started as a small branch of',
+
+		'landingpage.history_description.cisv_vietnam': 'CISV Vietnam',
+
+		'landingpage.history_description.middle':
+			'from the mid-to-late 2010s, CISV Saigon has been striving to be a reliable camp organizer, holding camps for participants who previously took part in camps in Hanoi - where the CISV Vietnam chapter is based. We organized our first Mini-Camp in 2024, where we hosted 64 participants and 2 camps for kids of the',
+
+		'landingpage.history_description.village_age_group': 'Village age group',
+
+		'landingpage.history_description.suffix':
+			'Since then, we have organized another Mini-Camp in the summer of 2025 and a New Year Party event at the beginning of 2026.',
+		'landingpage.activity_2025_image_caption': 'One of our activities in 2025',
+		'landingpage.plans_for_2026': 'Plans for 2026',
+		'landingpage.plans_for_2026.prefix':
+			'For 2026, we plan to organize another Mini-Camp for kids of age group',
+
+		'landingpage.plans_for_2026.village': 'Village',
+
+		'landingpage.plans_for_2026.village_age': '(for 10-11 years olds) and',
+
+		'landingpage.plans_for_2026.youth_meeting': 'Youth Meeting',
+
+		'landingpage.plans_for_2026.youth_meeting_age': '(for 12-13 years olds).',
+
+		'landingpage.plans_for_2026.suffix':
+			'Exact time and location will be updated later, but expect it to happen during June - July.',
 
 		'auth.staff_only': 'Intended for Staffies only',
 		'auth.email': 'Email',
@@ -81,20 +104,43 @@ export default {
 		'menu.events': 'Sự kiện',
 		'menu.blog': 'Bài viết',
 		'menu.logout': 'Đăng xuất',
-    'menu.profile': 'Hồ sơ',
+		'menu.profile': 'Hồ sơ',
 
-		'overview.title': 'Giới Thiệu',
-		'overview.intro': 'Chúng mình là các thành viên CISV đang sinh sống và hoạt động tại Sài Gòn.',
-		'overview.what_is_cisv': 'Vậy CISV là gì?',
-		'overview.cisv_description':
-			'CISV (Children’s International Summer Villages) là một tổ chức giáo dục hòa bình toàn cầu, được Tiến sĩ Doris Twitchell Allen thành lập vào năm 1950. Bà tin rằng thông qua việc giao lưu và học hỏi giữa các nền văn hóa, trẻ em có thể trở thành những đại sứ cho một thế giới hòa bình hơn. Chương trình CISV Village đầu tiên đã được tổ chức tại Hoa Kỳ vào năm 1951.',
-		'overview.history': 'Hành trình của chúng mình',
-		'overview.history_description':
-			'Khởi đầu là một nhánh nhỏ của CISV Việt Nam từ giai đoạn cuối những năm 2010, CISV Sài Gòn luôn nỗ lực trở thành đơn vị tổ chức trại hè uy tín, mang đến sân chơi cho các thành viên từng tham gia các kỳ trại tại Hà Nội – nơi đặt trụ sở chính của CISV Việt Nam. Năm 2024, chúng mình đã tổ chức kỳ Mini-Camp đầu tiên, chào đón 64 người tham gia và 2 trại hè dành cho độ tuổi Village. Kể từ đó, chúng tôi tiếp tục tổ chức thêm một kỳ Mini-Camp vào hè 2025 và New Year Party vào đầu năm 2026.',
-		'overview.activity_2025': 'Hoạt động tiêu biểu năm 2025',
-		'overview.plans_2026': 'Kế hoạch cho 2026',
-		'overview.plans_2026_description':
-			'Trong năm 2026, chúng mình dự kiến tổ chức một Mini - Camp dành cho độ tuổi Village (từ 10-11 tuổi) và Youth Meeting (từ 12-13 tuổi). Thời gian và địa điểm cụ thể sẽ được cập nhật sau, dự kiến sẽ diễn ra vào khoảng tháng 6 - tháng 7.',
+		'landingpage.title': 'Giới Thiệu',
+		'landingpage.intro':
+			'Chúng mình là các thành viên CISV đang sinh sống và hoạt động tại Sài Gòn.',
+		'landingpage.what_is_cisv': 'CISV là gì?',
+		'landingpage.what_is_cisv.prefix':
+			'CISV (Children’s International Summer Villages) là một tổ chức giáo dục hòa bình toàn cầu, được thành lập vào năm 1950 bởi',
+		'landingpage.what_is_cisv.founder': 'Tiến sĩ Doris Twitchell Allen',
+		'landingpage.what_is_cisv.suffix':
+			'với niềm tin rằng trẻ em có thể trở thành những đại sứ cho một thế giới hòa bình hơn thông qua việc học hỏi giữa các nền văn hóa. Chương trình CISV Village đầu tiên được tổ chức tại Hoa Kỳ vào năm 1951.',
+		'landingpage.history_description.prefix': 'Khởi đầu là một nhánh nhỏ của',
+
+		'landingpage.history_description.cisv_vietnam': 'CISV Việt Nam',
+
+		'landingpage.history_description.middle':
+			'từ giai đoạn cuối những năm 2010, CISV Sài Gòn luôn nỗ lực trở thành đơn vị tổ chức trại hè uy tín, mang đến sân chơi cho các thành viên từng tham gia các kỳ trại tại Hà Nội – nơi đặt trụ sở chính của CISV Việt Nam. Năm 2024, chúng mình đã tổ chức kỳ Mini-Camp đầu tiên, chào đón 64 bạn nhỏ tham gia và 2 trại hè dành cho 2 lứa tuổi',
+
+		'landingpage.history_description.village_age_group': 'Village',
+
+		'landingpage.history_description.suffix':
+			'Kể từ đó, chúng mình tiếp tục tổ chức thêm một kỳ Mini-Camp vào hè 2025 và sự kiện New Year Party vào đầu năm 2026.',
+		'landingpage.activity_2025_image_caption': 'Một hoạt động ở trại hè năm 2025',
+		'landingpage.plans_for_2026': 'Kế hoạch cho 2026',
+		'landingpage.plans_for_2026.prefix':
+			'Trong năm 2026, chúng mình dự kiến tổ chức một Mini - Camp dành cho độ tuổi',
+
+		'landingpage.plans_for_2026.village': 'Village',
+
+		'landingpage.plans_for_2026.village_age': '(từ 10-11 tuổi) và',
+
+		'landingpage.plans_for_2026.youth_meeting': 'Youth Meeting',
+
+		'landingpage.plans_for_2026.youth_meeting_age': '(từ 12-13 tuổi).',
+
+		'landingpage.plans_for_2026.suffix':
+			'Thời gian và địa điểm cụ thể sẽ được cập nhật sau, dự kiến sẽ diễn ra vào khoảng tháng 6 - tháng 7.',
 
 		'auth.staff_only': 'Dành riêng cho Staffies',
 		'auth.email': 'Email',

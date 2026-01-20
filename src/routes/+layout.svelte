@@ -87,14 +87,18 @@
 							<Menu.Content>
 								<!-- Light/dark mode -->
 								<span class="flex items-center justify-between"
-									><p class="block text-xs leading-[text-xs] font-medium no-underline">{$t('menu.mode')}</p>
+									><p class="block text-xs leading-[text-xs] font-medium no-underline">
+										{$t('menu.mode')}
+									</p>
 									<LightSwitch /></span
 								>
 								<hr class="hr" />
 
 								<!-- Language selection -->
 								<span class="flex items-center justify-between"
-									><p class="block text-xs leading-[text-xs] font-medium no-underline">{$t('menu.language')}</p>
+									><p class="block text-xs leading-[text-xs] font-medium no-underline">
+										{$t('menu.language')}
+									</p>
 									<LanguageSwitch /></span
 								>
 								<hr class="hr" />
@@ -119,25 +123,25 @@
 								<!-- Static menu items -->
 								<Menu.Item value="/gallery">
 									<Menu.ItemText class="flex items-center space-x-2">
-									  <BookImage size={16} />
-									  <p>{$t('menu.gallery')}</p>
+										<BookImage size={16} />
+										<p>{$t('menu.gallery')}</p>
 									</Menu.ItemText>
-								  </Menu.Item>
-								  
-								  <Menu.Item value="/events">
+								</Menu.Item>
+
+								<Menu.Item value="/events">
 									<Menu.ItemText class="flex items-center space-x-2">
-									  <CalendarDays size={16} />
-									  <p>{$t('menu.events')}</p>
+										<CalendarDays size={16} />
+										<p>{$t('menu.events')}</p>
 									</Menu.ItemText>
-								  </Menu.Item>
-								  
-								  <Menu.Item value="/blog">
+								</Menu.Item>
+
+								<Menu.Item value="/blog">
 									<Menu.ItemText class="flex items-center space-x-2">
-									  <PencilLine size={16} />
-									  <p>{$t('menu.blog')}</p>
+										<PencilLine size={16} />
+										<p>{$t('menu.blog')}</p>
 									</Menu.ItemText>
-								  </Menu.Item>
-								  
+								</Menu.Item>
+
 								<!-- Log out -->
 								{#if data.user}
 									<Menu.Item value="/logout">
