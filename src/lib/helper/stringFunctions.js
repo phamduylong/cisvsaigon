@@ -34,22 +34,14 @@ export function toDayOfWeek(day, short) {
  * Process date string to human readable format
  * Shows day, month and year if the year is not the current year
  * @param date {Date}
+ * @param locale {string}
  */
-export function processDateString(date) {
-	const day = date.getDate();
-	const month = date.getMonth();
-	const year = date.getFullYear();
-	let displayYear = false;
-	const newDate = new Date();
-
-	if (
-		newDate.getFullYear() - year > 1 ||
-		(newDate.getFullYear() - year <= 1 &&
-			(newDate.getMonth() > month || (newDate.getMonth() === month && newDate.getDate() < day)))
-	) {
-		displayYear = true;
-	}
-	return `${date.toLocaleString('default', { month: 'short' })} ${date.getDate()} ${displayYear ? date.getFullYear() : ''}`;
+export function processDateString(date, locale) {
+	return date.toLocaleDateString(locale ?? 'default', { // you can use undefined as first argument
+		year: "numeric",
+		month: "2-digit",
+		day: "2-digit",
+	  });
 }
 
 /**

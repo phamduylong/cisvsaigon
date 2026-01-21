@@ -11,6 +11,7 @@
 	import { processDateString } from '$lib/helper/stringFunctions';
 	let descriptionOpen = $state(false);
 	let { isPlaceHolder = false, event = null, isLoggedIn = false } = $props();
+	import { t, locale } from '$lib/stores/i18n';
 
 	const animation =
 		'transition transition-discrete opacity-0 translate-y-[100px] starting:data-[state=open]:opacity-0 starting:data-[state=open]:translate-y-[100px] data-[state=open]:opacity-100 data-[state=open]:translate-y-0';
@@ -31,7 +32,7 @@
 				rel=""
 			>
 				<SquarePlus />
-				<span>Add new event</span>
+				<span>{$t('events_page.add_new_event')}</span>
 			</a>
 		</div>
 	{:else}
@@ -41,7 +42,7 @@
 				<h3 class="h3 font-bold">{event?.title}</h3>
 				{#if event?.finished}
 					<button type="button" class="chip hidden preset-filled-primary-500 md:block"
-						>Past event</button
+						>{$t('events_page.past_event')}</button
 					>
 				{/if}
 			</div>
@@ -63,17 +64,16 @@
 								class="w-full max-w-xl space-y-4 card bg-surface-100-900 p-4 shadow-xl {animation}"
 							>
 								<header class="flex items-center justify-between">
-									<Dialog.Title class="text-lg font-bold">Confirm delete?</Dialog.Title>
+									<Dialog.Title class="text-lg font-bold">{$t('events_page.confirm_delete_event_title')}</Dialog.Title>
 									<Dialog.CloseTrigger class="btn-icon hover:preset-tonal">
 										<XIcon class="size-4" />
 									</Dialog.CloseTrigger>
 								</header>
 								<Dialog.Description>
-									Are you sure you want to delete this event? This operation is permanent and cannot
-									be reverted!
+									{$t('events_page.confirm_delete_event')}
 								</Dialog.Description>
 								<footer class="flex justify-end gap-2">
-									<Dialog.CloseTrigger class="btn preset-tonal">Cancel</Dialog.CloseTrigger>
+									<Dialog.CloseTrigger class="btn preset-tonal">{$t('common.cancel')}</Dialog.CloseTrigger>
 									<Dialog.CloseTrigger
 										><button
 											type="button"
@@ -81,7 +81,7 @@
 											onclick={async () => {
 												await deleteEvent();
 												window?.location?.reload();
-											}}>OK</button
+											}}>{$t('common.ok')}</button
 										></Dialog.CloseTrigger
 									>
 								</footer>
@@ -92,7 +92,7 @@
 			{/if}</span
 		>
 		{#if event?.finished}
-			<button type="button" class="chip preset-filled-primary-500 md:hidden">Past event</button>
+			<button type="button" class="chip preset-filled-primary-500 md:hidden">{$t('events_page.past_event')}</button>
 		{/if}
 		<a
 			href={event?.registrationLink}
@@ -101,33 +101,33 @@
 				? 'hidden'
 				: ''}"
 			><Link size={16} />
-			<p>Registration link</p></a
+			<p>{$t('events_page.registration_link')}</p></a
 		>
 		{#if event?.minAge}
 			{#if event?.maxAge}
 				<span class="flex items-center space-x-2 text-lg"
 					><UserSearch size={16} />
-					<p>From {event?.minAge} to {event?.maxAge} year-olds</p></span
+					<p>{$t('events_page.from_age_to_age', { minAge: event?.minAge, maxAge: event?.maxAge})}</p></span
 				>
 			{:else}
 				<!-- Event has no age cap, only minimum. -->
 				<span class="flex items-center space-x-2 text-lg"
 					><UserSearch size={16} />
-					<p>{event?.minAge}+ year-olds</p></span
+					<p>{$t('events_page.min_age', { minAge: event?.minAge })}</p></span
 				>
 			{/if}
 		{/if}
 		{#if datesAreOnTheSameDay(event?.startDate, event?.endDate)}
 			<span class="flex items-center space-x-2 text-lg"
 				><Calendar size={16} />
-				<p>{processDateString(new Date(event?.startDate))}</p></span
+				<p>{processDateString(new Date(event?.startDate), $locale)}</p></span
 			>
 		{:else}
 			<span class="flex items-center space-x-2 text-lg"
 				><Calendar size={16} />
 				<p>
-					{processDateString(new Date(event?.startDate))} - {processDateString(
-						new Date(event?.endDate)
+					{processDateString(new Date(event?.startDate), $locale)} - {processDateString(
+						new Date(event?.endDate), $locale
 					)}
 				</p></span
 			>
@@ -140,7 +140,7 @@
 				“{event?.shortDescription}”
 			</Collapsible.Content>
 			<Collapsible.Trigger class="flex items-center space-x-2 anchor"
-				><p>Show {descriptionOpen ? 'less' : 'more'}</p>
+				><p>{descriptionOpen ? $t('events_page.show_less') : $t('events_page.show_more')}</p>
 				<UnfoldVertical size={16} /></Collapsible.Trigger
 			>
 		</Collapsible>
