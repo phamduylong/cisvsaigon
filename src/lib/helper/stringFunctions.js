@@ -48,18 +48,25 @@ export function processDateString(date, locale) {
 /**
  * Calculate the average reading time for the blog post.
  * @param {string | undefined | null} postContent
+ * @param {string} locale
  */
-export function calculateAverageReadingTime(postContent) {
-	if (!postContent) return 'Nothing to read';
+export function calculateAverageReadingTime(postContent, locale) {
+	if (!postContent) {
+		if (locale === 'vi') return 'Bài viết không có nội dung';
+		else return 'Nothing to read';
+	}
 	let nrOfWords = postContent.split(' ').length;
 	const readingTimeInMinutes = nrOfWords / 250;
 	if (readingTimeInMinutes < 0.5) {
+		if (locale === 'vi') return 'Thời gian đọc: ít hơn 1 phút';
 		return 'Less than a minute read';
 	} else {
 		const roundedTime = Math.round(readingTimeInMinutes);
 		if (roundedTime === 1) {
+			if (locale === 'vi') return 'Thời gian đọc: 1 phút';
 			return '1 minute read';
 		} else {
+			if (locale === 'vi') return `Thời gian đọc: ${roundedTime} phút`;
 			return `${roundedTime} minutes read`;
 		}
 	}

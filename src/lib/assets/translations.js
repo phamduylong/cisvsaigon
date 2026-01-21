@@ -91,7 +91,8 @@ export default {
 		'blog_page.title': 'Blog',
 		'blog_page.add_new_post': 'Add new post',
 		'blog_page.confirm_delete_blog_post_title': 'Delete this blog post?',
-		'blog_page.confirm_delete_blog_post': 'Are you sure you want to delete this blog post? This operation is permanent and cannot be reverted!',
+		'blog_page.confirm_delete_blog_post':
+			'Are you sure you want to delete this blog post? This operation is permanent and cannot be reverted!',
 		'blog_page.edit': 'Edit',
 		'blog_page.preview': 'Preview',
 		'blog_page.blog_post_title': 'Title',
@@ -212,13 +213,13 @@ export default {
 		'blog_page.title': 'Blog',
 		'blog_page.add_new_post': 'Thêm bài viết mới',
 		'blog_page.confirm_delete_blog_post_title': 'Xóa bài viết này?',
-		'blog_page.confirm_delete_blog_post': 'Bạn có chắc muốn xóa bài viết này? Hành động này là vĩnh viễn và không thể khôi phục.',
+		'blog_page.confirm_delete_blog_post':
+			'Bạn có chắc muốn xóa bài viết này? Hành động này là vĩnh viễn và không thể khôi phục.',
 		'blog_page.edit': 'Chỉnh sửa',
 		'blog_page.preview': 'Xem trước',
 		'blog_page.blog_post_title': 'Tiêu đề',
 		'blog_page.blog_post_title_placeholder': 'Tiêu đề bài viết',
 		'blog_page.insert_heading': 'Chèn đầu mục',
-
 
 		'common.save': 'Lưu',
 		'common.back': 'Quay lại',

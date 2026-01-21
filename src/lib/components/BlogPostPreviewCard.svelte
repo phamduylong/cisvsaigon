@@ -92,7 +92,9 @@
 								class="w-full max-w-xl space-y-4 card bg-surface-100-900 p-4 shadow-xl {animation}"
 							>
 								<header class="flex items-center justify-between">
-									<Dialog.Title class="text-lg font-bold">{$t('blog_page.confirm_delete_blog_post_title')}</Dialog.Title>
+									<Dialog.Title class="text-lg font-bold"
+										>{$t('blog_page.confirm_delete_blog_post_title')}</Dialog.Title
+									>
 									<Dialog.CloseTrigger class="btn-icon hover:preset-tonal">
 										<XIcon class="size-4" />
 									</Dialog.CloseTrigger>
@@ -101,7 +103,9 @@
 									{$t('blog_page.confirm_delete_blog_post')}
 								</Dialog.Description>
 								<footer class="flex justify-end gap-2">
-									<Dialog.CloseTrigger class="btn preset-tonal">{$t('common.cancel')}</Dialog.CloseTrigger>
+									<Dialog.CloseTrigger class="btn preset-tonal"
+										>{$t('common.cancel')}</Dialog.CloseTrigger
+									>
 									<Dialog.CloseTrigger
 										><button
 											type="button"
@@ -133,7 +137,7 @@
 			).toTimeString()}"
 		>
 			<Timer size={16} class="inline" /><i class="inline cursor-default"
-				>{calculateAverageReadingTime(post?.content)}</i
+				>{calculateAverageReadingTime(post?.content, $locale)}</i
 			>
 		</div>
 	{/if}

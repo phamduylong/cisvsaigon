@@ -44,13 +44,17 @@
 			</Switch.Control>
 			<Switch.HiddenInput />
 		</Switch>
-		<p class="text-center text-lg">{inPreviewMode ? $t('blog_page.preview') : $t('blog_page.edit')}</p>
+		<p class="text-center text-lg">
+			{inPreviewMode ? $t('blog_page.preview') : $t('blog_page.edit')}
+		</p>
 	</div>
 	{#if !inPreviewMode}
 		<div class="flex h-full w-full flex-col justify-center space-y-5 p-5">
 			<form class="flex w-full flex-col space-y-5 card bg-surface-50-950 p-5" method="POST">
 				<label class="label">
-					<span class="label-text flex">{$t('blog_page.blog_post_title')} <Asterisk size={12} color="red" /></span>
+					<span class="label-text flex"
+						>{$t('blog_page.blog_post_title')} <Asterisk size={12} color="red" /></span
+					>
 					<input
 						bind:value={title}
 						class="input"
@@ -113,7 +117,9 @@
 		<h1 class="text-center h1 lg:block">{$t('blog_page.edit')}</h1>
 		<form class="flex w-full flex-col space-y-5 card bg-surface-50-950 p-5" method="POST">
 			<label class="label">
-				<span class="label-text flex">{$t('blog_page.blog_post_title')} <Asterisk size={12} color="red" /></span>
+				<span class="label-text flex"
+					>{$t('blog_page.blog_post_title')} <Asterisk size={12} color="red" /></span
+				>
 				<input
 					bind:value={title}
 					class="input"

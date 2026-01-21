@@ -2,7 +2,7 @@
 	import EventCard from '$lib/components/EventCard.svelte';
 	let { data } = $props();
 	let isLoggedIn = $derived(data.user !== null && data.user !== undefined);
-	import { t, locale } from '$lib/stores/i18n';
+	import { t } from '$lib/stores/i18n';
 </script>
 
 <svelte:head>
