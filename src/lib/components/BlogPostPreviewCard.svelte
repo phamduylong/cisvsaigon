@@ -21,6 +21,8 @@
 	 * }} */
 	let { isPlaceHolder = false, post = null, isLoggedIn = false } = $props();
 
+	import { t, locale } from '$lib/stores/i18n';
+
 	const animation =
 		'transition transition-discrete opacity-0 translate-y-[100px] starting:data-[state=open]:opacity-0 starting:data-[state=open]:translate-y-[100px] data-[state=open]:opacity-100 data-[state=open]:translate-y-0';
 
@@ -40,7 +42,7 @@
 				rel=""
 			>
 				<SquarePlus />
-				<span>Add new post</span>
+				<span>{$t('blog_page.add_new_post')}</span>
 			</a>
 		</div>
 	{:else}
@@ -67,7 +69,7 @@
 						).toTimeString()}"
 					>
 						<p class="inline cursor-default text-sm">
-							{processDateString(new Date(post?.updated || ''))}
+							{processDateString(new Date(post?.updated || ''), $locale)}
 						</p>
 					</div>
 				</div>
@@ -90,17 +92,16 @@
 								class="w-full max-w-xl space-y-4 card bg-surface-100-900 p-4 shadow-xl {animation}"
 							>
 								<header class="flex items-center justify-between">
-									<Dialog.Title class="text-lg font-bold">Confirm delete?</Dialog.Title>
+									<Dialog.Title class="text-lg font-bold">{$t('blog_page.confirm_delete_blog_post_title')}</Dialog.Title>
 									<Dialog.CloseTrigger class="btn-icon hover:preset-tonal">
 										<XIcon class="size-4" />
 									</Dialog.CloseTrigger>
 								</header>
 								<Dialog.Description>
-									Are you sure you want to delete this blog post? This operation is permanent and
-									cannot be reverted!
+									{$t('blog_page.confirm_delete_blog_post')}
 								</Dialog.Description>
 								<footer class="flex justify-end gap-2">
-									<Dialog.CloseTrigger class="btn preset-tonal">Cancel</Dialog.CloseTrigger>
+									<Dialog.CloseTrigger class="btn preset-tonal">{$t('common.cancel')}</Dialog.CloseTrigger>
 									<Dialog.CloseTrigger
 										><button
 											type="button"
@@ -108,7 +109,7 @@
 											onclick={async () => {
 												await deletePost();
 												window?.location?.reload();
-											}}>OK</button
+											}}>{$t('common.ok')}</button
 										></Dialog.CloseTrigger
 									>
 								</footer>

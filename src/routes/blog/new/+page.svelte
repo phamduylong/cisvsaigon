@@ -1,6 +1,6 @@
 <script>
 	import { PUBLIC_POCKETBASE_FILE_URL } from '$env/static/public';
-	import { getInitials, toDayOfWeek } from '$lib/helper/stringFunctions';
+	import { getInitials } from '$lib/helper/stringFunctions';
 
 	let content = $state('');
 	let title = $state('');
@@ -13,11 +13,12 @@
 	import { Avatar, Switch } from '@skeletonlabs/skeleton-svelte';
 	const { data } = $props();
 	import DOMPurify from 'isomorphic-dompurify';
+	import { t, locale } from '$lib/stores/i18n.js';
 </script>
 
 <svelte:head>
 	<meta name="description" content="CISV Saigon's edit page to create new blog post" />
-	<title>CISV Saigon - Blog - Create new post</title>
+	<title>CISV Saigon - {$t('blog_page.add_new_post')}</title>
 </svelte:head>
 
 <!-- Small/medium view-->
@@ -43,25 +44,25 @@
 			</Switch.Control>
 			<Switch.HiddenInput />
 		</Switch>
-		<p class="text-center text-lg">{inPreviewMode ? 'Preview' : 'Edit'}</p>
+		<p class="text-center text-lg">{inPreviewMode ? $t('blog_page.preview') : $t('blog_page.edit')}</p>
 	</div>
 	{#if !inPreviewMode}
 		<div class="flex h-full w-full flex-col justify-center space-y-5 p-5">
 			<form class="flex w-full flex-col space-y-5 card bg-surface-50-950 p-5" method="POST">
 				<label class="label">
-					<span class="label-text flex">Title <Asterisk size={12} color="red" /></span>
+					<span class="label-text flex">{$t('blog_page.blog_post_title')} <Asterisk size={12} color="red" /></span>
 					<input
 						bind:value={title}
 						class="input"
 						type="text"
 						name="title"
-						placeholder="Title of the blog post"
+						placeholder={$t('blog_page.blog_post_title_placeholder')}
 						required
 					/>
 				</label>
 				<TextEditor classes="min-h-150" name="postContent" bind:value={content} />
 				<div class="flex w-full justify-end">
-					<button type="submit" class="btn w-24! preset-filled">Save</button>
+					<button type="submit" class="btn w-24! preset-filled">{$t('common.save')}</button>
 				</div>
 			</form>
 		</div>
@@ -85,11 +86,12 @@
 
 				<div class="space-y-2">
 					<div class="text-center">
-						{new Date().toLocaleString('default', { month: 'short' })}
-						{new Date().getDate()}, {new Date().getFullYear().toString().substring(2)} ({toDayOfWeek(
-							new Date().getDay(),
-							true
-						)})
+						{new Date().toLocaleDateString($locale ?? 'default', {
+							// you can use undefined as first argument
+							year: 'numeric',
+							month: '2-digit',
+							day: '2-digit'
+						})}
 					</div>
 					<h3 class="text-center h3">
 						{title}
@@ -108,28 +110,28 @@
 <!-- Large view -->
 <div class="hidden lg:flex">
 	<div class="flex h-full w-1/2 flex-col justify-center space-y-5 p-5">
-		<h1 class="text-center h1 lg:block">Editor</h1>
+		<h1 class="text-center h1 lg:block">{$t('blog_page.edit')}</h1>
 		<form class="flex w-full flex-col space-y-5 card bg-surface-50-950 p-5" method="POST">
 			<label class="label">
-				<span class="label-text flex">Title <Asterisk size={12} color="red" /></span>
+				<span class="label-text flex">{$t('blog_page.blog_post_title')} <Asterisk size={12} color="red" /></span>
 				<input
 					bind:value={title}
 					class="input"
 					type="text"
 					name="title"
-					placeholder="Title of the blog post"
+					placeholder={$t('blog_page.blog_post_title_placeholder')}
 					required
 				/>
 			</label>
 			<TextEditor classes="lg:min-h-150" name="postContent" bind:value={content} />
 			<div class="flex w-full justify-end">
-				<button type="submit" class="btn w-24! preset-filled">Save</button>
+				<button type="submit" class="btn w-24! preset-filled">{$t('common.save')}</button>
 			</div>
 		</form>
 	</div>
 	<hr class="m-2 hr h-screen w-1 preset-filled-primary-900-100" />
 	<div class="flex h-full w-1/2 flex-col justify-center space-y-5 p-5">
-		<h1 class="text-center h1">Preview</h1>
+		<h1 class="text-center h1">{$t('blog_page.preview')}</h1>
 		<article
 			class="min-h-187 space-y-4 card border-2 border-secondary-950-50 bg-surface-50-950 p-5 card-hover"
 		>
@@ -149,11 +151,12 @@
 			<!-- Post title -->
 			<div class="space-y-2">
 				<div class="text-center">
-					{new Date().toLocaleString('default', { month: 'short' })}
-					{new Date().getDate()}, {new Date().getFullYear().toString().substring(2)} ({toDayOfWeek(
-						new Date().getDay(),
-						true
-					)})
+					{new Date().toLocaleDateString($locale ?? 'default', {
+						// you can use undefined as first argument
+						year: 'numeric',
+						month: '2-digit',
+						day: '2-digit'
+					})}
 				</div>
 				<h3 class="text-center h3">
 					{title}

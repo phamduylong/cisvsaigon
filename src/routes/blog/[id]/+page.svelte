@@ -2,10 +2,11 @@
 	import { PUBLIC_POCKETBASE_FILE_URL } from '$env/static/public';
 	import { Avatar } from '@skeletonlabs/skeleton-svelte';
 	import ArrowLeft from '@lucide/svelte/icons/arrow-left';
-	import { getInitials, toDayOfWeek } from '$lib/helper/stringFunctions';
+	import { getInitials } from '$lib/helper/stringFunctions';
 	/** @type {import('./$types').PageProps} */
 	const { data } = $props();
 	import DOMPurify from 'isomorphic-dompurify';
+	import { t, locale } from '$lib/stores/i18n';
 </script>
 
 <svelte:head>
@@ -18,7 +19,7 @@
 	aria-label="back"
 	href="/blog"
 	><ArrowLeft size={16} />
-	<p>Back</p></a
+	<p>{$t('common.back')}</p></a
 >
 <div class="flex w-full flex-col items-center justify-center">
 	<div
@@ -39,11 +40,12 @@
 
 		<div class="space-y-2">
 			<div class="text-center">
-				{new Date(data.post.updated).toLocaleString('default', { month: 'short' })}
-				{new Date(data.post.updated).getDate()}, {new Date(data.post.updated)
-					.getFullYear()
-					.toString()
-					.substring(2)} ({toDayOfWeek(new Date(data.post.updated).getDay(), true)})
+				{new Date(data.post.updated).toLocaleDateString($locale ?? 'default', {
+					// you can use undefined as first argument
+					year: 'numeric',
+					month: '2-digit',
+					day: '2-digit'
+				})}
 			</div>
 			<h3 class="text-center h3">
 				{data.post.title}

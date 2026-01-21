@@ -16,6 +16,7 @@
 	import List from '@lucide/svelte/icons/list';
 	import ListOrdered from '@lucide/svelte/icons/list-ordered';
 	import TextWrap from '@lucide/svelte/icons/text-wrap';
+	import { t } from '$lib/stores/i18n';
 
 	const toolBarBtnClasses = 'btn preset-filled-secondary-50-950 p-1 rounded-sm card-hover h-9 w-6';
 
@@ -45,7 +46,7 @@
 	];
 
 	const headings = [
-		{ text: 'Insert headings', value: null },
+		{ text: $t('blog_page.insert_heading'), value: null },
 		{ text: 'Heading 1', value: 'h1', class: 'h1', codeToInsert: '<h1 class="h1">Heading 1</h1>' },
 		{ text: 'Heading 2', value: 'h2', class: 'h2', codeToInsert: '<h2 class="h2">Heading 2</h2>' },
 		{ text: 'Heading 3', value: 'h3', class: 'h3', codeToInsert: '<h3 class="h3">Heading 3</h3>' },
