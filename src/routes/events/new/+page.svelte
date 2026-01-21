@@ -22,15 +22,25 @@
 		<fieldset class="space-y-6">
 			<!-- Title -->
 			<label class="label">
-				<span class="label-text flex">{$t('events_page.event_title')}<Asterisk size={12} color="red" /></span>
-				<input class="input" type="text" placeholder={$t('events_page.event_title_placeholder')} name="title" required />
+				<span class="label-text flex"
+					>{$t('events_page.event_title')}<Asterisk size={12} color="red" /></span
+				>
+				<input
+					class="input"
+					type="text"
+					placeholder={$t('events_page.event_title_placeholder')}
+					name="title"
+					required
+				/>
 			</label>
 
 			<!-- Event dates -->
 			<span class="flex flex-col space-y-4 lg:flex-row lg:space-y-0 lg:space-x-4">
 				<!-- Start date -->
 				<label class="label">
-					<span class="label-text flex">{$t('events_page.event_start_date')}<Asterisk size={12} color="red" /></span>
+					<span class="label-text flex"
+						>{$t('events_page.event_start_date')}<Asterisk size={12} color="red" /></span
+					>
 					<input
 						class="input"
 						type="datetime-local"
@@ -41,7 +51,9 @@
 				</label>
 				<!-- End date -->
 				<label class="label">
-					<span class="label-text flex">{$t('events_page.event_end_date')}<Asterisk size={12} color="red" /></span>
+					<span class="label-text flex"
+						>{$t('events_page.event_end_date')}<Asterisk size={12} color="red" /></span
+					>
 					<input
 						class="input"
 						type="datetime-local"
@@ -54,7 +66,9 @@
 
 			<!-- Registration link -->
 			<label class="label">
-				<span class="label-text flex">{$t('events_page.event_registration_link')}<Asterisk size={12} color="red" /></span>
+				<span class="label-text flex"
+					>{$t('events_page.event_registration_link')}<Asterisk size={12} color="red" /></span
+				>
 				<input
 					class="input"
 					type="url"
@@ -68,7 +82,8 @@
 			<span class="flex flex-col space-y-4 lg:flex-row lg:space-y-0 lg:space-x-4">
 				<label class="label">
 					<span class="label-text flex"
-						>{$t('events_page.event_min_age')} {#if !noAgeLimit}
+						>{$t('events_page.event_min_age')}
+						{#if !noAgeLimit}
 							<Asterisk size={12} color="red" />
 						{/if}</span
 					>
@@ -93,7 +108,9 @@
 
 			<!-- Description -->
 			<label class="label">
-				<span class="label-text flex">{$t('events_page.event_short_description_title')}<Asterisk size={12} color="red" /></span>
+				<span class="label-text flex"
+					>{$t('events_page.event_short_description_title')}<Asterisk size={12} color="red" /></span
+				>
 				<textarea
 					class="textarea rounded-container"
 					name="shortDescription"
@@ -105,7 +122,9 @@
 		</fieldset>
 		<fieldset class="flex justify-center">
 			<!-- Button -->
-			<button type="submit" class="btn preset-filled bg-primary-700-300">{$t('events_page.event_submit')}</button>
+			<button type="submit" class="btn preset-filled bg-primary-700-300"
+				>{$t('events_page.event_submit')}</button
+			>
 		</fieldset>
 	</form>
 </div>

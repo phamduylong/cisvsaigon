@@ -71,7 +71,8 @@ export default {
 		'events_page.past_event': 'Past event',
 		'events_page.add_new_event': 'Add new event',
 		'events_page.confirm_delete_event_title': 'Delete this event?',
-		'events_page.confirm_delete_event': 'Are you sure you want to delete this event? This operation is permanent and cannot be reverted.',
+		'events_page.confirm_delete_event':
+			'Are you sure you want to delete this event? This operation is permanent and cannot be reverted.',
 
 		'events_page.add_new_event_title': 'Add new event',
 		'events_page.event_title': 'Title',
@@ -198,7 +199,8 @@ export default {
 		'events_page.past_event': 'Đã diễn ra',
 		'events_page.add_new_event': 'Thêm sự kiện mới',
 		'events_page.confirm_delete_event_title': 'Xóa sự kiện?',
-		'events_page.confirm_delete_event': 'Bạn có chắc muốn xóa sự kiện này? Hành động này là vĩnh viễn và không thể khôi phục.',
+		'events_page.confirm_delete_event':
+			'Bạn có chắc muốn xóa sự kiện này? Hành động này là vĩnh viễn và không thể khôi phục.',
 
 		'events_page.add_new_event_title': 'Thêm sự kiện mới',
 		'events_page.event_title': 'Tiêu đề',

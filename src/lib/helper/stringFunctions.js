@@ -37,11 +37,12 @@ export function toDayOfWeek(day, short) {
  * @param locale {string}
  */
 export function processDateString(date, locale) {
-	return date.toLocaleDateString(locale ?? 'default', { // you can use undefined as first argument
-		year: "numeric",
-		month: "2-digit",
-		day: "2-digit",
-	  });
+	return date.toLocaleDateString(locale ?? 'default', {
+		// you can use undefined as first argument
+		year: 'numeric',
+		month: '2-digit',
+		day: '2-digit'
+	});
 }
 
 /**

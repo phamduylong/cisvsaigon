@@ -64,7 +64,9 @@
 								class="w-full max-w-xl space-y-4 card bg-surface-100-900 p-4 shadow-xl {animation}"
 							>
 								<header class="flex items-center justify-between">
-									<Dialog.Title class="text-lg font-bold">{$t('events_page.confirm_delete_event_title')}</Dialog.Title>
+									<Dialog.Title class="text-lg font-bold"
+										>{$t('events_page.confirm_delete_event_title')}</Dialog.Title
+									>
 									<Dialog.CloseTrigger class="btn-icon hover:preset-tonal">
 										<XIcon class="size-4" />
 									</Dialog.CloseTrigger>
@@ -73,7 +75,9 @@
 									{$t('events_page.confirm_delete_event')}
 								</Dialog.Description>
 								<footer class="flex justify-end gap-2">
-									<Dialog.CloseTrigger class="btn preset-tonal">{$t('common.cancel')}</Dialog.CloseTrigger>
+									<Dialog.CloseTrigger class="btn preset-tonal"
+										>{$t('common.cancel')}</Dialog.CloseTrigger
+									>
 									<Dialog.CloseTrigger
 										><button
 											type="button"
@@ -92,7 +96,9 @@
 			{/if}</span
 		>
 		{#if event?.finished}
-			<button type="button" class="chip preset-filled-primary-500 md:hidden">{$t('events_page.past_event')}</button>
+			<button type="button" class="chip preset-filled-primary-500 md:hidden"
+				>{$t('events_page.past_event')}</button
+			>
 		{/if}
 		<a
 			href={event?.registrationLink}
@@ -107,7 +113,9 @@
 			{#if event?.maxAge}
 				<span class="flex items-center space-x-2 text-lg"
 					><UserSearch size={16} />
-					<p>{$t('events_page.from_age_to_age', { minAge: event?.minAge, maxAge: event?.maxAge})}</p></span
+					<p>
+						{$t('events_page.from_age_to_age', { minAge: event?.minAge, maxAge: event?.maxAge })}
+					</p></span
 				>
 			{:else}
 				<!-- Event has no age cap, only minimum. -->
@@ -127,7 +135,8 @@
 				><Calendar size={16} />
 				<p>
 					{processDateString(new Date(event?.startDate), $locale)} - {processDateString(
-						new Date(event?.endDate), $locale
+						new Date(event?.endDate),
+						$locale
 					)}
 				</p></span
 			>
