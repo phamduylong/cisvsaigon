@@ -2,8 +2,8 @@
 	import { PUBLIC_POCKETBASE_FILE_URL } from '$env/static/public';
 	import { getInitials } from '$lib/helper/stringFunctions';
 
-	let content = $state('');
-	let title = $state('');
+	let content = $state('This is our blog content. Please edit me.');
+	let title = $state('This is a blog title');
 
 	let inPreviewMode = $state(false);
 	import TextEditor from '$lib/components/TextEditor.svelte';
