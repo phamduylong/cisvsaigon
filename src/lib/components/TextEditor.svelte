@@ -30,7 +30,7 @@
 			icon: Link,
 			codeToInsert: '<a class="anchor" href="https://example.com">Example link text</a>'
 		},
-		{ icon: Image, codeToInsert: '<img src="" alt="Description text for image" />' },
+		// { icon: Image, codeToInsert: '<img src="" alt="Description text for image" />' },
 
 		{
 			icon: List,
