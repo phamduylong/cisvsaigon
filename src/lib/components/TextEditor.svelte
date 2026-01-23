@@ -47,12 +47,13 @@
 
 	const headings = [
 		{ text: t('blog_page.insert_heading'), value: null },
-		{ text: 'Heading 1', value: 'h1', class: 'h1', codeToInsert: '<h1 class="h1">Heading 1</h1>' },
-		{ text: 'Heading 2', value: 'h2', class: 'h2', codeToInsert: '<h2 class="h2">Heading 2</h2>' },
-		{ text: 'Heading 3', value: 'h3', class: 'h3', codeToInsert: '<h3 class="h3">Heading 3</h3>' },
-		{ text: 'Heading 4', value: 'h4', class: 'h4', codeToInsert: '<h4 class="h4">Heading 4</h4>' },
-		{ text: 'Heading 5', value: 'h5', class: 'h5', codeToInsert: '<h5 class="h5">Heading 5</h5>' },
-		{ text: 'Heading 6', value: 'h6', class: 'h6', codeToInsert: '<h6 class="h6">Heading 6</h6>' }
+		// { text: 'Heading 1', value: 'h1', class: 'h1', codeToInsert: '<h1 class="h1">Heading 1</h1>' },
+		// { text: 'Heading 2', value: 'h2', class: 'h2', codeToInsert: '<h2 class="h2">Heading 2</h2>' },
+		// { text: 'Heading 3', value: 'h3', class: 'h3', codeToInsert: '<h3 class="h3">Heading 3</h3>' },
+		// blog post title is h3 so we must start at h4 and down
+		{ text: 'Heading 1', value: 'h4', class: 'h4', codeToInsert: '<h4 class="h4">Heading 1</h4>' },
+		{ text: 'Heading 2', value: 'h5', class: 'h5', codeToInsert: '<h5 class="h5">Heading 2</h5>' },
+		{ text: 'Heading 3', value: 'h6', class: 'h6', codeToInsert: '<h6 class="h6">Heading 3</h6>' }
 	];
 
 	/** @type {HTMLTextAreaElement | null} */
