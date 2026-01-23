@@ -6,7 +6,8 @@
 	/** @type {import('./$types').PageProps} */
 	const { data } = $props();
 	import DOMPurify from 'isomorphic-dompurify';
-	import { t, locale } from '$lib/stores/i18n';
+	import { t, getLocale } from '$lib/stores/i18n.svelte';
+	const locale = $derived(getLocale());
 </script>
 
 <svelte:head>
@@ -19,7 +20,7 @@
 	aria-label="back"
 	href="/blog"
 	><ArrowLeft size={16} />
-	<p>{$t('common.back')}</p></a
+	<p>{t('common.back')}</p></a
 >
 <div class="flex w-full flex-col items-center justify-center">
 	<div
@@ -40,7 +41,7 @@
 
 		<div class="space-y-2">
 			<div class="text-center">
-				{new Date(data.post.updated).toLocaleDateString($locale ?? 'default', {
+				{new Date(data.post.updated).toLocaleDateString(locale ?? 'default', {
 					// you can use undefined as first argument
 					year: 'numeric',
 					month: '2-digit',

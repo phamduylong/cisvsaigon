@@ -4,12 +4,12 @@
 	import en from '$lib/assets/en.svg';
 	let checked = $state(false);
 	let { classes = '' } = $props();
-	import { locale } from '$lib/stores/i18n';
+	import { setLocale } from '$lib/stores/i18n.svelte';
 
 	$effect(() => {
 		const lang = localStorage.getItem('lang') || 'vi';
 		checked = lang === 'en';
-		$locale = lang;
+		setLocale(lang);
 	});
 
 	/**
@@ -21,7 +21,7 @@
 		document.documentElement.setAttribute('lang', lang);
 		localStorage.setItem('lang', lang);
 		checked = event.checked;
-		$locale = lang;
+		setLocale(lang);
 	};
 </script>
 

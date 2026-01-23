@@ -21,7 +21,9 @@
 	 * }} */
 	let { isPlaceHolder = false, post = null, isLoggedIn = false } = $props();
 
-	import { t, locale } from '$lib/stores/i18n';
+	import { t, getLocale } from '$lib/stores/i18n.svelte';
+
+	const locale = $derived(getLocale());
 
 	const animation =
 		'transition transition-discrete opacity-0 translate-y-[100px] starting:data-[state=open]:opacity-0 starting:data-[state=open]:translate-y-[100px] data-[state=open]:opacity-100 data-[state=open]:translate-y-0';
@@ -42,7 +44,7 @@
 				rel=""
 			>
 				<SquarePlus />
-				<span>{$t('blog_page.add_new_post')}</span>
+				<span>{t('blog_page.add_new_post')}</span>
 			</a>
 		</div>
 	{:else}
@@ -69,7 +71,7 @@
 						).toTimeString()}"
 					>
 						<p class="inline cursor-default text-sm">
-							{processDateString(new Date(post?.updated || ''), $locale)}
+							{processDateString(new Date(post?.updated || ''), locale)}
 						</p>
 					</div>
 				</div>
@@ -93,18 +95,18 @@
 							>
 								<header class="flex items-center justify-between">
 									<Dialog.Title class="text-lg font-bold"
-										>{$t('blog_page.confirm_delete_blog_post_title')}</Dialog.Title
+										>{t('blog_page.confirm_delete_blog_post_title')}</Dialog.Title
 									>
 									<Dialog.CloseTrigger class="btn-icon hover:preset-tonal">
 										<XIcon class="size-4" />
 									</Dialog.CloseTrigger>
 								</header>
 								<Dialog.Description>
-									{$t('blog_page.confirm_delete_blog_post')}
+									{t('blog_page.confirm_delete_blog_post')}
 								</Dialog.Description>
 								<footer class="flex justify-end gap-2">
 									<Dialog.CloseTrigger class="btn preset-tonal"
-										>{$t('common.cancel')}</Dialog.CloseTrigger
+										>{t('common.cancel')}</Dialog.CloseTrigger
 									>
 									<Dialog.CloseTrigger
 										><button
@@ -113,7 +115,7 @@
 											onclick={async () => {
 												await deletePost();
 												window?.location?.reload();
-											}}>{$t('common.ok')}</button
+											}}>{t('common.ok')}</button
 										></Dialog.CloseTrigger
 									>
 								</footer>
@@ -137,7 +139,7 @@
 			).toTimeString()}"
 		>
 			<Timer size={16} class="inline" /><i class="inline cursor-default"
-				>{calculateAverageReadingTime(post?.content, $locale)}</i
+				>{calculateAverageReadingTime(post?.content, locale)}</i
 			>
 		</div>
 	{/if}

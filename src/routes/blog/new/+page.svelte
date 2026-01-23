@@ -13,12 +13,13 @@
 	import { Avatar, Switch } from '@skeletonlabs/skeleton-svelte';
 	const { data } = $props();
 	import DOMPurify from 'isomorphic-dompurify';
-	import { t, locale } from '$lib/stores/i18n.js';
+	import { t, getLocale } from '$lib/stores/i18n.svelte.js';
+	const locale = $derived(getLocale());
 </script>
 
 <svelte:head>
 	<meta name="description" content="CISV Saigon's edit page to create new blog post" />
-	<title>CISV Saigon - {$t('blog_page.add_new_post')}</title>
+	<title>CISV Saigon - {t('blog_page.add_new_post')}</title>
 </svelte:head>
 
 <!-- Small/medium view-->
@@ -45,7 +46,7 @@
 			<Switch.HiddenInput />
 		</Switch>
 		<p class="text-center text-lg">
-			{inPreviewMode ? $t('blog_page.preview') : $t('blog_page.edit')}
+			{inPreviewMode ? t('blog_page.preview') : t('blog_page.edit')}
 		</p>
 	</div>
 	{#if !inPreviewMode}
@@ -53,20 +54,20 @@
 			<form class="flex w-full flex-col space-y-5 card bg-surface-50-950 p-5" method="POST">
 				<label class="label">
 					<span class="label-text flex"
-						>{$t('blog_page.blog_post_title')} <Asterisk size={12} color="red" /></span
+						>{t('blog_page.blog_post_title')} <Asterisk size={12} color="red" /></span
 					>
 					<input
 						bind:value={title}
 						class="input"
 						type="text"
 						name="title"
-						placeholder={$t('blog_page.blog_post_title_placeholder')}
+						placeholder={t('blog_page.blog_post_title_placeholder')}
 						required
 					/>
 				</label>
 				<TextEditor classes="min-h-150" name="postContent" bind:value={content} />
 				<div class="flex w-full justify-end">
-					<button type="submit" class="btn w-24! preset-filled">{$t('common.save')}</button>
+					<button type="submit" class="btn w-24! preset-filled">{t('common.save')}</button>
 				</div>
 			</form>
 		</div>
@@ -90,7 +91,7 @@
 
 				<div class="space-y-2">
 					<div class="text-center">
-						{new Date().toLocaleDateString($locale ?? 'default', {
+						{new Date().toLocaleDateString(locale ?? 'default', {
 							// you can use undefined as first argument
 							year: 'numeric',
 							month: '2-digit',
@@ -114,30 +115,30 @@
 <!-- Large view -->
 <div class="hidden lg:flex">
 	<div class="flex h-full w-1/2 flex-col justify-center space-y-5 p-5">
-		<h1 class="text-center h1 lg:block">{$t('blog_page.edit')}</h1>
+		<h1 class="text-center h1 lg:block">{t('blog_page.edit')}</h1>
 		<form class="flex w-full flex-col space-y-5 card bg-surface-50-950 p-5" method="POST">
 			<label class="label">
 				<span class="label-text flex"
-					>{$t('blog_page.blog_post_title')} <Asterisk size={12} color="red" /></span
+					>{t('blog_page.blog_post_title')} <Asterisk size={12} color="red" /></span
 				>
 				<input
 					bind:value={title}
 					class="input"
 					type="text"
 					name="title"
-					placeholder={$t('blog_page.blog_post_title_placeholder')}
+					placeholder={t('blog_page.blog_post_title_placeholder')}
 					required
 				/>
 			</label>
 			<TextEditor classes="lg:min-h-150" name="postContent" bind:value={content} />
 			<div class="flex w-full justify-end">
-				<button type="submit" class="btn w-24! preset-filled">{$t('common.save')}</button>
+				<button type="submit" class="btn w-24! preset-filled">{t('common.save')}</button>
 			</div>
 		</form>
 	</div>
 	<hr class="m-2 hr h-screen w-1 preset-filled-primary-900-100" />
 	<div class="flex h-full w-1/2 flex-col justify-center space-y-5 p-5">
-		<h1 class="text-center h1">{$t('blog_page.preview')}</h1>
+		<h1 class="text-center h1">{t('blog_page.preview')}</h1>
 		<article
 			class="min-h-187 space-y-4 card border-2 border-secondary-950-50 bg-surface-50-950 p-5 card-hover"
 		>
@@ -157,7 +158,7 @@
 			<!-- Post title -->
 			<div class="space-y-2">
 				<div class="text-center">
-					{new Date().toLocaleDateString($locale ?? 'default', {
+					{new Date().toLocaleDateString(locale ?? 'default', {
 						// you can use undefined as first argument
 						year: 'numeric',
 						month: '2-digit',

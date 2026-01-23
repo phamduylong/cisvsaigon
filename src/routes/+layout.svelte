@@ -18,7 +18,7 @@
 	import LightSwitch from '$lib/components/LightSwitch.svelte';
 	import LanguageSwitch from '$lib/components/LanguageSwitch.svelte';
 	let { children, data } = $props();
-	import { t } from '$lib/stores/i18n';
+	import { t } from '$lib/stores/i18n.svelte';
 
 	const footerLinks = [
 		{
@@ -79,7 +79,7 @@
 					<Menu.Trigger
 						aria-label="menu"
 						class="btn preset-filled bg-primary-700-300 hover:preset-tonal"
-						><p class="hidden md:block">{$t('menu.menu')}</p>
+						><p class="hidden md:block">{t('menu.menu')}</p>
 						<MenuIcon size={20} /></Menu.Trigger
 					>
 					<Portal>
@@ -88,7 +88,7 @@
 								<!-- Light/dark mode -->
 								<span class="flex items-center justify-between"
 									><p class="block text-xs leading-[text-xs] font-medium no-underline">
-										{$t('menu.mode')}
+										{t('menu.mode')}
 									</p>
 									<LightSwitch /></span
 								>
@@ -97,7 +97,7 @@
 								<!-- Language selection -->
 								<span class="flex items-center justify-between"
 									><p class="block text-xs leading-[text-xs] font-medium no-underline">
-										{$t('menu.language')}
+										{t('menu.language')}
 									</p>
 									<LanguageSwitch /></span
 								>
@@ -108,14 +108,14 @@
 									<Menu.Item value="/login">
 										<Menu.ItemText class="flex items-center space-x-2"
 											><UserLock size={16} />
-											<p>{$t('menu.login')}</p></Menu.ItemText
+											<p>{t('menu.login')}</p></Menu.ItemText
 										>
 									</Menu.Item>
 								{:else}
 									<Menu.Item value="/profile">
 										<Menu.ItemText class="flex items-center space-x-2">
 											<User size={16} />
-											<p>{$t('menu.profile')}</p>
+											<p>{t('menu.profile')}</p>
 										</Menu.ItemText>
 									</Menu.Item>
 								{/if}
@@ -124,21 +124,21 @@
 								<Menu.Item value="/gallery">
 									<Menu.ItemText class="flex items-center space-x-2">
 										<BookImage size={16} />
-										<p>{$t('menu.gallery')}</p>
+										<p>{t('menu.gallery')}</p>
 									</Menu.ItemText>
 								</Menu.Item>
 
 								<Menu.Item value="/events">
 									<Menu.ItemText class="flex items-center space-x-2">
 										<CalendarDays size={16} />
-										<p>{$t('menu.events')}</p>
+										<p>{t('menu.events')}</p>
 									</Menu.ItemText>
 								</Menu.Item>
 
 								<Menu.Item value="/blog">
 									<Menu.ItemText class="flex items-center space-x-2">
 										<PencilLine size={16} />
-										<p>{$t('menu.blog')}</p>
+										<p>{t('menu.blog')}</p>
 									</Menu.ItemText>
 								</Menu.Item>
 
