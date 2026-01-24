@@ -10,7 +10,7 @@
 	import Bold from '@lucide/svelte/icons/bold';
 	import Italic from '@lucide/svelte/icons/italic';
 	import Link from '@lucide/svelte/icons/link';
-	import Image from '@lucide/svelte/icons/image';
+	//import Image from '@lucide/svelte/icons/image';
 	import Strikethrough from '@lucide/svelte/icons/strikethrough';
 	import Code from '@lucide/svelte/icons/code';
 	import List from '@lucide/svelte/icons/list';
