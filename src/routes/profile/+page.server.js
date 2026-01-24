@@ -75,7 +75,9 @@ export const actions = {
 			await locals.pocketBase.authStore.clear();
 			locals.user = null;
 			redirect(303, '/login');
-		} else {
+		} 
+		// basically it can only be display name change here
+		else {
 			try {
 				await locals.pocketBase.collection('users').update(locals.user?.id, {
 					displayName
@@ -92,7 +94,7 @@ export const actions = {
 			if (locals.pocketBase.authStore.isValid) {
 				locals.user = locals.pocketBase.authStore.model;
 			}
-			redirect(303, '/');
+			redirect(303, '/profile');
 		}
 	}
 };
