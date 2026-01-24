@@ -47,16 +47,18 @@
 		<AppBar.Toolbar class="flex">
 			<AppBar.Lead class="flex w-1/3 justify-start">
 				<a href="/" title="CISV Vietnam Logo"
+				tabindex="-1"
 					><enhanced:img
 						src={favicon}
 						alt="CISV Logo"
 						class="h-12 bg-transparent md:h-16"
 						fetchpriority="high"
+						tabindex="-1"
 					/></a
 				>
 			</AppBar.Lead>
 			<AppBar.Headline class="flex w-1/3 justify-center">
-				<a href="/" class="text-md font-bold md:text-xl lg:text-2xl">CISV SAIGON</a>
+				<a tabindex="-1" href="/" class="text-md font-bold md:text-xl lg:text-2xl">CISV SAIGON</a>
 			</AppBar.Headline>
 			<AppBar.Trail class="flex w-1/3 justify-end space-x-2 md:space-x-5">
 				<Menu
