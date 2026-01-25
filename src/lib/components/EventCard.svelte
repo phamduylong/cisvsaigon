@@ -16,12 +16,20 @@
 	const animation =
 		'transition transition-discrete opacity-0 translate-y-[100px] starting:data-[state=open]:opacity-0 starting:data-[state=open]:translate-y-[100px] data-[state=open]:opacity-100 data-[state=open]:translate-y-0';
 
-	async function deleteEvent() {
-		await fetch(`/events/${event?.id}`, {
-			method: 'DELETE'
-		});
+	let deleteFormId = $derived(`deleteForm-${event?.id}`);
+
+	function deleteEvent() {
+		const form = /**@type {HTMLFormElement}*/ (document.getElementById(deleteFormId));
+
+		if (form) {
+			form.submit();
+		}
 	}
 </script>
+
+<form id={deleteFormId} class="hidden" method="POST" action="/events/?/delete">
+	<input name="id" type="hidden" value={event?.id} />
+</form>
 
 <div class="max-h-fit grid-cols-1 space-y-2 card preset-filled-surface-100-900 p-4">
 	{#if isPlaceHolder}
@@ -82,9 +90,8 @@
 										><button
 											type="button"
 											class="btn preset-filled"
-											onclick={async () => {
-												await deleteEvent();
-												window?.location?.reload();
+											onclick={() => {
+												deleteEvent();
 											}}>{t('common.ok')}</button
 										></Dialog.CloseTrigger
 									>

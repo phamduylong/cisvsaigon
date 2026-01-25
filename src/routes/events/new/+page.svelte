@@ -17,6 +17,7 @@
 	<form
 		method="POST"
 		class="flex w-md flex-col justify-center space-y-5 card bg-surface-50-950 p-5 md:w-lg md:space-y-10 lg:w-xl lg:p-10"
+		action="/events/?/create"
 	>
 		<h1 class="mb-15 text-center h1">{t('events_page.add_new_event_title')}</h1>
 		<fieldset class="space-y-6">
