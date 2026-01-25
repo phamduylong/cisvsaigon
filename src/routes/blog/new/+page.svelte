@@ -51,7 +51,11 @@
 	</div>
 	{#if !inPreviewMode}
 		<div class="flex h-full w-full flex-col justify-center space-y-5 p-5">
-			<form class="flex w-full flex-col space-y-5 card bg-surface-50-950 p-5" method="POST">
+			<form
+				class="flex w-full flex-col space-y-5 card bg-surface-50-950 p-5"
+				method="POST"
+				action="/blog?/create"
+			>
 				<label class="label">
 					<span class="label-text flex"
 						>{t('blog_page.blog_post_title')} <Asterisk size={12} color="red" /></span
@@ -116,7 +120,11 @@
 <div class="hidden lg:flex">
 	<div class="flex h-full w-1/2 flex-col justify-center space-y-5 p-5">
 		<h1 class="text-center h1 lg:block">{t('blog_page.edit')}</h1>
-		<form class="flex w-full flex-col space-y-5 card bg-surface-50-950 p-5" method="POST">
+		<form
+			class="flex w-full flex-col space-y-5 card bg-surface-50-950 p-5"
+			method="POST"
+			action="/blog?/create"
+		>
 			<label class="label">
 				<span class="label-text flex"
 					>{t('blog_page.blog_post_title')} <Asterisk size={12} color="red" /></span

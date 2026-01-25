@@ -75,7 +75,7 @@ export const actions = {
 			await locals.pocketBase.authStore.clear();
 			locals.user = null;
 			redirect(303, '/login');
-		} 
+		}
 		// basically it can only be display name change here
 		else {
 			try {

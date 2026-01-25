@@ -23,17 +23,24 @@
 
 	import { t, getLocale } from '$lib/stores/i18n.svelte';
 
+	const deleteFormId = $derived(`deleteBlogPostForm-${post?.id}`);
+
 	const locale = $derived(getLocale());
 
 	const animation =
 		'transition transition-discrete opacity-0 translate-y-[100px] starting:data-[state=open]:opacity-0 starting:data-[state=open]:translate-y-[100px] data-[state=open]:opacity-100 data-[state=open]:translate-y-0';
 
-	async function deletePost() {
-		await fetch(`/blog/${post?.id}`, {
-			method: 'DELETE'
-		});
+	function deletePost() {
+		const form = /**@type {HTMLFormElement}*/ (document.getElementById(deleteFormId));
+		if (form) {
+			form.submit();
+		}
 	}
 </script>
+
+<form id={deleteFormId} class="hidden" method="POST" action="/blog/?/delete">
+	<input type="hidden" name="id" value={post?.id} />
+</form>
 
 <div class="max-h-fit grid-cols-1 space-y-2 card preset-filled-surface-100-900 p-4">
 	{#if isPlaceHolder === true}
@@ -112,9 +119,8 @@
 										><button
 											type="button"
 											class="btn preset-filled"
-											onclick={async () => {
-												await deletePost();
-												window?.location?.reload();
+											onclick={() => {
+												deletePost();
 											}}>{t('common.ok')}</button
 										></Dialog.CloseTrigger
 									>

@@ -46,8 +46,7 @@
 	<AppBar>
 		<AppBar.Toolbar class="flex">
 			<AppBar.Lead class="flex w-1/3 justify-start">
-				<a href="/" title="CISV Vietnam Logo"
-				tabindex="-1"
+				<a href="/" title="CISV Vietnam Logo" tabindex="-1"
 					><enhanced:img
 						src={favicon}
 						alt="CISV Logo"
