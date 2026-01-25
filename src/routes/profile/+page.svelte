@@ -5,12 +5,12 @@
 	import { toaster } from '$lib/components/toaster';
 	import { t } from '$lib/stores/i18n.svelte.js';
 	let { data } = $props();
-	let avatarSrc = $state(`${data.user?.collectionId}/${data.user?.id}/${data.user?.avatar}/`);
+	let avatarSrc = $derived(`${data.user?.collectionId}/${data.user?.id}/${data.user?.avatar}/`);
 
 	let oldPassword = $state('');
 	let newPassword = $state('');
 	let confirmPassword = $state('');
-	let displayName = $state(data.user?.displayName);
+	let displayName = $derived(data.user?.displayName);
 
 	const passwordEntered = $derived(newPassword || confirmPassword);
 
