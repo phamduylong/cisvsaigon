@@ -50,7 +50,6 @@
  * @property {string} collectionName
  * @property {Number} minAge
  * @property {Number} maxAge
- * @property {boolean} finished
  * @property {string} registrationLink
  * @property {string} shortDescription
  * @property {string} title

@@ -79,16 +79,12 @@ export const actions = {
 			error(400, `Invalid data:\n${errors.join('\n')}`);
 		}
 
-		// if event is already in the past
-		const finished = endDate <= new Date();
-
 		try {
 			await locals.pocketBase.collection('events').create({
 				title,
 				startDate,
 				endDate,
 				registrationLink,
-				finished,
 				minAge,
 				maxAge,
 				shortDescription

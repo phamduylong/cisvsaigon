@@ -18,10 +18,14 @@
 
 	let deleteFormId = $derived(`deleteForm-${event?.id}`);
 
+	const finished = $derived(
+		event && event.endDate && new Date(event.endDate).getTime() < new Date().getTime()
+	);
+
 	function deleteEvent() {
 		const form = /**@type {HTMLFormElement}*/ (document.getElementById(deleteFormId));
 
-		if (form) {
+		if (form && form instanceof HTMLFormElement) {
 			form.submit();
 		}
 	}
@@ -48,7 +52,7 @@
 		<span class="flex items-center justify-between"
 			><div class="flex items-center justify-between space-x-2">
 				<h3 class="h3 font-bold">{event?.title}</h3>
-				{#if event?.finished}
+				{#if finished}
 					<button type="button" class="chip hidden preset-filled-primary-500 md:block"
 						>{t('events_page.past_event')}</button
 					>
@@ -102,7 +106,7 @@
 				</Dialog>
 			{/if}</span
 		>
-		{#if event?.finished}
+		{#if finished}
 			<button type="button" class="chip preset-filled-primary-500 md:hidden"
 				>{t('events_page.past_event')}</button
 			>
@@ -110,9 +114,7 @@
 		<a
 			href={event?.registrationLink}
 			rel="external"
-			class="flex items-center space-x-2 anchor text-lg font-semibold {event?.finished
-				? 'hidden'
-				: ''}"
+			class="flex items-center space-x-2 anchor text-lg font-semibold {finished ? 'hidden' : ''}"
 			><Link size={16} />
 			<p>{t('events_page.registration_link')}</p></a
 		>
