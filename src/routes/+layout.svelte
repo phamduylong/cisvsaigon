@@ -1,9 +1,10 @@
 <script>
 	import './layout.css';
 	import favicon from '$lib/assets/favicon.ico';
-	import { AppBar, Menu, Portal } from '@skeletonlabs/skeleton-svelte';
+	import { AppBar, Menu, Dialog, Portal, useDialog } from '@skeletonlabs/skeleton-svelte';
 	import { Toast } from '@skeletonlabs/skeleton-svelte';
 	import { toaster } from '$lib/components/toaster';
+	import { beforeNavigate } from '$app/navigation';
 	import MenuIcon from '@lucide/svelte/icons/menu';
 	import Facebook from '@lucide/svelte/icons/facebook';
 	import Instagram from '@lucide/svelte/icons/instagram';
@@ -14,11 +15,16 @@
 	import PencilLine from '@lucide/svelte/icons/pencil-line';
 	import LogOut from '@lucide/svelte/icons/log-out';
 	import UserLock from '@lucide/svelte/icons/user-lock';
+	import XIcon from '@lucide/svelte/icons/x';
 	import { goto } from '$app/navigation';
 	import LightSwitch from '$lib/components/LightSwitch.svelte';
 	import LanguageSwitch from '$lib/components/LanguageSwitch.svelte';
+	import { browser } from '$app/environment';
 	let { children, data } = $props();
 	import { t } from '$lib/stores/i18n.svelte';
+
+	const animation =
+		'transition transition-discrete opacity-0 translate-y-[100px] starting:data-[state=open]:opacity-0 starting:data-[state=open]:translate-y-[100px] data-[state=open]:opacity-100 data-[state=open]:translate-y-0';
 
 	const footerLinks = [
 		{
@@ -33,6 +39,35 @@
 		},
 		{ href: 'mailto:cisvhcm@gmail.com', icon: Mail, ariaLabel: 'Send us an email' }
 	];
+
+	/** @type {string | undefined}*/
+	let urlToNavigate = $state(undefined);
+
+	let userConfirmedExternalNavigation = false;
+
+	const id = $props.id();
+	const dialog = useDialog({
+		id,
+		closeOnInteractOutside: true,
+		closeOnEscape: true,
+		role: 'alertdialog'
+	});
+
+	beforeNavigate(({ to, cancel }) => {
+		// navigating to external site
+		if (to?.route.id === null) {
+			cancel();
+			urlToNavigate = to?.url.href;
+			dialog().setOpen(true);
+		}
+	});
+
+	$effect(() => {
+		// dialog closed, user confirmed the navigation, url to navigate exists and we're in the browser
+		if (!dialog().open && userConfirmedExternalNavigation && urlToNavigate && browser) {
+			window.location.href = urlToNavigate;
+		}
+	});
 </script>
 
 <svelte:head>
@@ -202,3 +237,43 @@
 		</Toast>
 	{/snippet}
 </Toast.Group>
+
+<Dialog.Provider value={dialog}>
+	<Dialog.Trigger id="navigateWarningButton" class="hidden"></Dialog.Trigger>
+	<Portal>
+		<Dialog.Backdrop class="fixed inset-0 z-50 bg-surface-50-950/50" />
+		<Dialog.Positioner class="fixed inset-0 z-50 flex items-center justify-center p-4">
+			<Dialog.Content
+				class="w-full max-w-xl space-y-4 card bg-surface-100-900 p-4 shadow-xl {animation}"
+			>
+				<header class="flex items-center justify-between">
+					<Dialog.Title class="text-lg font-bold">{t('common.leaving_title')}</Dialog.Title>
+					<Dialog.CloseTrigger class="btn-icon hover:preset-tonal">
+						<XIcon class="size-4" />
+					</Dialog.CloseTrigger>
+				</header>
+				<Dialog.Description class="flex flex-1 flex-wrap space-y-2">
+					<p class="text-justify">{t('common.leaving_warning')}</p>
+					<pre class="w-full pre">{urlToNavigate}</pre>
+				</Dialog.Description>
+				<footer class="flex justify-end gap-2">
+					<Dialog.CloseTrigger
+						class="btn preset-tonal"
+						onclick={() => {
+							userConfirmedExternalNavigation = false;
+							dialog().setOpen(false);
+						}}>{t('common.cancel')}</Dialog.CloseTrigger
+					>
+					<button
+						type="button"
+						class="btn preset-filled"
+						onclick={() => {
+							userConfirmedExternalNavigation = true;
+							dialog().setOpen(false);
+						}}>{t('common.ok')}</button
+					>
+				</footer>
+			</Dialog.Content>
+		</Dialog.Positioner>
+	</Portal>
+</Dialog.Provider>

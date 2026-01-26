@@ -61,8 +61,6 @@ export default {
 		'event.confirm_delete': 'Confirm delete?',
 		'event.confirm_delete_message':
 			'Are you sure you want to delete this event? This operation is permanent and cannot be reverted!',
-		'common.ok': 'OK',
-		'common.cancel': 'Cancel',
 
 		'events_page.title': 'Events',
 		'events_page.registration_link': 'Registration link',
@@ -99,9 +97,6 @@ export default {
 		'blog_page.blog_post_title_placeholder': 'Title of the blog post',
 		'blog_page.insert_heading': 'Insert heading',
 
-		'common.save': 'Save',
-		'common.back': 'Back',
-
 		'profile_page.title': 'Profile',
 		'profile_page.update_profile_picture': 'Update profile picture',
 		'profile_page.display_name': 'Display name',
@@ -119,7 +114,15 @@ export default {
 		'profile_page.field_is_too_long': '{{field}} is too long. Please use at max 20 characters',
 		'profile_page.loading_title': 'Loading',
 		'profile_page.uploading_image': 'Uploading image...',
-		'profile_page.avatar_updated': 'Your avatar has been updated'
+		'profile_page.avatar_updated': 'Your avatar has been updated',
+
+		'common.save': 'Save',
+		'common.back': 'Back',
+		'common.ok': 'OK',
+		'common.cancel': 'Cancel',
+		'common.leaving_title': 'You are leaving our website',
+		'common.leaving_warning':
+			'You’re about to leave our site and visit an external website. Only continue if you trust this URL.'
 	},
 
 	vi: {
@@ -183,8 +186,6 @@ export default {
 		'event.confirm_delete': 'Xác nhận xóa?',
 		'event.confirm_delete_message':
 			'Bạn có chắc chắn muốn xóa sự kiện này không? Thao tác này là vĩnh viễn và không thể hoàn tác!',
-		'common.ok': 'OK',
-		'common.cancel': 'Hủy',
 
 		'events_page.title': 'Sự kiện',
 		'events_page.registration_link': 'Link đăng ký',
@@ -221,9 +222,6 @@ export default {
 		'blog_page.blog_post_title_placeholder': 'Tiêu đề bài viết',
 		'blog_page.insert_heading': 'Chèn đầu mục',
 
-		'common.save': 'Lưu',
-		'common.back': 'Quay lại',
-
 		'profile_page.title': 'Hồ sơ',
 		'profile_page.update_profile_picture': 'Cập nhật ảnh đại diện',
 		'profile_page.display_name': 'Tên hiển thị',
@@ -241,6 +239,14 @@ export default {
 		'profile_page.field_is_too_long': '{{field}} quá dài. Xin hãy dùng tối đa 20 kí tự',
 		'profile_page.loading_title': 'Vui lòng chờ',
 		'profile_page.uploading_image': 'Đang tải ảnh...',
-		'profile_page.avatar_updated': 'Ảnh đại diện của bạn đã được cập nhật'
+		'profile_page.avatar_updated': 'Ảnh đại diện của bạn đã được cập nhật',
+
+		'common.save': 'Lưu',
+		'common.back': 'Quay lại',
+		'common.ok': 'OK',
+		'common.cancel': 'Hủy',
+		'common.leaving_title': 'Bạn đang rời website của chúng tôi',
+		'common.leaving_warning':
+			'Bạn sắp rời khỏi trang web của chúng tôi để truy cập một trang web bên ngoài. Vui lòng chỉ tiếp tục nếu bạn tin tưởng URL này.'
 	}
 };
