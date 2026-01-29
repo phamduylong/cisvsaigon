@@ -75,11 +75,7 @@
 					required
 				/>
 			</label>
-			<label class="label">
-				<span class="label-text flex">Content <Asterisk size={12} color="red" /></span>
-
-				<TipexEditor onContentChange={setPreviewContent} />
-			</label>
+			<TipexEditor onContentChange={setPreviewContent} />
 			<div class="flex w-full justify-end">
 				<button type="submit" class="btn w-24! preset-filled">{t('common.save')}</button>
 			</div>
@@ -159,7 +155,7 @@
 	<div class="flex h-full w-1/2 flex-col justify-center space-y-5 p-5">
 		<h1 class="text-center h1">{t('blog_page.preview')}</h1>
 		<article
-			class="min-h-187 space-y-4 card border-2 border-secondary-950-50 bg-surface-50-950 p-5 card-hover"
+			class="min-h-100 space-y-4 card border-2 border-secondary-950-50 bg-surface-50-950 p-5 card-hover"
 		>
 			<!-- Author related information -->
 			<div class="mb-5 flex w-full flex-col items-center justify-center space-y-2">
