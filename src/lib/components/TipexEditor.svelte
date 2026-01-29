@@ -15,7 +15,7 @@
 	/** @type {{onContentChange: (content: string) => void}}*/
 	const { onContentChange } = $props();
 
-	const toolBarBtnClasses = 'btn preset-filled-secondary-50-950 p-1 rounded-sm card-hover h-9 w-6';
+	const toolBarBtnClasses = 'btn preset-filled-secondary-500 p-1 rounded-sm card-hover h-10 w-8';
 	const animation =
 		'transition transition-discrete opacity-0 translate-y-[100px] starting:data-[state=open]:opacity-0 starting:data-[state=open]:translate-y-[100px] data-[state=open]:opacity-100 data-[state=open]:translate-y-0';
 
@@ -75,29 +75,33 @@
 		{
 			icon: Link,
 			triggerFeature: function () {
+				const { view, state } = editor;
+				const { from, to } = view.state.selection;
+				displayText = state.doc.textBetween(from, to, '')
 				dialog().setOpen(true);
 			}
 		},
 
-		{
-			icon: List,
-			triggerFeature: function () {
-				editor?.commands.toggleBulletList();
-			}
-		},
-		{
-			icon: ListOrdered,
-			triggerFeature: function () {
-				editor?.commands.toggleOrderedList();
-			}
-		}
+		// FIXME: find a way to make these work
+		// {
+		// 	icon: List,
+		// 	triggerFeature: function () {
+		// 		editor?.commands.toggleBulletList();
+		// 	}
+		// },
+		// {
+		// 	icon: ListOrdered,
+		// 	triggerFeature: function () {
+		// 		editor?.commands.toggleOrderedList();
+		// 	}
+		// }
 	];
 
 	const headings = [
 		{ text: t('blog_page.insert_heading'), value: null, class: '', triggerFeature: function () {} },
 		// blog post title is h3 so we must start at h4 and down
 		{
-			text: 'Large heading',
+			text: t('blog_page.large_heading'),
 			value: 'h4',
 			class: 'h4',
 			triggerFeature: function () {
@@ -105,7 +109,7 @@
 			}
 		},
 		{
-			text: 'Medium heading',
+			text: t('blog_page.medium_heading'),
 			value: 'h5',
 			class: 'h5',
 			triggerFeature: function () {
@@ -113,7 +117,7 @@
 			}
 		},
 		{
-			text: 'Small heading',
+			text: t('blog_page.small_heading'),
 			value: 'h6',
 			class: 'h6',
 			triggerFeature: function () {
@@ -130,7 +134,7 @@
 	});
 </script>
 
-<Tipex class="mt-0! w-full" bind:tipex={editor}>
+<Tipex body={t('blog_page.blog_post_content_placeholder')} class="w-full" bind:tipex={editor}>
 	{#snippet controlComponent()}
 		<div class="my-2 flex flex-wrap space-y-2 space-x-1">
 			<select
@@ -191,16 +195,16 @@
 							><b class="text-center text-lg text-error-500">{validationErr}</b></span
 						>
 						<label class="label">
-							<span class="label-text">URL</span>
-							<input class="input" type="url" placeholder="URL" bind:value={url} />
+							<span class="label-text">{t('blog_page.url')}</span>
+							<input class="input" type="url" placeholder={t('blog_page.url')} bind:value={url} />
 						</label>
 						<!-- text -->
 						<label class="label">
-							<span class="label-text">Display text</span>
+							<span class="label-text">{t('blog_page.url_display_text')}</span>
 							<input
 								class="input"
 								type="text"
-								placeholder="Display text"
+								placeholder={t('blog_page.url_display_text')}
 								bind:value={displayText}
 							/>
 						</label>
@@ -219,17 +223,17 @@
 						class="btn preset-filled"
 						onclick={() => {
 							if (!url) {
-								validationErr = 'URL must not be empty';
+								validationErr = t('blog_page.url_is_invalid');
 								return;
 							}
 
 							if (!isValidHttpUrl(url)) {
-								validationErr = 'URL is invalid';
+								validationErr = t('blog_page.url_is_invalid');
 								return;
 							}
 
 							if (!displayText) {
-								validationErr = 'Display text must not be empty';
+								validationErr = t('blog_page.display_text_is_empty');
 								return;
 							}
 							dialog().setOpen(false);
