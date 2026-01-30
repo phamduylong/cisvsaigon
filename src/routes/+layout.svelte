@@ -55,7 +55,8 @@
 
 	beforeNavigate(({ to, cancel }) => {
 		// navigating to external site
-		if (to?.route.id === null) {
+		// seems that route id only recognize relative path, so the latter check is for origin
+		if (to?.route.id === null && to?.url.origin !== window?.location.origin) {
 			cancel();
 			urlToNavigate = to?.url.href;
 			dialog().setOpen(true);
