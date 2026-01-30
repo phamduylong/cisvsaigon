@@ -5,15 +5,15 @@
 	import Link from '@lucide/svelte/icons/link';
 	import Strikethrough from '@lucide/svelte/icons/strikethrough';
 	import Code from '@lucide/svelte/icons/code';
-	import List from '@lucide/svelte/icons/list';
-	import ListOrdered from '@lucide/svelte/icons/list-ordered';
+	// import List from '@lucide/svelte/icons/list';
+	// import ListOrdered from '@lucide/svelte/icons/list-ordered';
 	import XIcon from '@lucide/svelte/icons/x';
 	import { t } from '$lib/stores/i18n.svelte';
 	import { Dialog, useDialog, Portal } from '@skeletonlabs/skeleton-svelte';
 	import { isValidHttpUrl } from '$lib/helper/stringFunctions';
 
-	/** @type {{onContentChange: (content: string) => void}}*/
-	const { onContentChange } = $props();
+	/** @type {{onContentChange: (content: string) => void, initialContent: string}}*/
+	const { onContentChange, initialContent = '' } = $props();
 
 	const toolBarBtnClasses = 'btn preset-filled-secondary-500 p-1 rounded-sm card-hover h-10 w-8';
 	const animation =
@@ -36,10 +36,6 @@
 				.replaceAll('<ol', '<ol class="list-inside list-decimal space-y-2"');
 		}
 		return html;
-	});
-
-	$effect(() => {
-		onContentChange(modifiedContent);
 	});
 
 	let url = $state('');
@@ -77,10 +73,10 @@
 			triggerFeature: function () {
 				const { view, state } = editor;
 				const { from, to } = view.state.selection;
-				displayText = state.doc.textBetween(from, to, '')
+				displayText = state.doc.textBetween(from, to, '');
 				dialog().setOpen(true);
 			}
-		},
+		}
 
 		// FIXME: find a way to make these work
 		// {
@@ -134,7 +130,19 @@
 	});
 </script>
 
-<Tipex body={t('blog_page.blog_post_content_placeholder')} class="w-full" bind:tipex={editor}>
+<Tipex
+	onupdate={() => {
+		onContentChange(modifiedContent);
+	}}
+	oncreate={() => {
+		if (initialContent) {
+			editor?.commands.insertContent(initialContent);
+			editor?.commands.focus('end');
+		}
+	}}
+	class="w-full"
+	bind:tipex={editor}
+>
 	{#snippet controlComponent()}
 		<div class="my-2 flex flex-wrap space-y-2 space-x-1">
 			<select

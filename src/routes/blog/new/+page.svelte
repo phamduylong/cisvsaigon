@@ -1,6 +1,7 @@
 <script>
 	import { PUBLIC_POCKETBASE_FILE_URL } from '$env/static/public';
 	import { getInitials } from '$lib/helper/stringFunctions';
+	import { browser } from '$app/environment';
 
 	let content = $state('');
 	let title = $state('This is a blog title');
@@ -14,12 +15,25 @@
 	const { data } = $props();
 	import DOMPurify from 'isomorphic-dompurify';
 	import { t, getLocale } from '$lib/stores/i18n.svelte.js';
+	import { onMount } from 'svelte';
 	const locale = $derived(getLocale());
+	/**@type {{ title: string, content: string }}*/
+	let draftPost;
 
 	/** @type {(html: string) => void}*/
 	const setPreviewContent = (html) => {
 		content = html;
+		localStorage.setItem('draft', JSON.stringify({ title, content }));
 	};
+
+	// fetch draft content from LS
+	onMount(() => {
+		draftPost = browser
+			? JSON.parse(localStorage.getItem('draft') ?? '')
+			: { title: '', content: '' };
+		title = draftPost['title'];
+		content = draftPost['content'];
+	});
 </script>
 
 <svelte:head>
@@ -73,9 +87,10 @@
 					name="title"
 					placeholder={t('blog_page.blog_post_title_placeholder')}
 					required
+					oninput={() => localStorage.setItem('draft', JSON.stringify({ title, content }))}
 				/>
 			</label>
-			<TipexEditor onContentChange={setPreviewContent} />
+			<TipexEditor initialContent={content} onContentChange={setPreviewContent} />
 			<div class="flex w-full justify-end">
 				<button type="submit" class="btn w-24! preset-filled">{t('common.save')}</button>
 			</div>
@@ -143,9 +158,10 @@
 					name="title"
 					placeholder={t('blog_page.blog_post_title_placeholder')}
 					required
+					oninput={() => localStorage.setItem('draft', JSON.stringify({ title, content }))}
 				/>
 			</label>
-			<TipexEditor onContentChange={setPreviewContent} />
+			<TipexEditor initialContent={content} onContentChange={setPreviewContent} />
 			<div class="flex w-full justify-end">
 				<button type="submit" class="btn w-24! preset-filled">{t('common.save')}</button>
 			</div>
