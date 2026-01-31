@@ -1,11 +1,11 @@
 import { error, redirect } from '@sveltejs/kit';
+/**
+ * @typedef {import('$lib/types/types.js').BlogPostRecord} BlogPostRecord
+ * @typedef {import('$lib/types/types.js').UserRecord} UserRecord
+ */
 
 /** @type {import('./$types').PageServerLoad} */
 export async function load({ locals }) {
-	/**
-	 * @typedef {import('$lib/types/types.js').BlogPostRecord} BlogPostRecord
-	 * @typedef {import('$lib/types/types.js').UserRecord} UserRecord
-	 */
 	/** @type {(BlogPostRecord & { expand: { author: UserRecord } })[]} */
 	const posts = await locals.pocketBase.collection('posts').getFullList({
 		sort: '-created',
@@ -41,8 +41,11 @@ export const actions = {
 			error(400, 'Post must not be empty');
 		}
 
+		/** @type {(BlogPostRecord & { expand: { author: UserRecord } }) | null} */
+		let post = null;
+
 		try {
-			await locals.pocketBase.collection('posts').create({
+			post = await locals.pocketBase.collection('posts').create({
 				title,
 				content,
 				author: user?.id
@@ -56,7 +59,7 @@ export const actions = {
 			error(err.code ?? 500, err.message ?? 'Unknown error occurred.');
 		}
 
-		redirect(303, '/blog');
+		redirect(303, `/blog/${post?.id}`);
 	},
 
 	delete: async ({ locals, request }) => {
