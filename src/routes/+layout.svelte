@@ -184,7 +184,7 @@
 									<Menu.Item value="/logout">
 										<Menu.ItemText class="flex items-center space-x-2">
 											<LogOut size={16} />
-											<p>Logout</p></Menu.ItemText
+											<p>{t('menu.logout')}</p></Menu.ItemText
 										>
 									</Menu.Item>
 								{/if}
