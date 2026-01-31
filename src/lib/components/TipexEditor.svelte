@@ -249,7 +249,7 @@
 								.chain()
 								.focus()
 								.insertContent(
-									`<a href="${url}" target="_blank" rel="noopener noreferrer">${displayText}</a>`
+									`<a href="${url}" target="_self" rel="noopener noreferrer">${displayText}</a>`
 								)
 								.run();
 							validationErr = '';
