@@ -5,7 +5,6 @@
 	import { getInitials } from '$lib/helper/stringFunctions';
 	/** @type {import('./$types').PageProps} */
 	const { data } = $props();
-	import DOMPurify from 'isomorphic-dompurify';
 	import { t, getLocale } from '$lib/stores/i18n.svelte';
 	const locale = $derived(getLocale());
 </script>
@@ -54,7 +53,7 @@
 		</div>
 
 		<article class="w-full space-y-4 text-justify">
-			{@html DOMPurify.sanitize(data.post.content)}
+			{@html data.post.content}
 		</article>
 	</div>
 </div>

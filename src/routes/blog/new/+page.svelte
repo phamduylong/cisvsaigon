@@ -13,7 +13,6 @@
 	import Pen from '@lucide/svelte/icons/pen';
 	import { Avatar, Switch } from '@skeletonlabs/skeleton-svelte';
 	const { data } = $props();
-	import DOMPurify from 'isomorphic-dompurify';
 	import { t, getLocale } from '$lib/stores/i18n.svelte.js';
 	import { onMount } from 'svelte';
 	const locale = $derived(getLocale());
@@ -132,7 +131,7 @@
 
 			<!-- Rendered content-->
 			<div class="space-y-4 text-justify">
-				{@html DOMPurify.sanitize(content)}
+				{@html content}
 			</div>
 		</article>
 	</div>
@@ -203,7 +202,7 @@
 
 			<!-- Rendered content-->
 			<div class="space-y-4 text-justify">
-				{@html DOMPurify.sanitize(content)}
+				{@html content}
 			</div>
 		</article>
 	</div>
