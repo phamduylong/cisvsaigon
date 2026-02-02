@@ -16,11 +16,9 @@ export const actions = {
 		try {
 			await locals.pocketBase.collection('users').update(locals.user?.id, formData);
 		} catch (e) {
-			/** @typedef {{ code: number, message: string, data: Object }} AuthError */
-
-			const err = /** @type {AuthError} */ (e);
+			const err = e;
 			console.error(err);
-			error(err.code ?? 500, err.message ?? 'Unknown error occurred.');
+			error(500, err?.response?.data?.avatar?.message);
 		}
 
 		if (locals.pocketBase.authStore.isValid) {

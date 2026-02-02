@@ -46,11 +46,11 @@
 			body: formData
 		});
 
-		if (!resp.ok) {
-			throw new Error(t('profile_page.upload_image_failed', { error: JSON.stringify(resp.body) }));
-		}
-
 		const body = await resp.json();
+
+		if (!resp.ok) {
+			throw new Error(JSON.stringify(body.error.message));
+		}
 		const returnUrl = JSON.parse(body.data)?.[0] ?? null;
 
 		return returnUrl;
