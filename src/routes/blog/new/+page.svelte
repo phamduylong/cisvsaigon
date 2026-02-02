@@ -5,6 +5,7 @@
 
 	let content = $state('');
 	let title = $state('This is a blog title');
+	let saveBtnDisabled = $state(false);
 
 	let inPreviewMode = $state(false);
 	import TipexEditor from '$lib/components/TipexEditor.svelte';
@@ -74,7 +75,10 @@
 			class="flex w-full flex-col space-y-5 card bg-surface-50-950 p-5"
 			method="POST"
 			action="/blog?/create"
-			onsubmit={() => localStorage.setItem('draft', '')}
+			onsubmit={() => {
+				localStorage.setItem('draft', '');
+				saveBtnDisabled = true;
+			}}
 		>
 			<label class="label">
 				<span class="label-text flex"
@@ -92,7 +96,9 @@
 			</label>
 			<TipexEditor initialContent={content} onContentChange={setPreviewContent} />
 			<div class="flex w-full justify-end">
-				<button type="submit" class="btn w-24! preset-filled">{t('common.save')}</button>
+				<button type="submit" class="btn w-24! preset-filled" disabled={saveBtnDisabled}
+					>{t('common.save')}</button
+				>
 			</div>
 		</form>
 	</div>
@@ -143,10 +149,13 @@
 	<div class="flex h-full w-1/2 flex-col justify-center space-y-5 p-5">
 		<h1 class="text-center h1 lg:block">{t('blog_page.edit')}</h1>
 		<form
-			onsubmit={() => localStorage.setItem('draft', '')}
 			class="flex w-full flex-col space-y-5 card bg-surface-50-950 p-5"
 			method="POST"
 			action="/blog?/create"
+			onsubmit={() => {
+				localStorage.setItem('draft', '');
+				saveBtnDisabled = true;
+			}}
 		>
 			<label class="label">
 				<span class="label-text flex"
@@ -164,7 +173,9 @@
 			</label>
 			<TipexEditor initialContent={content} onContentChange={setPreviewContent} />
 			<div class="flex w-full justify-end">
-				<button type="submit" class="btn w-24! preset-filled">{t('common.save')}</button>
+				<button type="submit" class="btn w-24! preset-filled" disabled={saveBtnDisabled}
+					>{t('common.save')}</button
+				>
 			</div>
 		</form>
 	</div>
