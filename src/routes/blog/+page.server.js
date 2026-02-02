@@ -28,16 +28,17 @@ export const actions = {
 
 		const body = Object.fromEntries(await request.formData());
 
-		const title = body['title'];
+		const title = String(body['title']);
 
-		const content = body['postContent'];
+		const content = String(body['postContent']);
 
 		const user = locals.user;
 
 		if (!title) {
 			error(400, 'Post must have a title');
 		}
-		if (!content) {
+
+		if (!content || !content.replaceAll('<p>', '').replaceAll('</p>', '').trim()) {
 			error(400, 'Post must not be empty');
 		}
 
