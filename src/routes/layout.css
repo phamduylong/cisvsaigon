@@ -86,15 +86,6 @@ div.tiptap.ProseMirror code {
 	}
 }
 
-div.tiptap.ProseMirror ol {
-	list-style-position: inside;
-	list-style-type: decimal;
-}
-
-div.tiptap.ProseMirror ul {
-	list-style-position: inside;
-	list-style-type: disc;
-}
 div.tiptap.ProseMirror a {
 	color: var(--anchor-font-color) /* inherit */;
 	font-family: var(--anchor-font-family) /* inherit */;
