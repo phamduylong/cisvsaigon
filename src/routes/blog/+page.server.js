@@ -52,12 +52,22 @@ export const actions = {
 				author: user?.id
 			});
 		} catch (e) {
-			/** @typedef {{ code: number, message: string, data: Object }} AuthError */
+			/**
+			 * @typedef {import('$lib/types/types.js').PocketBaseClientError} PocketBaseClientError
+			 */
+			const err = /** @type {PocketBaseClientError} */ (e);
+			console.error(err.originalError);
 
-			const err = /** @type {AuthError} */ (e);
-			console.error(err);
-			console.error(err.data);
-			error(err.code ?? 500, err.message ?? 'Unknown error occurred.');
+			/** @type {string[]} */
+			const errMessages = [];
+			Object.values(err.originalError.data.data).forEach((err) => {
+				errMessages.push(err.message);
+			});
+
+			error(
+				err.originalError.data.code ?? 500,
+				errMessages.join('\n') ?? 'Unknown error occurred.'
+			);
 		}
 
 		redirect(303, `/blog/${post?.id}`);
@@ -72,12 +82,22 @@ export const actions = {
 		try {
 			await locals.pocketBase.collection('posts').delete(id);
 		} catch (e) {
-			/** @typedef {{ code: number, message: string, data: Object }} AuthError */
+			/**
+			 * @typedef {import('$lib/types/types.js').PocketBaseClientError} PocketBaseClientError
+			 */
+			const err = /** @type {PocketBaseClientError} */ (e);
+			console.error(err.originalError);
 
-			const err = /** @type {AuthError} */ (e);
-			console.error(err);
-			console.error(err.data);
-			error(err.code ?? 500, err.message ?? 'Unknown error occurred.');
+			/** @type {string[]} */
+			const errMessages = [];
+			Object.values(err.originalError.data.data).forEach((err) => {
+				errMessages.push(err.message);
+			});
+
+			error(
+				err.originalError.data.code ?? 500,
+				errMessages.join('\n') ?? 'Unknown error occurred.'
+			);
 		}
 
 		if (locals.blogPostsCache && locals.blogPostsCache.length) {

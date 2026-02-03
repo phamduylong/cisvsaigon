@@ -16,9 +16,22 @@ export const actions = {
 		try {
 			await locals.pocketBase.collection('users').update(locals.user?.id, formData);
 		} catch (e) {
-			const err = e;
-			console.error(err);
-			error(500, err?.response?.data?.avatar?.message);
+			/**
+			 * @typedef {import('$lib/types/types.js').PocketBaseClientError} PocketBaseClientError
+			 */
+			const err = /** @type {PocketBaseClientError} */ (e);
+			console.error(err.originalError);
+
+			/** @type {string[]} */
+			const errMessages = [];
+			Object.values(err.originalError.data.data).forEach((err) => {
+				errMessages.push(err.message);
+			});
+
+			error(
+				err.originalError.data.code ?? 500,
+				errMessages.join('\n') ?? 'Unknown error occurred.'
+			);
 		}
 
 		if (locals.pocketBase.authStore.isValid) {
@@ -63,11 +76,22 @@ export const actions = {
 					passwordConfirm: confirmPassword
 				});
 			} catch (e) {
-				/** @typedef {{ code: number, message: string, data: Object }} AuthError */
+				/**
+				 * @typedef {import('$lib/types/types.js').PocketBaseClientError} PocketBaseClientError
+				 */
+				const err = /** @type {PocketBaseClientError} */ (e);
+				console.error(err.originalError);
 
-				const err = /** @type {AuthError} */ (e);
-				console.error(err);
-				error(err.code ?? 500, err.message ?? 'Unknown error occurred.');
+				/** @type {string[]} */
+				const errMessages = [];
+				Object.values(err.originalError.data.data).forEach((err) => {
+					errMessages.push(err.message);
+				});
+
+				error(
+					err.originalError.data.code ?? 500,
+					errMessages.join('\n') ?? 'Unknown error occurred.'
+				);
 			}
 
 			await locals.pocketBase.authStore.clear();
@@ -81,12 +105,22 @@ export const actions = {
 					displayName
 				});
 			} catch (e) {
-				/** @typedef {{ code: number, message: string, data: Object }} AuthError */
+				/**
+				 * @typedef {import('$lib/types/types.js').PocketBaseClientError} PocketBaseClientError
+				 */
+				const err = /** @type {PocketBaseClientError} */ (e);
+				console.error(err.originalError);
 
-				const err = /** @type {AuthError} */ (e);
-				console.error(err);
-				console.error(err.data);
-				error(err.code ?? 500, err.message ?? 'Unknown error occurred.');
+				/** @type {string[]} */
+				const errMessages = [];
+				Object.values(err.originalError.data.data).forEach((err) => {
+					errMessages.push(err.message);
+				});
+
+				error(
+					err.originalError.data.code ?? 500,
+					errMessages.join('\n') ?? 'Unknown error occurred.'
+				);
 			}
 
 			if (locals.pocketBase.authStore.isValid) {

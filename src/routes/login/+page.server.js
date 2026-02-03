@@ -32,11 +32,19 @@ export const actions = {
 		try {
 			await locals.pocketBase.collection('users').authWithPassword(email, password);
 		} catch (e) {
-			/** @typedef {{ code: number, message: string, data: Object }} AuthError */
+			/**
+			 * @typedef {import('$lib/types/types.js').PocketBaseClientError} PocketBaseClientError
+			 */
+			const err = /** @type {PocketBaseClientError} */ (e);
+			console.error(err.originalError);
 
-			const err = /** @type {AuthError} */ (e);
-			console.error(err);
-			error(err.code ?? 500, err.message ?? 'Unknown error occurred.');
+			/** @type {string[]} */
+			const errMessages = [err.originalError.data.message];
+
+			error(
+				err.originalError.data.code ?? 500,
+				errMessages.join('\n') ?? 'Unknown error occurred.'
+			);
 		}
 
 		if (locals.pocketBase.authStore.isValid) {

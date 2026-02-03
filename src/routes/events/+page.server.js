@@ -35,8 +35,8 @@ export const actions = {
 			errors.push('Event title is missing');
 		}
 
-		const _startDate = body['startDate'];
-		const _endDate = body['endDate'];
+		const _startDate = String(body['startDate']);
+		const _endDate = String(body['endDate']);
 
 		if (!_startDate) {
 			errors.push('Start date is missing or malformed');
@@ -53,7 +53,7 @@ export const actions = {
 			errors.push('Ending date and time must be after start date and time');
 		}
 
-		const registrationLink = body['registrationLink'];
+		const registrationLink = String(body['registrationLink']);
 
 		if (!registrationLink) {
 			errors.push('Registration link is missing');
@@ -61,9 +61,9 @@ export const actions = {
 			errors.push('Registration link is not a valid URL');
 		}
 
-		const minAge = body['minAge'];
+		const minAge = Number(body['minAge']);
 
-		const maxAge = body['maxAge'];
+		const maxAge = Number(body['maxAge']);
 
 		if (maxAge > 0 && minAge > maxAge) {
 			errors.push('Minimum age to attend the event cannot be bigger than maximum age');
@@ -90,12 +90,22 @@ export const actions = {
 				shortDescription
 			});
 		} catch (e) {
-			/** @typedef {{ code: number, message: string, data: Object }} AuthError */
+			/**
+			 * @typedef {import('$lib/types/types.js').PocketBaseClientError} PocketBaseClientError
+			 */
+			const err = /** @type {PocketBaseClientError} */ (e);
+			console.error(err.originalError);
 
-			const err = /** @type {AuthError} */ (e);
-			console.error(err);
-			console.error(err.data);
-			error(err.code ?? 500, err.message ?? 'Unknown error occurred.');
+			/** @type {string[]} */
+			const errMessages = [];
+			Object.values(err.originalError.data.data).forEach((err) => {
+				errMessages.push(err.message);
+			});
+
+			error(
+				err.originalError.data.code ?? 500,
+				errMessages.join('\n') ?? 'Unknown error occurred.'
+			);
 		}
 
 		redirect(303, '/events');
@@ -110,12 +120,22 @@ export const actions = {
 		try {
 			await locals.pocketBase.collection('events').delete(id);
 		} catch (e) {
-			/** @typedef {{ code: number, message: string, data: Object }} AuthError */
+			/**
+			 * @typedef {import('$lib/types/types.js').PocketBaseClientError} PocketBaseClientError
+			 */
+			const err = /** @type {PocketBaseClientError} */ (e);
+			console.error(err.originalError);
 
-			const err = /** @type {AuthError} */ (e);
-			console.error(err);
-			console.error(err.data);
-			error(err.code ?? 500, err.message ?? 'Unknown error occurred.');
+			/** @type {string[]} */
+			const errMessages = [];
+			Object.values(err.originalError.data.data).forEach((err) => {
+				errMessages.push(err.message);
+			});
+
+			error(
+				err.originalError.data.code ?? 500,
+				errMessages.join('\n') ?? 'Unknown error occurred.'
+			);
 		}
 		redirect(303, '/events');
 	}
