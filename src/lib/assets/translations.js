@@ -114,7 +114,7 @@ export default {
 		'profile_page.save_button': 'Save',
 		'profile_page.error_title': 'Error',
 		'profile_page.success_title': 'Success',
-		'profile_page.upload_image_failed': 'Failed to upload your image. Error: {{error}}',
+		'profile_page.upload_image_failed': 'Failed to upload your image. {{error}}',
 		'profile_page.password_fields_do_not_match':
 			'New password and password confirmation do not mach',
 		'profile_page.old_password_is_required': 'Old password is required',
@@ -247,7 +247,7 @@ export default {
 		'profile_page.save_button': 'Lưu',
 		'profile_page.error_title': 'Đã xảy ra lỗi',
 		'profile_page.success_title': 'Thành công',
-		'profile_page.upload_image_failed': 'Có lỗi đã xảy ra khi đang tải ảnh. Chi tiết: {{error}}',
+		'profile_page.upload_image_failed': 'Có lỗi đã xảy ra khi đang tải ảnh. {error}}',
 		'profile_page.password_fields_do_not_match':
 			'Mật khẩu mới và xác nhận mật khẩu không giống nhau',
 		'profile_page.old_password_is_required': 'Vui lòng nhập mật khẩu cũ',
