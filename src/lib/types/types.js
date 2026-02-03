@@ -56,4 +56,44 @@
  * @property {string} created
  * @property {string} updated
  */
+
+/**
+ * @typedef {Object} PocketBaseClientError
+ * @property {string} url
+ * @property {number} status
+ * @property {{
+ *   code: number,
+ *   message: string,
+ *   data: Record<string, {
+ *     code: string,
+ *     message: string
+ *   }>
+ * }} response
+ * @property {boolean} isAbort
+ * @property {{
+ *   url: string,
+ *   status: number,
+ *   data: {
+ *     code: number,
+ *     message: string,
+ *     data: Record<string, {
+ *       code: string,
+ *       message: string
+ *     }>
+ *   }
+ * }} originalError
+ * @property {{
+ *   url: string,
+ *   status: number,
+ *   data: {
+ *     code: number,
+ *     message: string,
+ *     data: Record<string, {
+ *       code: string,
+ *       message: string
+ *     }>
+ *   }
+ * }} cause
+ */
+
 export {};
