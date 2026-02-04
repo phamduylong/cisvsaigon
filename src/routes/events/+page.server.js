@@ -55,9 +55,7 @@ export const actions = {
 
 		const registrationLink = String(body['registrationLink']);
 
-		if (!registrationLink) {
-			errors.push('Registration link is missing');
-		} else if (!isValidHttpUrl(registrationLink)) {
+		if (registrationLink && !isValidHttpUrl(registrationLink)) {
 			errors.push('Registration link is not a valid URL');
 		}
 

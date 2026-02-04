@@ -67,15 +67,12 @@
 
 			<!-- Registration link -->
 			<label class="label">
-				<span class="label-text flex"
-					>{t('events_page.event_registration_link')}<Asterisk size={12} color="red" /></span
-				>
+				<span class="label-text flex">{t('events_page.event_registration_link')}</span>
 				<input
 					class="input"
 					type="url"
 					placeholder={t('events_page.event_registration_link_placeholder')}
 					name="registrationLink"
-					required
 				/>
 			</label>
 
