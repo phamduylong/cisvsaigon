@@ -130,7 +130,8 @@ export default {
 		'common.cancel': 'Cancel',
 		'common.leaving_title': 'You are leaving our website',
 		'common.leaving_warning':
-			'You’re about to leave our site and visit an external website. Only continue if you trust this URL.'
+			'You’re about to leave our site and visit an external website. Only continue if you trust this URL.',
+		'common.something_went_wrong': 'Something went wrong...'
 	},
 
 	vi: {
@@ -263,6 +264,7 @@ export default {
 		'common.cancel': 'Hủy',
 		'common.leaving_title': 'Bạn đang rời website của chúng tôi',
 		'common.leaving_warning':
-			'Bạn sắp rời khỏi trang web của chúng tôi để truy cập một trang web bên ngoài. Vui lòng chỉ tiếp tục nếu bạn tin tưởng URL này.'
+			'Bạn sắp rời khỏi trang web của chúng tôi để truy cập một trang web bên ngoài. Vui lòng chỉ tiếp tục nếu bạn tin tưởng URL này.',
+		'common.something_went_wrong': 'Đã có lỗi xảy ra...'
 	}
 };
