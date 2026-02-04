@@ -4,6 +4,7 @@
 	import { getInitials } from '$lib/helper/stringFunctions';
 	import { toaster } from '$lib/components/toaster';
 	import { t } from '$lib/stores/i18n.svelte.js';
+	import { heicTo, isHeic } from 'heic-to';
 	let { data } = $props();
 	let avatarSrc = $derived(`${data.user?.collectionId}/${data.user?.id}/${data.user?.avatar}/`);
 
@@ -38,8 +39,24 @@
 		const file = details?.files?.[0];
 		if (!file) return null;
 
+		let image = file;
+
+		const originalName = image.name;
+
+		// Check if the file is HEIC/HEIF
+		// HEIC is not supported by a lot of browsers so we convert it to JPG
+		if (await isHeic(image)) {
+			// Convert to JPEG
+			const blob = await heicTo({
+				blob: file,
+				type: 'image/jpeg',
+				quality: 0.99
+			});
+			image = new File([blob], originalName.replaceAll('.heic', '.jpg'));
+		}
+
 		const formData = new FormData();
-		formData.append('avatar', file);
+		formData.append('avatar', image);
 
 		const resp = await fetch('/profile?/updateImage', {
 			method: 'POST',
