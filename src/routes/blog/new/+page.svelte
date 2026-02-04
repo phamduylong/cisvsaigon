@@ -96,8 +96,10 @@
 			</label>
 			<TipexEditor initialContent={content} onContentChange={setPreviewContent} />
 			<div class="flex w-full justify-end">
-				<button type="submit" class="btn w-24! preset-filled" disabled={saveBtnDisabled}
-					>{t('common.save')}</button
+				<button
+					type="submit"
+					class="btn w-24! preset-filled bg-primary-700-300"
+					disabled={saveBtnDisabled}>{t('common.save')}</button
 				>
 			</div>
 		</form>
@@ -173,8 +175,10 @@
 			</label>
 			<TipexEditor initialContent={content} onContentChange={setPreviewContent} />
 			<div class="flex w-full justify-end">
-				<button type="submit" class="btn w-24! preset-filled" disabled={saveBtnDisabled}
-					>{t('common.save')}</button
+				<button
+					type="submit"
+					class="btn w-24! preset-filled bg-primary-700-300"
+					disabled={saveBtnDisabled}>{t('common.save')}</button
 				>
 			</div>
 		</form>

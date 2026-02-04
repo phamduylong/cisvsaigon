@@ -197,7 +197,7 @@
 				});
 			}}
 		>
-			<FileUpload.Trigger type="button" class="btn preset-filled text-sm"
+			<FileUpload.Trigger type="button" class="btn preset-filled bg-primary-700-300 text-sm"
 				>{t('profile_page.update_profile_picture')}</FileUpload.Trigger
 			>
 			<FileUpload.HiddenInput />
@@ -249,8 +249,10 @@
 			/>
 		</label>
 
-		<button type="button" class="btn preset-filled" onclick={() => validateAndSubmitForm()}
-			>{t('profile_page.save_button')}</button
+		<button
+			type="button"
+			class="btn preset-filled bg-primary-700-300"
+			onclick={() => validateAndSubmitForm()}>{t('profile_page.save_button')}</button
 		>
 	</form>
 </div>

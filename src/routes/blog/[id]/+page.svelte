@@ -15,7 +15,7 @@
 </svelte:head>
 
 <a
-	class="mx-2 mt-3 ml-3 btn flex w-min items-center justify-between preset-filled text-sm md:mt-5 md:ml-5"
+	class="mx-2 mt-3 ml-3 btn flex w-min items-center justify-between preset-filled bg-primary-700-300 text-sm md:mt-5 md:ml-5"
 	aria-label="back"
 	href="/blog"
 	><ArrowLeft size={16} />
