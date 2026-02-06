@@ -4,20 +4,20 @@ import translations from '$lib/assets/translations';
 /** @typedef {Record<string, Record<string, string>>} Translations */
 const typedTranslations = translations;
 
-/** @type {string} */
+/** @type {'vi' | 'en'} */
 let locale = $state('vi');
 
 /**
- *
- * @returns {string}
+ * Get current user preferred locale
+ * @returns {'vi' | 'en'}
  */
 export function getLocale() {
 	return locale;
 }
 
 /**
- *
- * @param {string} value
+ * Set preferred locale for user
+ * @param {'vi' | 'en'} value
  */
 export function setLocale(value) {
 	locale = value;
@@ -26,6 +26,7 @@ export function setLocale(value) {
 export const locales = Object.keys(typedTranslations);
 
 /**
+ * Get translated string
  * @param {string} key
  * @param {Record<string, unknown>} vars
  */
