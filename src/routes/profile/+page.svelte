@@ -3,7 +3,7 @@
 	import { PUBLIC_POCKETBASE_FILE_URL } from '$env/static/public';
 	import { getInitials } from '$lib/helper/stringFunctions';
 	import { toaster } from '$lib/components/toaster';
-	import { t } from '$lib/stores/i18n.svelte.js';
+	import { t, getLocale } from '$lib/stores/i18n.svelte.js';
 	import { heicTo, isHeic } from 'heic-to';
 	let { data } = $props();
 	let avatarSrc = $derived(`${data.user?.collectionId}/${data.user?.id}/${data.user?.avatar}/`);
@@ -174,6 +174,8 @@
 			<Avatar.Fallback>{getInitials(data.user?.displayName)}</Avatar.Fallback>
 		</Avatar>
 		<FileUpload
+			locale={getLocale()}
+			maxFileSize={10485760}
 			accept="image/*"
 			data-sveltekit-reload
 			class="w-fit"
