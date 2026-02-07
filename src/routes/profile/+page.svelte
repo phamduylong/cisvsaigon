@@ -77,7 +77,11 @@
 		const _form = document.getElementById('updateUserForm');
 
 		if (!(_form instanceof HTMLFormElement)) {
-			console.error('form cannot be found');
+			// we do not expect this to happen too much, let's not bother localizing
+			toaster.error({
+				title: t('profile_page.error_title'),
+				description: 'Form element was not found.'
+			});
 			return;
 		}
 
