@@ -8,7 +8,6 @@
 	let saveBtnDisabled = $state(false);
 
 	let inPreviewMode = $state(false);
-	import TipexEditor from '$lib/components/TipexEditor.svelte';
 	import Asterisk from '@lucide/svelte/icons/asterisk';
 	import View from '@lucide/svelte/icons/view';
 	import Pen from '@lucide/svelte/icons/pen';
@@ -16,6 +15,7 @@
 	const { data } = $props();
 	import { t, getLocale } from '$lib/stores/i18n.svelte.js';
 	import { onMount } from 'svelte';
+	import TipTapEditor from '$lib/components/TipTapEditor.svelte';
 	const locale = $derived(getLocale());
 	/**@type {{ title: string, content: string }}*/
 	let draftPost;
@@ -94,7 +94,7 @@
 					oninput={() => localStorage.setItem('draft', JSON.stringify({ title, content }))}
 				/>
 			</label>
-			<TipexEditor initialContent={content} onContentChange={setPreviewContent} />
+			<TipTapEditor initialContent={content} onContentChange={setPreviewContent} />
 			<div class="flex w-full justify-end">
 				<button
 					type="submit"
@@ -173,7 +173,7 @@
 					oninput={() => localStorage.setItem('draft', JSON.stringify({ title, content }))}
 				/>
 			</label>
-			<TipexEditor initialContent={content} onContentChange={setPreviewContent} />
+			<TipTapEditor initialContent={content} onContentChange={setPreviewContent} />
 			<div class="flex w-full justify-end">
 				<button
 					type="submit"
