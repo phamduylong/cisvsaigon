@@ -104,6 +104,7 @@ export default {
 		'blog_page.url_display_text': 'Display text',
 		'blog_page.url_is_invalid': 'URL is invalid.',
 		'blog_page.display_text_is_empty': 'Display text must not be empty.',
+		'blog_page.url_is_not_youtube': 'URL is not from YouTube.',
 
 		'profile_page.title': 'Profile',
 		'profile_page.update_profile_picture': 'Update profile picture',
@@ -238,6 +239,7 @@ export default {
 		'blog_page.url_display_text': 'Nội dung hiển thị',
 		'blog_page.url_is_invalid': 'Đường dẫn không khả dụng.',
 		'blog_page.display_text_is_empty': 'Vui lòng điền nội dung hiển thị.',
+		'blog_page.url_is_not_youtube': 'Đường dẫn không phải từ YouTube.',
 
 		'profile_page.title': 'Hồ sơ',
 		'profile_page.update_profile_picture': 'Cập nhật ảnh đại diện',
