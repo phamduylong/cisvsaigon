@@ -8,6 +8,7 @@
 	import Highlight from '@tiptap/extension-highlight';
 	import Underline from '@tiptap/extension-underline';
 	import { Dropcursor } from '@tiptap/extensions';
+	import Youtube from '@tiptap/extension-youtube';
 
 	import Bold from '@lucide/svelte/icons/bold';
 	import Italic from '@lucide/svelte/icons/italic';
@@ -15,10 +16,13 @@
 	import Strikethrough from '@lucide/svelte/icons/strikethrough';
 	import Highlighter from '@lucide/svelte/icons/highlighter';
 	import UnderlineIcon from '@lucide/svelte/icons/underline';
+	import YouTube from '@lucide/svelte/icons/youtube';
 	import XIcon from '@lucide/svelte/icons/x';
-	import { t } from '$lib/stores/i18n.svelte';
+	import { t, getLocale } from '$lib/stores/i18n.svelte';
 	import { Dialog, useDialog, Portal } from '@skeletonlabs/skeleton-svelte';
-	import { isValidHttpUrl } from '$lib/helper/stringFunctions';
+	import { isValidHttpUrl, isUrlFromDomain } from '$lib/helper/stringFunctions';
+
+	const locale = $derived(getLocale());
 
 	const buttons = [
 		{
@@ -60,6 +64,7 @@
 			signature: 'link',
 			icon: Link,
 			triggerFeature() {
+				insertingYouTubeLink = false;
 				if (editorState.editor) {
 					const { view, state } = editorState.editor;
 					const { from, to } = view.state.selection;
@@ -67,6 +72,14 @@
 					displayText = selectedText;
 					dialog().setOpen(true);
 				}
+			}
+		},
+		{
+			signature: 'youtube',
+			icon: YouTube,
+			triggerFeature() {
+				insertingYouTubeLink = true;
+				dialog().setOpen(true);
 			}
 		}
 	];
@@ -122,6 +135,8 @@
 	let url = $state('');
 	let displayText = $state('');
 	let validationErr = $state('');
+	let youtubeUrl = $state('');
+	let insertingYouTubeLink = $state(false);
 
 	/** @type {string} */
 	let modifiedContent = $derived.by(() => {
@@ -132,7 +147,8 @@
 				.replaceAll('<h5', '<h5 class="h5"')
 				.replaceAll('<h6', '<h6 class="h6"')
 				.replaceAll('<mark', '<mark class="mark"')
-				.replaceAll('<a', '<a class="anchor"');
+				.replaceAll('<a', '<a class="anchor"')
+				.replaceAll('<iframe', '<iframe class="w-full! h-auto! min-h-120!"');
 		}
 		return html;
 	});
@@ -150,7 +166,12 @@
 						alwaysPreserveAspectRatio: true
 					}
 				}),
-				Dropcursor
+				Dropcursor,
+				Youtube.configure({
+					nocookie: true,
+					ccLanguage: locale,
+					interfaceLanguage: locale
+				})
 			],
 			onTransaction: ({ editor }) => {
 				// Update the state signal to force a re-render
@@ -240,10 +261,21 @@
 						>
 						<label class="label">
 							<span class="label-text">{t('blog_page.url')}</span>
-							<input class="input" type="url" placeholder={t('blog_page.url')} bind:value={url} />
+							<input
+								class="input {insertingYouTubeLink ? 'hidden' : ''}"
+								type="url"
+								placeholder={t('blog_page.url')}
+								bind:value={url}
+							/>
+							<input
+								class="input {insertingYouTubeLink ? '' : 'hidden'}"
+								type="url"
+								placeholder={t('blog_page.url')}
+								bind:value={youtubeUrl}
+							/>
 						</label>
 						<!-- text -->
-						<label class="label">
+						<label class="label {insertingYouTubeLink ? 'hidden' : ''}">
 							<span class="label-text">{t('blog_page.url_display_text')}</span>
 							<input
 								class="input"
@@ -266,33 +298,61 @@
 						type="button"
 						class="btn preset-filled"
 						onclick={() => {
-							if (!url) {
-								validationErr = t('blog_page.url_is_invalid');
-								return;
-							}
+							if (!insertingYouTubeLink) {
+								//normal link
+								if (!url) {
+									validationErr = t('blog_page.url_is_invalid');
+									return;
+								}
 
-							if (!isValidHttpUrl(url)) {
-								validationErr = t('blog_page.url_is_invalid');
-								return;
-							}
+								if (!isValidHttpUrl(url)) {
+									validationErr = t('blog_page.url_is_invalid');
+									return;
+								}
 
-							if (!displayText) {
-								validationErr = t('blog_page.display_text_is_empty');
-								return;
+								if (!displayText) {
+									validationErr = t('blog_page.display_text_is_empty');
+									return;
+								}
+								dialog().setOpen(false);
+								if (editorState.editor) {
+									editorState.editor
+										.chain()
+										.focus()
+										.insertContent(
+											`<a href="${url}" target="_self" rel="noopener noreferrer">${displayText}</a>`
+										)
+										.run();
+								}
+								validationErr = '';
+								url = '';
+								displayText = '';
+							} else {
+								// youtube
+								if (!youtubeUrl) {
+									validationErr = t('blog_page.url_is_invalid');
+									return;
+								}
+
+								if (!isValidHttpUrl(youtubeUrl)) {
+									validationErr = t('blog_page.url_is_invalid');
+									return;
+								}
+
+								if (!isUrlFromDomain(youtubeUrl, 'youtube.com')) {
+									validationErr = t('blog_page.url_is_not_youtube');
+									return;
+								}
+
+								dialog().setOpen(false);
+								if (editorState.editor) {
+									editorState.editor?.commands.setYoutubeVideo({
+										src: youtubeUrl
+									});
+								}
+								validationErr = '';
+								youtubeUrl = '';
 							}
-							dialog().setOpen(false);
-							if (editorState.editor) {
-								editorState.editor
-									.chain()
-									.focus()
-									.insertContent(
-										`<a href="${url}" target="_self" rel="noopener noreferrer">${displayText}</a>`
-									)
-									.run();
-							}
-							validationErr = '';
-							url = '';
-							displayText = '';
 						}}>{t('common.ok')}</button
 					>
 				</footer>
