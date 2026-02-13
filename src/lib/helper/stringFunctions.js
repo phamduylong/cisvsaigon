@@ -74,18 +74,35 @@ export function calculateAverageReadingTime(postContent, locale) {
 
 /**
  * Check if the string is a valid HTTP/HTTPS URL
- * @param {string} str
+ * @param {string} url
  * @returns
  */
-export function isValidHttpUrl(str) {
-	let url;
+export function isValidHttpUrl(url) {
+	let _url;
 
 	try {
-		url = new URL(str);
+		_url = new URL(url);
 	} catch (err) {
 		console.error(err);
 		return false;
 	}
 
-	return url.protocol === 'http:' || url.protocol === 'https:';
+	return _url.protocol === 'http:' || _url.protocol === 'https:';
+}
+
+/**
+ * Check if the URL is from a domain. Example usage:
+ * ```ts
+ * const test = isUrlFromDomain('https://www.youtube.com/watch?v=dQw4w9WgXcQ', 'youtube.com')
+ * ```
+ * @param {string} url
+ * @param {string} domain
+ * @returns
+ */
+export function isUrlFromDomain(url, domain) {
+	if (!isValidHttpUrl(url)) return false;
+
+	const { hostname } = new URL(url);
+
+	return hostname === domain || hostname.endsWith(`.${domain}`);
 }
