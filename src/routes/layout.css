@@ -99,6 +99,12 @@ div.tiptap.ProseMirror a {
 	}
 }
 
+div.tiptap.ProseMirror iframe {
+	width: 100%;
+	min-height: calc(var(--spacing) * 120) !important;
+	height: auto !important;
+}
+
 div.tiptap.ProseMirror {
 	padding: calc(var(--spacing) * 2);
 	min-height: calc(var(--spacing) * 60);
