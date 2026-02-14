@@ -339,7 +339,7 @@
 									return;
 								}
 
-								if (!isUrlFromDomain(youtubeUrl, 'youtube.com')) {
+								if (!isUrlFromDomain(youtubeUrl, 'youtube.com') && !isUrlFromDomain(youtubeUrl, 'youtu.be')) {
 									validationErr = t('blog_page.url_is_not_youtube');
 									return;
 								}
