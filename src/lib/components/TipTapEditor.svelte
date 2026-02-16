@@ -17,9 +17,9 @@
 	import Highlighter from '@lucide/svelte/icons/highlighter';
 	import UnderlineIcon from '@lucide/svelte/icons/underline';
 	import YouTube from '@lucide/svelte/icons/youtube';
-	import XIcon from '@lucide/svelte/icons/x';
+	import Asterisk from '@lucide/svelte/icons/asterisk';
 	import { t, getLocale } from '$lib/stores/i18n.svelte';
-	import { Dialog, useDialog, Portal } from '@skeletonlabs/skeleton-svelte';
+	import { Portal, Popover, usePopover, FileUpload } from '@skeletonlabs/skeleton-svelte';
 	import { isValidHttpUrl, isUrlFromDomain } from '$lib/helper/stringFunctions';
 
 	const locale = $derived(getLocale());
@@ -59,28 +59,6 @@
 			triggerFeature() {
 				editorState.editor?.commands.toggleUnderline();
 			}
-		},
-		{
-			signature: 'link',
-			icon: Link,
-			triggerFeature() {
-				insertingYouTubeLink = false;
-				if (editorState.editor) {
-					const { view, state } = editorState.editor;
-					const { from, to } = view.state.selection;
-					const selectedText = state.doc.textBetween(from, to, '');
-					displayText = selectedText;
-					dialog().setOpen(true);
-				}
-			}
-		},
-		{
-			signature: 'youtube',
-			icon: YouTube,
-			triggerFeature() {
-				insertingYouTubeLink = true;
-				dialog().setOpen(true);
-			}
 		}
 	];
 
@@ -115,14 +93,37 @@
 
 	const toolBarBtnClasses = 'btn preset-filled-secondary-500 p-1 rounded-sm h-10 w-8';
 	const toolBarBtnActiveClasses = 'preset-filled-secondary-950-50!';
-	const animation =
-		'transition transition-discrete opacity-0 translate-y-[100px] starting:data-[state=open]:opacity-0 starting:data-[state=open]:translate-y-[100px] data-[state=open]:opacity-100 data-[state=open]:translate-y-0';
 
 	const id = $props.id();
-	const dialog = useDialog({
+
+	const anchorPopover = usePopover({
 		id,
 		closeOnInteractOutside: true,
-		closeOnEscape: true
+		onOpenChange: (details) => {
+			if (details.open === false) {
+				anchorValidationErr = '';
+			}
+		}
+	});
+
+	const youtubePopover = usePopover({
+		id: id + '1',
+		closeOnInteractOutside: true,
+		onOpenChange: (details) => {
+			if (details.open === false) {
+				youtubeValidationErr = '';
+			}
+		}
+	});
+
+	const imagePopover = usePopover({
+		id: id + '2',
+		closeOnInteractOutside: true,
+		onOpenChange: (details) => {
+			if (details.open === false) {
+				imageValidationErr = '';
+			}
+		}
 	});
 
 	let element = $state();
@@ -134,9 +135,10 @@
 
 	let url = $state('');
 	let displayText = $state('');
-	let validationErr = $state('');
+	let anchorValidationErr = $state('');
+
 	let youtubeUrl = $state('');
-	let insertingYouTubeLink = $state(false);
+	let youtubeValidationErr = $state('');
 
 	/** @type {string} */
 	let modifiedContent = $derived.by(() => {
@@ -224,6 +226,194 @@
 					}}><Icon size={16} /></button
 				>
 			{/each}
+
+			<!-- Anchor Button and Popover -->
+			<Popover.Provider value={anchorPopover}>
+				<Popover.Anchor>
+					<button
+						type="button"
+						class={toolBarBtnClasses +
+							(editorState.editor?.isActive('link') ? ` ${toolBarBtnActiveClasses}` : '')}
+						onclick={() => {
+							if (editorState.editor) {
+								const { view, state } = editorState.editor;
+								const { from, to } = view.state.selection;
+								const selectedText = state.doc.textBetween(from, to, '');
+								displayText = selectedText;
+								anchorPopover().setOpen(true);
+							}
+						}}><Link size={16} /></button
+					>
+				</Popover.Anchor>
+				<Portal>
+					<Popover.Positioner>
+						<Popover.Content class="max-w-sm space-y-2 card bg-surface-100-900 p-4 shadow-xl">
+							<Popover.Description>
+								<div class="mx-auto w-full max-w-md space-y-4">
+									<!-- url -->
+									<span class="flex justify-center"
+										><b class="text-center text-lg text-error-500">{anchorValidationErr}</b></span
+									>
+									<label class="label">
+										<span class="label-text flex"
+											>{t('blog_page.url')} <Asterisk size={12} color="red" /></span
+										>
+										<input
+											class="input"
+											type="url"
+											placeholder="https://example.com"
+											bind:value={url}
+										/>
+									</label>
+									<!-- text -->
+									<label class="label">
+										<span class="label-text flex"
+											>{t('blog_page.url_display_text')} <Asterisk size={12} color="red" /></span
+										>
+										<input
+											class="input"
+											type="text"
+											placeholder={t('blog_page.url_display_text')}
+											bind:value={displayText}
+										/>
+									</label>
+									<span class="flex w-full justify-end"
+										><button
+											type="button"
+											class="btn preset-filled bg-primary-700-300 hover:preset-tonal"
+											onclick={() => {
+												// link is missing
+												if (!url) {
+													anchorValidationErr = t('blog_page.url_is_empty');
+													return;
+												}
+
+												// not a valid URL
+												if (!isValidHttpUrl(url)) {
+													anchorValidationErr = t('blog_page.url_is_invalid');
+													return;
+												}
+
+												// display text missing
+												if (!displayText) {
+													anchorValidationErr = t('blog_page.display_text_is_empty');
+													return;
+												}
+
+												if (editorState.editor) {
+													editorState.editor
+														.chain()
+														.focus()
+														.insertContent(
+															`<a href="${url}" target="_self" rel="noopener noreferrer">${displayText}</a>`
+														)
+														.run();
+												}
+												anchorValidationErr = '';
+												url = '';
+												displayText = '';
+											}}
+										>
+											{t('common.ok')}</button
+										></span
+									>
+								</div></Popover.Description
+							>
+							<Popover.Arrow
+								class="[--arrow-background:var(--color-surface-100-900)] [--arrow-size:--spacing(2)]"
+							>
+								<Popover.ArrowTip />
+							</Popover.Arrow>
+						</Popover.Content>
+					</Popover.Positioner>
+				</Portal>
+			</Popover.Provider>
+
+			<Popover.Provider value={youtubePopover}>
+				<Popover.Anchor>
+					<button
+						type="button"
+						class={toolBarBtnClasses +
+							(editorState.editor?.isActive('youtube') ? ` ${toolBarBtnActiveClasses}` : '')}
+						onclick={() => {
+							if (editorState.editor) {
+								youtubePopover().setOpen(true);
+							}
+						}}><YouTube size={16} /></button
+					>
+				</Popover.Anchor>
+				<Portal>
+					<Popover.Positioner>
+						<Popover.Content class="max-w-sm space-y-2 card bg-surface-100-900 p-4 shadow-xl">
+							<Popover.Description>
+								<div class="mx-auto w-full max-w-md space-y-4">
+									<!-- youtube url -->
+									<span class="flex justify-center"
+										><b class="text-center text-lg text-error-500">{youtubeValidationErr}</b></span
+									>
+									<label class="label">
+										<span class="label-text flex"
+											>{t('blog_page.url')} <Asterisk size={12} color="red" /></span
+										>
+										<input
+											class="input"
+											type="url"
+											placeholder="https://youtu.be/dQw4w9WgXcQ?si=wAvCZADN60XxFUAF"
+											bind:value={youtubeUrl}
+										/>
+									</label>
+									<span class="flex w-full justify-end"
+										><button
+											type="button"
+											class="btn preset-filled bg-primary-700-300 hover:preset-tonal"
+											onclick={() => {
+												// link is empty
+												if (!youtubeUrl) {
+													youtubeValidationErr = t('blog_page.url_is_empty');
+													return;
+												}
+
+												// not a valid http/https url
+												if (!isValidHttpUrl(youtubeUrl)) {
+													youtubeValidationErr = t('blog_page.url_is_invalid');
+													return;
+												}
+
+												// not a youtube link
+												if (
+													!(
+														isUrlFromDomain(youtubeUrl, 'youtube.com') ||
+														isUrlFromDomain(youtubeUrl, 'youtu.be')
+													)
+												) {
+													youtubeValidationErr = t('blog_page.url_is_not_youtube');
+													return;
+												}
+
+												if (editorState.editor) {
+													editorState.editor?.commands.setYoutubeVideo({
+														src: youtubeUrl
+													});
+												}
+												youtubeValidationErr = '';
+												youtubeUrl = '';
+											}}
+										>
+											{t('common.ok')}</button
+										></span
+									>
+								</div></Popover.Description
+							>
+							<Popover.Arrow
+								class="[--arrow-background:var(--color-surface-100-900)] [--arrow-size:--spacing(2)]"
+							>
+								<Popover.ArrowTip />
+							</Popover.Arrow>
+						</Popover.Content>
+					</Popover.Positioner>
+				</Portal>
+			</Popover.Provider>
+
 		</div>
 	{/if}
 
@@ -232,131 +422,3 @@
 
 <!-- Hidden textarea to submit content with form -->
 <textarea name="postContent" class="hidden" value={modifiedContent}></textarea>
-
-<!-- Modal to insert link -->
-<Dialog.Provider value={dialog}>
-	<Dialog.Trigger id="navigateWarningButton" class="hidden"></Dialog.Trigger>
-	<Portal>
-		<Dialog.Backdrop class="fixed inset-0 z-50 bg-surface-50-950/50" />
-		<Dialog.Positioner class="fixed inset-0 z-50 flex items-center justify-center p-4">
-			<Dialog.Content
-				class="w-full max-w-xl space-y-4 card bg-surface-100-900 p-4 shadow-xl {animation}"
-			>
-				<header class="flex items-center justify-between">
-					<Dialog.Title class="text-lg font-bold">{t('common.leaving_title')}</Dialog.Title>
-					<Dialog.CloseTrigger
-						class="btn-icon hover:preset-tonal"
-						onclick={() => {
-							validationErr = '';
-						}}
-					>
-						<XIcon class="size-4" />
-					</Dialog.CloseTrigger>
-				</header>
-				<Dialog.Description class="flex flex-1 flex-wrap space-y-2">
-					<div class="mx-auto w-full max-w-md space-y-4">
-						<!-- url -->
-						<span class="flex justify-center"
-							><b class="text-center text-lg text-error-500">{validationErr}</b></span
-						>
-						<label class="label">
-							<span class="label-text">{t('blog_page.url')}</span>
-							<input
-								class="input {insertingYouTubeLink ? 'hidden' : ''}"
-								type="url"
-								placeholder={t('blog_page.url')}
-								bind:value={url}
-							/>
-							<input
-								class="input {insertingYouTubeLink ? '' : 'hidden'}"
-								type="url"
-								placeholder={t('blog_page.url')}
-								bind:value={youtubeUrl}
-							/>
-						</label>
-						<!-- text -->
-						<label class="label {insertingYouTubeLink ? 'hidden' : ''}">
-							<span class="label-text">{t('blog_page.url_display_text')}</span>
-							<input
-								class="input"
-								type="text"
-								placeholder={t('blog_page.url_display_text')}
-								bind:value={displayText}
-							/>
-						</label>
-					</div>
-				</Dialog.Description>
-				<footer class="flex justify-end gap-2">
-					<Dialog.CloseTrigger
-						class="btn preset-tonal"
-						onclick={() => {
-							dialog().setOpen(false);
-							validationErr = '';
-						}}>{t('common.cancel')}</Dialog.CloseTrigger
-					>
-					<button
-						type="button"
-						class="btn preset-filled"
-						onclick={() => {
-							if (!insertingYouTubeLink) {
-								//normal link
-								if (!url) {
-									validationErr = t('blog_page.url_is_invalid');
-									return;
-								}
-
-								if (!isValidHttpUrl(url)) {
-									validationErr = t('blog_page.url_is_invalid');
-									return;
-								}
-
-								if (!displayText) {
-									validationErr = t('blog_page.display_text_is_empty');
-									return;
-								}
-								dialog().setOpen(false);
-								if (editorState.editor) {
-									editorState.editor
-										.chain()
-										.focus()
-										.insertContent(
-											`<a href="${url}" target="_self" rel="noopener noreferrer">${displayText}</a>`
-										)
-										.run();
-								}
-								validationErr = '';
-								url = '';
-								displayText = '';
-							} else {
-								// youtube
-								if (!youtubeUrl) {
-									validationErr = t('blog_page.url_is_invalid');
-									return;
-								}
-
-								if (!isValidHttpUrl(youtubeUrl)) {
-									validationErr = t('blog_page.url_is_invalid');
-									return;
-								}
-
-								if (!isUrlFromDomain(youtubeUrl, 'youtube.com') && !isUrlFromDomain(youtubeUrl, 'youtu.be')) {
-									validationErr = t('blog_page.url_is_not_youtube');
-									return;
-								}
-
-								dialog().setOpen(false);
-								if (editorState.editor) {
-									editorState.editor?.commands.setYoutubeVideo({
-										src: youtubeUrl
-									});
-								}
-								validationErr = '';
-								youtubeUrl = '';
-							}
-						}}>{t('common.ok')}</button
-					>
-				</footer>
-			</Dialog.Content>
-		</Dialog.Positioner>
-	</Portal>
-</Dialog.Provider>
