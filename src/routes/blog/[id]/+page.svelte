@@ -23,7 +23,7 @@
 >
 <div class="flex w-full flex-col items-center justify-center">
 	<div
-		class="mt-10 mb-10 flex max-w-4/5 flex-col items-center justify-center space-y-10 md:max-w-3/5"
+		class="mt-10 mb-10 flex w-4/5 flex-col items-center justify-center space-y-10 md:w-3/5"
 	>
 		<!-- Author related -->
 		<div class="flex flex-col items-center justify-center space-y-2">

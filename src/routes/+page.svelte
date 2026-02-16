@@ -10,7 +10,7 @@
 
 <article class="flex w-full flex-col items-center justify-center">
 	<div
-		class="my-10 flex max-w-4/5 flex-col space-y-5 text-justify md:max-w-3/5 md:space-y-8 md:text-lg"
+		class="my-10 flex w-4/5 flex-col space-y-5 text-justify md:w-3/5 md:space-y-8 md:text-lg"
 	>
 		<h2 class="text-center h2">{t('landing_page.title')}</h2>
 		<i class="text-center">{t('landing_page.intro')}</i>
